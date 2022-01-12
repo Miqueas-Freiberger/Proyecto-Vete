@@ -1,6 +1,6 @@
 <?php
-require_once('./model/main-controller.php');
-require_once('./view/main-model.php');
+require_once('./controller/main-controller.php');
+require_once('./model/main-model.php');
 class MainView
 {
     private $mainModel;

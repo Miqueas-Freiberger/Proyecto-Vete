@@ -1,5 +1,5 @@
 <?php
-require_once('./model/main-controller.php');
+require_once('./controller/main-controller.php');
 require_once('./view/main-view.php');
 
 
