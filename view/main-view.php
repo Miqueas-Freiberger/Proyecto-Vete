@@ -11,5 +11,4 @@ class MainView
         $this->mainModel = new MainModel;
         $this->mainController = new MainController;
     }
-
 }
