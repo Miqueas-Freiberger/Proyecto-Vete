@@ -1,6 +1,5 @@
 <?php
-require_once './controller/main-controller.php';
-
+require_once 'controllers/main.controller.php';
 // defino la base url para la construccion de links con urls semánticas
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
@@ -15,10 +14,10 @@ $params = explode('/', $action);
 
 switch ($params[0]) {
     case 'home':
-        
+        $mainController = new MainController();
+        $mainController->showHome();
         break;
-
     default:
-
+        echo '404 - Página no encontrada';
         break;
 }
