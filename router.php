@@ -17,6 +17,10 @@ switch ($params[0]) {
         $mainController = new MainController();
         $mainController->showHome();
         break;
+        case 'nuevoCliente':
+            $mainController = new MainController();
+            $mainController->showClientsForms();
+            break;
     default:
         echo '404 - Página no encontrada';
         break;

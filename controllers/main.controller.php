@@ -18,4 +18,9 @@ class MainController
     {
         $this->mainView->displayHome();
     }
+
+    public function showClientsForms()
+    {
+        $this->mainView->displayClientsForms();
+    }
 }

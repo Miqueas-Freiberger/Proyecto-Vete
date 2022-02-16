@@ -14,4 +14,9 @@ class MainView
     {
         $this->smarty->display('templates/home.tpl');
     }
+
+    public function displayClientsForms()
+    {
+        $this->smarty->display('templates/clientsForm.tpl');
+    }
 }
