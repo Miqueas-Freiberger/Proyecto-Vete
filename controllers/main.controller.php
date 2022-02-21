@@ -16,7 +16,8 @@ class MainController
 
     public function showHome()
     {
-        $this->mainView->displayHome();
+        $dataClientes = $this->mainModel->getDataClientes();
+        $this->mainView->displayHome($dataClientes);
     }
 
     public function showClientsForms()
@@ -43,22 +44,22 @@ class MainController
             $observaciones = $_POST["observaciones"];
             $fecha_ingreso = $_POST["fecha_ingreso"];
             $complementarios = implode(" / ", $_POST['complementarios']);
-    
-            $id_cliente = $this->addDataCliente($nombre_apellido, $telefono, $email,$direccion,$localidad);
-            $this->addDataPaciente($nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$observaciones,$fecha_ingreso,$complementarios,$id_cliente);
-            
+
+            $id_dueño = $this->addDataCliente($nombre_apellido, $telefono, $email, $direccion, $localidad);
+            $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $observaciones, $fecha_ingreso, $complementarios, $id_dueño);
         }
-        
     }
-    
-    public function addDataCliente($nombre_apellido, $telefono, $email,$direccion,$localidad)
+
+    public function addDataCliente($nombre_apellido, $telefono, $email, $direccion, $localidad)
     {
-        $id_cliente = $this->mainModel->addCliente($nombre_apellido, $telefono, $email,$direccion,$localidad);
+        $id_cliente = $this->mainModel->addCliente($nombre_apellido, $telefono, $email, $direccion, $localidad);
         return $id_cliente;
     }
-    public function addDataPaciente($nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$observaciones,$fecha_ingreso,$complementarios,$id_cliente)
+    public function addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $observaciones, $fecha_ingreso, $complementarios, $id_dueño)
     {
-        $this->mainModel->addPaciente($nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$observaciones,$fecha_ingreso,$complementarios,$id_cliente);
-        header("Location: " . BASE_URL);
+        $this->mainModel->addPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $observaciones, $fecha_ingreso, $complementarios, $id_dueño);
+        header("Location: " . "nuevoCliente");
     }
+
+
 }

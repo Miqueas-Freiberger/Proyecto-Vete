@@ -5,12 +5,10 @@
                 <b>Clientes</b>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item"><a class="clientes" href = '#'>Pepe</a></li>
-                <li class="list-group-item"><a class="clientes" href = '#'>Jose</a></li>
-                <li class="list-group-item"><a class="clientes" href = '#'>Carlos</a></li>
-                <li class="list-group-item"><a class="clientes" href = '#'>Carla</a></li>
-                <li class="list-group-item"><a class="clientes" href = '#'>Maria</a></li>
-                <li class="list-group-item"><a class="clientes" href = '#'>Juan</a></li>
+            {foreach from=$dataClientes item=$data}
+                <li class="list-group-item"><a class="clientes" href = '#'>{$data->NombreApellido} - {$data->Telefono}</a></li>
+            {/foreach}
+                
             </ul>
         </div>
 

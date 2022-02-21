@@ -10,8 +10,9 @@ class MainView
         $this->smarty = new Smarty();
     }
 
-    public function displayHome()
+    public function displayHome($dataClientes)
     {
+        $this->smarty->assign("dataClientes",$dataClientes);
         $this->smarty->display('templates/home.tpl');
     }
 
