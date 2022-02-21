@@ -111,6 +111,11 @@ ALTER TABLE `observaciones`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `observaciones`
+--
+ALTER TABLE `paciente`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- Restricciones para tablas volcadas
 --
 

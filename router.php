@@ -24,7 +24,7 @@ switch ($params[0]) {
         $mainController = new MainController();
         $mainController->showClientsForms();
         break;
-    case 'addCliente':
+    case 'agregarDatos':
         $mainController = new MainController();
         $mainController->getDataCliente();
         break;
