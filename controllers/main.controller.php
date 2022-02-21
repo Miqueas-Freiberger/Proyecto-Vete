@@ -23,4 +23,9 @@ class MainController
     {
         $this->mainView->displayClientsForms();
     }
+
+    public function getDataCliente()
+    {
+        
+    }
 }

@@ -54,33 +54,34 @@
 
                      <label for="staticEmail" class="col-sm-2 col-form-label">Tamaño</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="tamaño" id="tamañoMascota" value ="chico">
+                                <label class="form-check-label" for="tamañoMascota">
                                     Chico
                                 </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="tamaño" id="tamañoMascota" value ="mediano">
+                                <label class="form-check-label" for="tamañoMascota">
                                     Mediano
                                 </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="tamaño" id="tamañoMascota" value ="grande">
+                                <label class="form-check-label" for="tamañoMascota">
                                     Grande
                                 </label>
                         </div>
+                    
                     <label for="staticEmail" class="col-sm-2 col-form-label">Esterilizada/o</label>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
+                                <input class="form-check-input" type="radio" name="esteril" id="esteril" value ="1">
+                                    <label class="form-check-label" for="esteril" >
                                         Si
                                     </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                    <label class="form-check-label" for="flexRadioDefault2">
+                                <input class="form-check-input" type="radio" name="esteril" id="esteril" value = "0">
+                                    <label class="form-check-label" for="esteril">
                                         No
                                     </label>
                             </div>
