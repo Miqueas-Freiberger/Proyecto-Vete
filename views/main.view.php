@@ -20,4 +20,10 @@ class MainView
     {
         $this->smarty->display('templates/clientsForm.tpl');
     }
+
+    public function displayMascotaForm()
+    {
+        $this->smarty->display('templates/mascotaForm.tpl');
+    }
+
 }

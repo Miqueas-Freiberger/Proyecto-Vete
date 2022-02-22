@@ -25,6 +25,12 @@ class MainController
         $this->mainView->displayClientsForms();
     }
 
+    public function showMascotaForm()
+    {
+        $this->mainView->displayMascotaForm();
+    }
+
+
     public function getDataCliente()
     {
         if (!empty($_POST["tamaño"]) && !empty($_POST["esteril"])) {

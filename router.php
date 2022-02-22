@@ -28,6 +28,10 @@ switch ($params[0]) {
         $mainController = new MainController();
         $mainController->getDataCliente();
         break;
+    case 'nuevaMascota':
+        $mainController = new MainController();
+        $mainController->showMascotaForm();
+        break;
     default:
         echo '404 - Página no encontrada';
         break;
