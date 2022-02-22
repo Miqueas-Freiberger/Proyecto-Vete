@@ -6,7 +6,7 @@
             </div>
             <ul class="list-group list-group-flush">
             {foreach from=$dataClientes item=$data}
-                <li class="list-group-item"><a class="clientes" href = '#'>{$data->NombreApellido} - {$data->Telefono}</a></li>
+                <li class="list-group-item"><a class="clientes" href = '{BASE_URL}cliente/{$data->id}'>{$data->NombreApellido} - {$data->Telefono}</a></li>
             {/foreach}
                 
             </ul>

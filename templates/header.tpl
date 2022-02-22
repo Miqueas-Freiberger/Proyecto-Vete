@@ -16,17 +16,13 @@
 
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link text-secondary" href="home">Home</a>
+                <a class="nav-link text-secondary" href="{BASE_URL}home">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-secondary" aria-current="page" href="nuevoCliente">Agregar Nuevo Cliente</a>
+                <a class="nav-link text-secondary" aria-current="page" href="{BASE_URL}nuevoCliente">Agregar Nuevo Cliente</a>
             </li>
-            {* <li class="nav-item">
-                <a class="nav-link text-secondary" href="nuevaMascota">Agregar Mascota</a>
-            </li> *}
-            {*Agregar link "nueva mascota" en boton de tabla datos cliente*}
             <li class="nav-item">
-                <a class="nav-link text-secondary" href="#">Libreta Sanitaria</a>
+                <a class="nav-link text-secondary" href="{BASE_URL}">Libreta Sanitaria</a>
             </li>
         </ul>
 </header>

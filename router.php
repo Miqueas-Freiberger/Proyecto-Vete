@@ -20,6 +20,10 @@ switch ($params[0]) {
         $mainController = new MainController();
         $mainController->showHome();
         break;
+    case 'cliente':
+        $mainController = new MainController();
+        $mainController->showDataCliente($params[1]);   
+        break;
     case 'nuevoCliente':
         $mainController = new MainController();
         $mainController->showClientsForms();

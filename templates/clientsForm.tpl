@@ -54,19 +54,19 @@
 
                      <label for="staticEmail" class="col-sm-2 col-form-label">Tamaño</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="tamaño" id="tamañoMascota" value ="chico">
+                            <input class="form-check-input" type="radio" name="tamaño" id="tamañoMascota" value ="Chico">
                                 <label class="form-check-label" for="tamañoMascota">
                                     Chico
                                 </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="tamaño" id="tamañoMascota" value ="mediano">
+                            <input class="form-check-input" type="radio" name="tamaño" id="tamañoMascota" value ="Mediano">
                                 <label class="form-check-label" for="tamañoMascota">
                                     Mediano
                                 </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="tamaño" id="tamañoMascota" value ="grande">
+                            <input class="form-check-input" type="radio" name="tamaño" id="tamañoMascota" value ="Grande">
                                 <label class="form-check-label" for="tamañoMascota">
                                     Grande
                                 </label>
@@ -74,13 +74,13 @@
                     
                     <label for="staticEmail" class="col-sm-2 col-form-label">Esterilizada/o</label>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="esteril" id="esteril" value ="si">
+                                <input class="form-check-input" type="radio" name="esteril" id="esteril" value ="Si">
                                     <label class="form-check-label" for="esteril" >
                                         Si
                                     </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="esteril" id="esteril" value = "no">
+                                <input class="form-check-input" type="radio" name="esteril" id="esteril" value = "No">
                                     <label class="form-check-label" for="esteril">
                                         No
                                     </label>
@@ -88,23 +88,23 @@
                     <label for="staticEmail" class="col-sm-2 col-form-label">Complementarios</label>
                         <div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1"  name="complementarios[]" value="analisis-sangre">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1"  name="complementarios[]" value="Analisis-sangre">
                                     <label class="form-check-label" for="inlineCheckbox1">Analisis de Sangre</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2"  name="complementarios[]"  value="radiografia">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2"  name="complementarios[]"  value="Radiografia">
                                     <label class="form-check-label" for="inlineCheckbox2">Radiografia</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="complementarios[]" value="ecografia">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="complementarios[]" value="Ecografia">
                                     <label class="form-check-label" for="inlineCheckbox2">Ecografia</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2"  name="complementarios[]" value="raspaje">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2"  name="complementarios[]" value="Raspaje">
                                     <label class="form-check-label" for="inlineCheckbox2">Raspaje</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="complementarios[]" value="citologia">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="complementarios[]" value="Citologia">
                                     <label class="form-check-label" for="inlineCheckbox2">Citologia</label>
                             </div>                        
                         </div>

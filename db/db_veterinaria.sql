@@ -63,8 +63,8 @@ CREATE TABLE `paciente` (
   `Raza` varchar(50) NOT NULL,
   `Color` varchar(50) NOT NULL,
   `Tamaño` varchar(10) NOT NULL,
-  `Esterilizado` tinyint(1) NOT NULL,
-  `Complementarios` varchar(20) NOT NULL,
+  `Esterilizado` varchar(2) NOT NULL,
+  `Complementarios` text NOT NULL,
   `Observaciones` text NOT NULL,
   `FechaIngreso` date NOT NULL,
   `id_dueño_fk` int(11) NOT NULL

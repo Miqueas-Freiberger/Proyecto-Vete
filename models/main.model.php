@@ -18,6 +18,24 @@ class MainModel
         return $queryData;
     }
 
+    public function getDataCliente($id_cliente)
+    {
+        $query = $this->db->prepare('SELECT * FROM clientes WHERE id = ?');
+        $query->execute([$id_cliente]);
+
+        $queryData = $query->fetchAll(PDO::FETCH_OBJ);
+        return $queryData;
+    }
+
+
+    public function getDataMascotasCliente($id_cliente)
+    {
+        $query = $this->db->prepare('SELECT * FROM paciente WHERE id_dueño_fk = ?');
+        $query->execute([$id_cliente]);
+
+        $queryData = $query->fetchAll(PDO::FETCH_OBJ);
+        return $queryData;
+    }
 
 
     public function addCliente($nombre_apellido, $telefono, $email,$direccion,$localidad)
@@ -30,7 +48,7 @@ class MainModel
 
     public function addPaciente($nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$observaciones,$fecha_ingreso,$complementarios,$id_dueño )
     {
-        $query = $this->db->prepare("INSERT INTO paciente (Nombre,Especie,Nacimiento,Sexo,Raza,Color,Tamaño,Esterilizado,Complementarios,Observaciones,FechaIngreso,id_dueño_fk) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+        $query = $this->db->prepare("INSERT INTO paciente (Nombre,Especie,Nacimiento,Sexo,Raza,Color,Tamano,Esterilizado,Complementarios,Observaciones,FechaIngreso,id_dueño_fk) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
         $query->execute([$nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$complementarios,$observaciones,$fecha_ingreso,$id_dueño ]);
     }
 }

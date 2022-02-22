@@ -19,6 +19,13 @@ class MainController
         $dataClientes = $this->mainModel->getDataClientes();
         $this->mainView->displayHome($dataClientes);
     }
+    public function showDataCliente($id_cliente)
+    {
+        $dataCliente = $this->mainModel->getDataCliente($id_cliente);
+        $mascotasCliente = $this->mainModel->getDataMascotasCliente($id_cliente);
+
+        $this->mainView->displayClientInfo($dataCliente,$mascotasCliente,$id_cliente);
+    }
 
     public function showClientsForms()
     {

@@ -15,6 +15,15 @@ class MainView
         $this->smarty->assign("dataClientes",$dataClientes);
         $this->smarty->display('templates/home.tpl');
     }
+    
+    public function displayClientInfo($dataCliente,$mascotasCliente,$id_cliente)
+    {
+        $this->smarty->assign("dataCliente",$dataCliente);
+        $this->smarty->assign("dataMascota",$mascotasCliente);
+        $this->smarty->assign("id_dueño",$id_cliente);
+
+        $this->smarty->display('templates/clientsInfo.tpl');
+    }
 
     public function displayClientsForms()
     {
