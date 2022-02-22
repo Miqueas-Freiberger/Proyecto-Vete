@@ -1,4 +1,5 @@
 {include file="templates/header.tpl"}
+<h4>Cliente</h4>
 <div>
         <table class="table">
             <thead>
@@ -39,7 +40,6 @@
                 <th scope="col">Color</th>
                 <th scope="col">Tamaño</th>
                 <th scope="col">Esterilizada/o</th>
-                <th scope="col">Complementarios</th>
                 <th scope="col">Fecha de Ingreso</th>
                 </tr>
             </thead>
@@ -54,10 +54,9 @@
                         <td>{$infoMascota->Color}</td>
                         <td>{$infoMascota->Tamano}</td>
                         <td>{$infoMascota->Esterilizado}</td>
-                        <td>{$infoMascota->Complementarios}</td>
                         <td>{$infoMascota->FechaIngreso}</td>
                 </tr>
-                    
+
             {/foreach}
                 
             </tbody>
@@ -65,11 +64,14 @@
             {foreach from=$dataMascota item=$infoMascota}
                     <div class="card mt-3">
                             <div class="card-header">
-                                    <b>{$infoMascota->Nombre}</b>
+                                    <h3><b>{$infoMascota->Nombre}</b></h3>
                                 </div>
                                 <div style="margin-left:15px;margin-top:10px">
+
                                     <h5>Motivo de la Consulta</h5> 
                                     <p>{$infoMascota->MotivoConsulta}</p>
+                                    <h5>Complementarios</h5>
+                                    <p><b>{$infoMascota->Complementarios}</b></p>
                                     <h5>Observaciones:</h5> 
                                     <p>{$infoMascota->Observaciones}</p>
                                     <h5>Tratamiento:</h5> 
