@@ -20,7 +20,7 @@ class MainView
     {
         $this->smarty->assign("dataCliente",$dataCliente);
         $this->smarty->assign("dataMascota",$mascotasCliente);
-        $this->smarty->assign("id_dueño",$id_cliente);
+        $this->smarty->assign("id_cliente",$id_cliente);
 
         $this->smarty->display('templates/clientsInfo.tpl');
     }
@@ -30,8 +30,9 @@ class MainView
         $this->smarty->display('templates/clientsForm.tpl');
     }
 
-    public function displayMascotaForm()
+    public function displayMascotaForm($id_cliente)
     {
+        $this->smarty->assign("id_cliente",$id_cliente);
         $this->smarty->display('templates/mascotaForm.tpl');
     }
 

@@ -85,6 +85,12 @@
                                         No
                                     </label>
                             </div>
+
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Motivo de Consulta</label>
+                        <div class="form-floating mt-2">
+                            <textarea class="form-control" id="floatingTextarea2" style="width: 60%; height:100px" name="motivoConsulta"></textarea>
+                        </div>
+
                     <label for="staticEmail" class="col-sm-2 col-form-label">Complementarios</label>
                         <div>
                             <div class="form-check form-check-inline">
@@ -109,10 +115,17 @@
                             </div>                        
                         </div>
 
+                        
+
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Observaciones</label>
                         <div class="form-floating mt-2">
                             <textarea class="form-control" id="floatingTextarea2" style="width: 60%; height:100px" name="observaciones"></textarea>
-                            <label for="floatingTextarea2">Observaciones</label>
                         </div>
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Tratamiento</label>
+                        <div class="form-floating mt-2">
+                            <textarea class="form-control" id="floatingTextarea2" style="width: 60%; height:100px" name="tratamiento"></textarea>
+                        </div>
+
 
                         <div class="mb-3 ">
                             <label for="staticEmail" class="col-sm-2 col-form-label">Fecha de Ingreso</label>

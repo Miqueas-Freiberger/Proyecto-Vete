@@ -25,7 +25,7 @@
         </table>
 </div>
 
-<h3>Mascotas</h3>
+<h4>Mascotas</h4>
 
 <div>
         <table class="table">
@@ -62,16 +62,25 @@
                 
             </tbody>
         </table>
-
             {foreach from=$dataMascota item=$infoMascota}
-                <h5>Observaciones {$infoMascota->Nombre} :</h5> 
-                <p>{$infoMascota->Observaciones}</p>
+                    <div class="card mt-3">
+                            <div class="card-header">
+                                    <b>{$infoMascota->Nombre}</b>
+                                </div>
+                                <div style="margin-left:15px;margin-top:10px">
+                                    <h5>Motivo de la Consulta</h5> 
+                                    <p>{$infoMascota->MotivoConsulta}</p>
+                                    <h5>Observaciones:</h5> 
+                                    <p>{$infoMascota->Observaciones}</p>
+                                    <h5>Tratamiento:</h5> 
+                                    <p>{$infoMascota->Tratamiento}</p>
+                                </div>
+                    </div>
             {/foreach}
-
-
 </div>
 
-<a class="dataLink" href="{BASE_URL}nuevaMascota">Agregar Mascota</a>
+<button type="button" class="btn btn-primary mb-3" style="margin-left:85%;margin-top:20px;"><a class="dataLink" href="{BASE_URL}nuevaMascota/{$id_cliente}" style="text-decoration:none;color:white">Agregar Mascota</a></button>
+
 
 
 {include file="templates/footer.tpl"}

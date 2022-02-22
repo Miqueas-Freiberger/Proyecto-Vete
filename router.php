@@ -34,8 +34,13 @@ switch ($params[0]) {
         break;
     case 'nuevaMascota':
         $mainController = new MainController();
-        $mainController->showMascotaForm();
+        $mainController->showMascotaForm($params[1]);
         break;
+    case 'agregarMascota':
+        $mainController = new MainController();
+        $mainController->getDataMascota();
+        break;
+    
     default:
         echo '404 - Página no encontrada';
         break;

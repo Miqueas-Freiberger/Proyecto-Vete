@@ -46,9 +46,9 @@ class MainModel
         return $this->db->lastInsertId();;
     }
 
-    public function addPaciente($nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$observaciones,$fecha_ingreso,$complementarios,$id_dueño )
+    public function addPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $observaciones, $fecha_ingreso, $complementarios, $motivoConsulta, $tratamiento, $id_dueño)
     {
-        $query = $this->db->prepare("INSERT INTO paciente (Nombre,Especie,Nacimiento,Sexo,Raza,Color,Tamano,Esterilizado,Complementarios,Observaciones,FechaIngreso,id_dueño_fk) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
-        $query->execute([$nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$complementarios,$observaciones,$fecha_ingreso,$id_dueño ]);
+        $query = $this->db->prepare("INSERT INTO paciente (Nombre,Especie,Nacimiento,Sexo,Raza,Color,Tamano,Esterilizado,Complementarios,Observaciones,FechaIngreso,MotivoConsulta,Tratamiento,id_dueño_fk) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+        $query->execute([$nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$complementarios,$observaciones,$fecha_ingreso,$motivoConsulta,$tratamiento,$id_dueño ]);
     }
 }

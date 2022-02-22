@@ -32,11 +32,10 @@ class MainController
         $this->mainView->displayClientsForms();
     }
 
-    public function showMascotaForm()
+    public function showMascotaForm($id_cliente)
     {
-        $this->mainView->displayMascotaForm();
+        $this->mainView->displayMascotaForm($id_cliente);   
     }
-
 
     public function getDataCliente()
     {
@@ -54,12 +53,14 @@ class MainController
             $color = $_POST["color"];
             $tamaño = $_POST["tamaño"];
             $esteril = $_POST["esteril"];
+            $motivoConsulta = $_POST["motivoConsulta"];
+            $tratamiento = $_POST["tratamiento"];
             $observaciones = $_POST["observaciones"];
             $fecha_ingreso = $_POST["fecha_ingreso"];
             $complementarios = implode(" / ", $_POST['complementarios']);
 
             $id_dueño = $this->addDataCliente($nombre_apellido, $telefono, $email, $direccion, $localidad);
-            $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $observaciones, $fecha_ingreso, $complementarios, $id_dueño);
+            $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $observaciones, $fecha_ingreso, $complementarios, $motivoConsulta, $tratamiento, $id_dueño);
         }
     }
 
@@ -68,11 +69,34 @@ class MainController
         $id_cliente = $this->mainModel->addCliente($nombre_apellido, $telefono, $email, $direccion, $localidad);
         return $id_cliente;
     }
-    public function addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $observaciones, $fecha_ingreso, $complementarios, $id_dueño)
+    public function addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $observaciones, $fecha_ingreso, $complementarios, $motivoConsulta, $tratamiento, $id_dueño)
     {
-        $this->mainModel->addPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $observaciones, $fecha_ingreso, $complementarios, $id_dueño);
-        header("Location: " . "nuevoCliente");
+        $this->mainModel->addPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $observaciones, $fecha_ingreso, $complementarios, $motivoConsulta, $tratamiento, $id_dueño);
+        header("Location: " . "cliente" . "/$id_dueño");
     }
 
+    public function getDataMascota()
+    {
+        if (!empty($_POST["tamaño"]) && !empty($_POST["esteril"])) {
+            $nombrePaciente = $_POST["nombrePaciente"];
+            $especie = $_POST["especie"];
+            $nacimientoPaciente = $_POST["nacimientoPaciente"];
+            $sexoPaciente = $_POST["sexoPaciente"];
+            $raza = $_POST["raza"];
+            $color = $_POST["color"];
+            $tamaño = $_POST["tamaño"];
+            $esteril = $_POST["esteril"];
+            $motivoConsulta = $_POST["motivoConsulta"];
+            $tratamiento = $_POST["tratamiento"];
+            $observaciones = $_POST["observaciones"];
+            $fecha_ingreso = $_POST["fecha_ingreso"];
+            $complementarios = implode(" / ", $_POST['complementarios']);
+            $id_cliente = $_POST['id_cliente'];
+            
+            $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $observaciones, $fecha_ingreso, $complementarios, $motivoConsulta, $tratamiento, $id_cliente);
+        }
+        
+        
+    }
 
 }
