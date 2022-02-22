@@ -36,4 +36,16 @@ class MainView
         $this->smarty->display('templates/mascotaForm.tpl');
     }
 
+    public function displayFilteredClient($cliente)
+    {
+        $this->smarty->assign("dataClientes",$cliente);
+        $this->smarty->display('templates/home.tpl');
+    }
+
+    public function showError($mensaje)
+    {
+        $this->smarty->assign("mensaje",$mensaje);
+        $this->smarty->display('templates/errorMsj.tpl');
+    }
+
 }

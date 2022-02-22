@@ -40,6 +40,11 @@ switch ($params[0]) {
         $mainController = new MainController();
         $mainController->getDataMascota();
         break;
+
+    case 'busquedaCliente':
+        $mainController = new MainController();
+        $mainController->getNombreCliente();
+        break;
     
     default:
         echo '404 - Página no encontrada';

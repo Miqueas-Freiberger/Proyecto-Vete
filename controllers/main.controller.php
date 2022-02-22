@@ -99,4 +99,16 @@ class MainController
         
     }
 
+    public function getNombreCliente()
+    {
+        $nombreCliente=$_GET["nombreCliente"];
+        $cliente = $this->mainModel->buscarCliente($nombreCliente);
+
+        if ($cliente) {
+            $this->mainView->displayFilteredClient($cliente);
+        }else {
+            $this->mainView->showError("El cliente buscado no se encuentra registrado");
+        }
+    }
+
 }

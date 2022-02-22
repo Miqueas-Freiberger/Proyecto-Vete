@@ -51,4 +51,13 @@ class MainModel
         $query = $this->db->prepare("INSERT INTO paciente (Nombre,Especie,Nacimiento,Sexo,Raza,Color,Tamano,Esterilizado,Complementarios,Observaciones,FechaIngreso,MotivoConsulta,Tratamiento,id_dueño_fk) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
         $query->execute([$nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$complementarios,$observaciones,$fecha_ingreso,$motivoConsulta,$tratamiento,$id_dueño ]);
     }
+
+    public function buscarCliente($nombreCliente)
+    {
+        $query=$this->db->prepare("SELECT * FROM clientes WHERE NombreApellido LIKE ?");
+        $query->execute(["%$nombreCliente%"]);
+
+        $queryData = $query->fetchAll(PDO::FETCH_OBJ);
+        return $queryData;
+    }
 }

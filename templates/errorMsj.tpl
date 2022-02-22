@@ -5,15 +5,12 @@
     </form>
 
 
-        <div class="card mt-3" style="width: 22rem;">
+        <div class="card mt-3" style="width: 18rem;">
             <div class="card-header">
                 <b>Clientes</b>
             </div>
             <ul class="list-group list-group-flush">
-            {foreach from=$dataClientes item=$data}
-                <li class="list-group-item"><a class="clientes" href = '{BASE_URL}cliente/{$data->id}'>{$data->NombreApellido} - ({$data->Telefono})</a></li>
-            {/foreach}
-                
+            <p style="text-align:center;">{$mensaje}</p>
             </ul>
         </div>
 

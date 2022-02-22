@@ -13,6 +13,7 @@
 
 <header>
     <h1>Veterinaria Catriel</h1>
+    
 
         <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -23,7 +24,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link text-secondary" href="{BASE_URL}">Libreta Sanitaria</a>
-            </li>
+            </li>            
         </ul>
 </header>
 
