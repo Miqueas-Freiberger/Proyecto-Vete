@@ -5,7 +5,7 @@
       <div class="card-header">
       {foreach from=$infoMascota item=$dataConsulta}
           <h2>Historial Clinico</h2>
-            <p>Fecha de Consulta: {$dataHistorial->Fecha}</p> 
+            <p>Fecha de Consulta: {$dataHistorial->Fecha|date_format:"%d/%m/%Y"}</p> 
         {/foreach}
           
       </div>

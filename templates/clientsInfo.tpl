@@ -54,7 +54,7 @@
                         <td>{$infoMascota->Color}</td>
                         <td>{$infoMascota->Tamano}</td>
                         <td>{$infoMascota->Esterilizado}</td>
-                        <td>{$infoMascota->FechaIngreso}</td>
+                        <td>{$infoMascota->FechaIngreso|date_format:"%d/%m/%Y"}</td>
                         <td> <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal{$infoMascota->id}">
                                     X
                             </button>
