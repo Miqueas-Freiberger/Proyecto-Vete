@@ -46,7 +46,7 @@ class MainModel
         $queryData = $query->fetchAll(PDO::FETCH_OBJ);
         return $queryData;
     }
-    public function getComplementarios($id_mascota)
+    public function getInfoConsulta($id_mascota)
     {
         $query=$this->db->prepare("SELECT Complementarios FROM paciente WHERE id = ?");
         $query->execute([$id_mascota]);
@@ -72,10 +72,10 @@ class MainModel
         return $this->db->lastInsertId();
     }
 
-    public function addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento)
+    public function addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$fecha)
     {
-        $query = $this->db->prepare("INSERT INTO historial (Observacion,MotivoConsulta,Tratamiento,id_mascota_fk) VALUES (?,?,?,?)");
-        $query->execute([$observaciones,$motivoConsulta,$tratamiento,$id_mascota]);
+        $query = $this->db->prepare("INSERT INTO historial (Observacion,MotivoConsulta,Tratamiento,Fecha,id_mascota_fk) VALUES (?,?,?,?,?)");
+        $query->execute([$observaciones,$motivoConsulta,$tratamiento,$fecha,$id_mascota]);
     }
 
     public function buscarCliente($nombreCliente)
@@ -92,4 +92,6 @@ class MainModel
         $query=$this->db->prepare("DELETE FROM paciente WHERE id = ?");
         $query->execute([$id_mascota]);
     }
+
+
 }

@@ -23,20 +23,14 @@ class MainController
     {
         $dataCliente = $this->mainModel->getDataCliente($id_cliente);
         $mascotasCliente = $this->mainModel->getDataMascotasCliente($id_cliente);
-
-        /* foreach ($mascotasCliente as $data) {
-            $id_mascotas = $data->id;
-            $historialMascota = $this->mainModel->getHistorialMascota($id_mascotas);
-            
-        } */
         $this->mainView->displayClientInfo($dataCliente,$mascotasCliente,$id_cliente);
     }
 
     public function getHistorialMascota($id_mascota)
     {
         $historialMascota = $this->mainModel->getHistorialMascota($id_mascota);
-        $complementarios = $this->mainModel->getComplementarios($id_mascota);
-        $this->mainView->displayHistorialMascota($historialMascota,$complementarios);
+        $complementarios = $this->mainModel->getInfoConsulta($id_mascota);
+        $this->mainView->displayHistorialMascota($historialMascota,$complementarios,$id_mascota);
     }
 
     public function showClientsForms()
@@ -75,7 +69,7 @@ class MainController
 
             $id_dueño = $this->addDataCliente($nombre_apellido, $telefono, $email, $direccion, $localidad);
             $id_mascota= $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso, $complementarios, $id_dueño);
-            $this->addHistorial($id_mascota,$id_dueño,$observaciones,$motivoConsulta,$tratamiento);
+            $this->addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$fecha_ingreso,$id_dueño);
         }
     }
 
@@ -91,10 +85,16 @@ class MainController
         
     }
 
-    public function addHistorial($id_mascota,$id_dueño,$observaciones,$motivoConsulta,$tratamiento)
+    public function addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$fecha,$id_dueño=null)
     {
-        $this->mainModel->addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento);
-        header("Location: " . "cliente" . "/$id_dueño");
+        $this->mainModel->addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$fecha);
+        if ($id_dueño) {
+            header("Location: " . "cliente" . "/$id_dueño");
+        }
+        else{
+            header("Location: " . "historialMascota" . "/$id_mascota");
+        }
+        
     }
 
     public function eliminarMascota($id_mascota)
@@ -122,7 +122,7 @@ class MainController
             $id_cliente = $_POST['id_cliente'];
             
             $id_mascota  = $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril,$fecha_ingreso, $complementarios, $id_cliente);
-            $this->addHistorial($id_mascota,$id_cliente,$observaciones,$motivoConsulta,$tratamiento);
+            $this->addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$fecha_ingreso,$id_cliente);
         }
         
         
@@ -140,4 +140,20 @@ class MainController
         }
     }
 
+
+    public function displayFormsAddHistorial($id_mascota)
+    {
+        $this->mainView->displayHistorialForms($id_mascota);
+    }
+
+    public function getNewHistorialData()
+    {
+        $observaciones = $_POST["observaciones"];
+        $tratamiento = $_POST["tratamiento"];
+        $motivoConsulta = $_POST["motivoConsulta"];
+        $fecha = $_POST["fecha"];
+        $id_mascota = $_POST["id_mascota"];
+
+        $this->addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$fecha);
+    }
 }

@@ -52,7 +52,15 @@ switch ($params[0]) {
         $mainController = new MainController();
         $mainController->getHistorialMascota($params[1]);
         break;
-    
+    case 'nuevoHistorial':
+        $mainController = new MainController();
+        $mainController->displayFormsAddHistorial($params[1]);
+        break;
+    case 'addNewHistorial':
+        $mainController = new MainController();
+        $mainController->getNewHistorialData();
+        break;
+        
     default:
         echo '404 - Página no encontrada';
         break;
