@@ -1,8 +1,8 @@
 {include file="templates/header.tpl"}
     <form method = "GET" action = "busquedaCliente">
-        <input style="width: 60%; margin-top: 15px; margin-left: 280px;" class="form-control" type="text" aria-label="default input example" name="nombreCliente" placeholder="Buscar cliente...">                
+        <input class="form-control mt-3" type="text" aria-label="default input example" name="nombreCliente" placeholder="Buscar cliente...">
     </form>
-        <div class="card mt-3" style="width: 70rem; display: block; margin-left: auto; margin-right: auto; text-align:center;">
+        <div class="card mt-3 w-100 text-center" style="display: block;">
             <div class="card-header">
                 <b>Clientes</b>
             </div>
