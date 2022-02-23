@@ -25,6 +25,13 @@ class MainView
         $this->smarty->display('templates/clientsInfo.tpl');
     }
 
+    public function displayHistorialMascota($historialMascota,$complementarios)
+    {
+        $this->smarty->assign("historialMascota",$historialMascota);
+        $this->smarty->assign("complementarios",$complementarios);
+        $this->smarty->display("templates/historialMascota.tpl");
+    }
+
     public function displayClientsForms()
     {
         $this->smarty->display('templates/clientsForm.tpl');

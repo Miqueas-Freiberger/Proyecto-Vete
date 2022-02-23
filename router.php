@@ -44,10 +44,13 @@ switch ($params[0]) {
         $mainController = new MainController();
         $mainController->eliminarMascota($params[1]);
         break;
-
     case 'busquedaCliente':
         $mainController = new MainController();
         $mainController->getNombreCliente();
+        break;
+    case 'historialMascota':
+        $mainController = new MainController();
+        $mainController->getHistorialMascota($params[1]);
         break;
     
     default:

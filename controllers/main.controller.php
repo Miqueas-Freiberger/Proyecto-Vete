@@ -24,7 +24,19 @@ class MainController
         $dataCliente = $this->mainModel->getDataCliente($id_cliente);
         $mascotasCliente = $this->mainModel->getDataMascotasCliente($id_cliente);
 
+        /* foreach ($mascotasCliente as $data) {
+            $id_mascotas = $data->id;
+            $historialMascota = $this->mainModel->getHistorialMascota($id_mascotas);
+            
+        } */
         $this->mainView->displayClientInfo($dataCliente,$mascotasCliente,$id_cliente);
+    }
+
+    public function getHistorialMascota($id_mascota)
+    {
+        $historialMascota = $this->mainModel->getHistorialMascota($id_mascota);
+        $complementarios = $this->mainModel->getComplementarios($id_mascota);
+        $this->mainView->displayHistorialMascota($historialMascota,$complementarios);
     }
 
     public function showClientsForms()
@@ -53,14 +65,17 @@ class MainController
             $color = $_POST["color"];
             $tamaño = $_POST["tamaño"];
             $esteril = $_POST["esteril"];
+            $observaciones = $_POST["observaciones"];
             $motivoConsulta = $_POST["motivoConsulta"];
             $tratamiento = $_POST["tratamiento"];
-            $observaciones = $_POST["observaciones"];
+
+
             $fecha_ingreso = $_POST["fecha_ingreso"];
             $complementarios = implode(" / ", $_POST['complementarios']);
 
             $id_dueño = $this->addDataCliente($nombre_apellido, $telefono, $email, $direccion, $localidad);
-            $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $observaciones, $fecha_ingreso, $complementarios, $motivoConsulta, $tratamiento, $id_dueño);
+            $id_mascota= $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso, $complementarios, $id_dueño);
+            $this->addHistorial($id_mascota,$id_dueño,$observaciones,$motivoConsulta,$tratamiento);
         }
     }
 
@@ -69,9 +84,16 @@ class MainController
         $id_cliente = $this->mainModel->addCliente($nombre_apellido, $telefono, $email, $direccion, $localidad);
         return $id_cliente;
     }
-    public function addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $observaciones, $fecha_ingreso, $complementarios, $motivoConsulta, $tratamiento, $id_dueño)
+    public function addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso, $complementarios, $id_dueño)
     {
-        $this->mainModel->addPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $observaciones, $fecha_ingreso, $complementarios, $motivoConsulta, $tratamiento, $id_dueño);
+        $id_mascota = $this->mainModel->addPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso, $complementarios, $id_dueño);
+        return $id_mascota;
+        
+    }
+
+    public function addHistorial($id_mascota,$id_dueño,$observaciones,$motivoConsulta,$tratamiento)
+    {
+        $this->mainModel->addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento);
         header("Location: " . "cliente" . "/$id_dueño");
     }
 
@@ -99,7 +121,8 @@ class MainController
             $complementarios = implode(" / ", $_POST['complementarios']);
             $id_cliente = $_POST['id_cliente'];
             
-            $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $observaciones, $fecha_ingreso, $complementarios, $motivoConsulta, $tratamiento, $id_cliente);
+            $id_mascota  = $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril,$fecha_ingreso, $complementarios, $id_cliente);
+            $this->addHistorial($id_mascota,$id_cliente,$observaciones,$motivoConsulta,$tratamiento);
         }
         
         

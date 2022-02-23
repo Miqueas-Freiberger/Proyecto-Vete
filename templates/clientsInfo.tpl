@@ -46,7 +46,7 @@
             <tbody>
             {foreach from=$dataMascota item=$infoMascota}
                 <tr>
-                    <th scope="row">{$infoMascota->Nombre}</th>
+                    <th scope="row"><a href="{BASE_URL}historialMascota/{{$infoMascota->id}}" style="text-decoration:none;color:black;">{$infoMascota->Nombre}</a></th>
                         <td>{$infoMascota->Especie}</td>
                         <td>{$infoMascota->Nacimiento}</td>
                         <td>{$infoMascota->Sexo}</td>
@@ -55,54 +55,34 @@
                         <td>{$infoMascota->Tamano}</td>
                         <td>{$infoMascota->Esterilizado}</td>
                         <td>{$infoMascota->FechaIngreso}</td>
+                        <td> <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal{$infoMascota->id}">
+                                    X
+                            </button>
+                        </td>
+                            <!-- Modal -->
+    
+                                <div class="modal fade" id="Modal{$infoMascota->id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h6 class="modal-title">CONFIRMAR</h5> 
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p  class="text-center">¿Estás seguro que deseas eliminar a <strong>{$infoMascota ->Nombre}</strong>?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CERRAR</button>
+                                                    <button type="button" class="btn btn-primary"><a href="{BASE_URL}eliminarMascota/{$infoMascota->id}" class="text-decoration-none text-white">BORRAR MASCOTA</a></button>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
                 </tr>
 
             {/foreach}
                 
             </tbody>
         </table>
-            {foreach from=$dataMascota item=$infoMascota}
-                    <div class="card mt-3">
-                            <div class="card-header">
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal{$infoMascota->id}" style="margin-left:98%;">
-                                    X
-                                </button>
-                                <!-- Modal -->
-    
-                            <div class="modal fade" id="Modal{$infoMascota->id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                    <h6 class="modal-title">CONFIRMAR</h5> 
-                                </div>
-                                <div class="modal-body">
-                                <p  class="text-center">¿Estás seguro que deseas eliminar a <strong>{$infoMascota ->Nombre}</strong>?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CERRAR</button>
-                                    <button type="button" class="btn btn-primary"><a href="{BASE_URL}eliminarMascota/{$infoMascota->id}" class="text-decoration-none text-white">BORRAR MASCOTA</a></button>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                                    <h3><b>{$infoMascota->Nombre}</b> </h3>
-                                    
-                                </div>
-                                
-                                <div style="margin-left:15px;margin-top:10px">
-
-                                    <h5>Motivo de la Consulta</h5> 
-                                    <p>{$infoMascota->MotivoConsulta}</p>
-                                    <h5>Complementarios</h5>
-                                    <p><b>{$infoMascota->Complementarios}</b></p>
-                                    <h5>Observaciones:</h5> 
-                                    <p>{$infoMascota->Observaciones}</p>
-                                    <h5>Tratamiento:</h5> 
-                                    <p>{$infoMascota->Tratamiento}</p>
-                                </div>
-                    </div>
-            {/foreach}
-</div>
 
 <button type="button" class="btn btn-primary mb-3" style="margin-left:85%;margin-top:20px;"><a class="dataLink" href="{BASE_URL}nuevaMascota/{$id_cliente}" style="text-decoration:none;color:white">Agregar Mascota</a></button>
 

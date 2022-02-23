@@ -38,18 +38,44 @@ class MainModel
     }
 
 
+    public function getHistorialMascota($id_mascota)
+    {
+        $query = $this->db->prepare('SELECT * FROM historial WHERE id_mascota_fk = ?');
+        $query->execute([$id_mascota]);
+
+        $queryData = $query->fetchAll(PDO::FETCH_OBJ);
+        return $queryData;
+    }
+    public function getComplementarios($id_mascota)
+    {
+        $query=$this->db->prepare("SELECT Complementarios FROM paciente WHERE id = ?");
+        $query->execute([$id_mascota]);
+
+        $queryData = $query->fetchAll(PDO::FETCH_OBJ);
+        return $queryData;
+    }
+
+
     public function addCliente($nombre_apellido, $telefono, $email,$direccion,$localidad)
     {
         $query = $this->db->prepare('INSERT INTO clientes (NombreApellido, Telefono, Email, Direccion,Localidad) VALUES (?,?,?,?,?)');
         $query->execute([$nombre_apellido, $telefono, $email,$direccion,$localidad]);
        
-        return $this->db->lastInsertId();;
+        return $this->db->lastInsertId();
     }
 
-    public function addPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $observaciones, $fecha_ingreso, $complementarios, $motivoConsulta, $tratamiento, $id_dueño)
+    public function addPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril,$fecha_ingreso, $complementarios, $id_dueño)
     {
-        $query = $this->db->prepare("INSERT INTO paciente (Nombre,Especie,Nacimiento,Sexo,Raza,Color,Tamano,Esterilizado,Complementarios,Observaciones,FechaIngreso,MotivoConsulta,Tratamiento,id_dueño_fk) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-        $query->execute([$nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$complementarios,$observaciones,$fecha_ingreso,$motivoConsulta,$tratamiento,$id_dueño ]);
+        $query = $this->db->prepare("INSERT INTO paciente (Nombre,Especie,Nacimiento,Sexo,Raza,Color,Tamano,Esterilizado,Complementarios,FechaIngreso,id_dueño_fk) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+        $query->execute([$nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$complementarios,$fecha_ingreso,$id_dueño]);
+        
+        return $this->db->lastInsertId();
+    }
+
+    public function addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento)
+    {
+        $query = $this->db->prepare("INSERT INTO historial (Observacion,MotivoConsulta,Tratamiento,id_mascota_fk) VALUES (?,?,?,?)");
+        $query->execute([$observaciones,$motivoConsulta,$tratamiento,$id_mascota]);
     }
 
     public function buscarCliente($nombreCliente)
