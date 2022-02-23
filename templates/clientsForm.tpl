@@ -1,6 +1,6 @@
 {include file="templates/header.tpl"}
 
-    <form method="POST" action="agregarDatos" >
+    <form method="POST" action="agregarDatos">
         <div class="card mt-3 mb-3">
             <div style="margin-left:300px">
                 <h1>Datos Cliente</h1>
