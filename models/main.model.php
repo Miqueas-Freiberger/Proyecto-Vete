@@ -60,4 +60,10 @@ class MainModel
         $queryData = $query->fetchAll(PDO::FETCH_OBJ);
         return $queryData;
     }
+
+    public function eliminarMascota($id_mascota)
+    {
+        $query=$this->db->prepare("DELETE FROM paciente WHERE id = ?");
+        $query->execute([$id_mascota]);
+    }
 }

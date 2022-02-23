@@ -12,7 +12,7 @@
 <body>
 
 <header>
-    <h1>Veterinaria Catriel</h1>
+    <h1 style="margin-left:16px">Veterinaria Catriel</h1>
     
 
         <ul class="nav nav-tabs">

@@ -40,6 +40,10 @@ switch ($params[0]) {
         $mainController = new MainController();
         $mainController->getDataMascota();
         break;
+    case 'eliminarMascota':
+        $mainController = new MainController();
+        $mainController->eliminarMascota($params[1]);
+        break;
 
     case 'busquedaCliente':
         $mainController = new MainController();

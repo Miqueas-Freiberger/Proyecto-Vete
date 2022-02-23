@@ -75,6 +75,12 @@ class MainController
         header("Location: " . "cliente" . "/$id_dueño");
     }
 
+    public function eliminarMascota($id_mascota)
+    {
+        $this->mainModel->eliminarMascota($id_mascota);
+        header("Location: " . BASE_URL);
+    }
+
     public function getDataMascota()
     {
         if (!empty($_POST["tamaño"]) && !empty($_POST["esteril"])) {

@@ -1,5 +1,5 @@
 {include file="templates/header.tpl"}
-<h4>Cliente</h4>
+<h4 style="margin-top:15px">Cliente</h4>
 <div>
         <table class="table">
             <thead>
@@ -64,8 +64,31 @@
             {foreach from=$dataMascota item=$infoMascota}
                     <div class="card mt-3">
                             <div class="card-header">
-                                    <h3><b>{$infoMascota->Nombre}</b></h3>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal{$infoMascota->id}" style="margin-left:98%;">
+                                    X
+                                </button>
+                                <!-- Modal -->
+    
+                            <div class="modal fade" id="Modal{$infoMascota->id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h6 class="modal-title">CONFIRMAR</h5> 
                                 </div>
+                                <div class="modal-body">
+                                <p  class="text-center">¿Estás seguro que deseas eliminar a <strong>{$infoMascota ->Nombre}</strong>?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CERRAR</button>
+                                    <button type="button" class="btn btn-primary"><a href="{BASE_URL}eliminarMascota/{$infoMascota->id}" class="text-decoration-none text-white">BORRAR MASCOTA</a></button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                                    <h3><b>{$infoMascota->Nombre}</b> </h3>
+                                    
+                                </div>
+                                
                                 <div style="margin-left:15px;margin-top:10px">
 
                                     <h5>Motivo de la Consulta</h5> 
