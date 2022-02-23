@@ -20,6 +20,6 @@
     
 {/foreach}
 
-{*  <button>HOLA</button>*} {* BOTON AGREGAR HISTORIAL *}
 
+<button type="button" class="btn btn-primary mb-3" style="margin-top:10px;"><a class="dataLink" href="{BASE_URL}nuevoHistorial/{$dataHistorial->id_mascota_fk}" style="text-decoration:none;color:white">Agregar Historial</a></button>
 {include file="templates/footer.tpl"}
