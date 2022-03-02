@@ -1,7 +1,7 @@
 {include file="templates/header.tpl"}
 
 {foreach from=$historialMascota item=$dataHistorial}
-    <div class="card" style="width: 100%;margin-top:20px">
+    <div class="card w-100 mt-2">
       <div class="card-header">
       {foreach from=$infoMascota item=$dataConsulta}
           <h2>Historial Clinico</h2>
@@ -9,7 +9,7 @@
         {/foreach}
           
       </div>
-      <div style="margin:20px">
+      <div class="historialTotal m-3">
         <h3>Motivos de Consulta</h3>
         <p>{$dataHistorial->MotivoConsulta}</p>
         {foreach from=$infoMascota item=$dataConsulta}
@@ -24,5 +24,5 @@
         
 {/foreach}
 
-<button type="button" class="btn btn-primary mb-3" style="margin-top:10px;"><a class="dataLink" href="{BASE_URL}nuevoHistorial/{$id_mascota}" style="text-decoration:none;color:white">Agregar Nuevo</a></button>
+<button type="button" class="btn btn-primary  mt-3 me-3 mb-3 float-end"><a class="dataLink" href="{BASE_URL}nuevoHistorial/{$id_mascota}" style="text-decoration:none;color:white">Agregar Nuevo</a></button>
 {include file="templates/footer.tpl"}

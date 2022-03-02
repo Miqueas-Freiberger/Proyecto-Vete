@@ -1,5 +1,5 @@
 {include file="templates/header.tpl"}
-<h4 style="margin-top:15px">Cliente</h4>
+<h4 class="tituloCliente mt-3">Cliente</h4>
 <div>
         <table class="table">
             <thead>
@@ -26,7 +26,7 @@
         </table>
 </div>
 
-<h4>Mascotas</h4>
+<h4 class="tituloMascota mt-4">Mascotas</h4>
 
 <div>
         <table class="table">
@@ -46,7 +46,7 @@
             <tbody>
             {foreach from=$dataMascota item=$infoMascota}
                 <tr>
-                    <th scope="row"><a href="{BASE_URL}historialMascota/{{$infoMascota->id}}" style="text-decoration:none;color:black;">{$infoMascota->Nombre}</a></th>
+                    <th scope="row"><a href="{BASE_URL}historialMascota/{{$infoMascota->id}}" class="linkMascota text-decoration-none text-black">{$infoMascota->Nombre}</a></th>
                         <td>{$infoMascota->Especie}</td>
                         <td>{$infoMascota->Nacimiento}</td>
                         <td>{$infoMascota->Sexo}</td>
@@ -84,7 +84,7 @@
             </tbody>
         </table>
 
-<button type="button" class="btn btn-primary mb-3" style="margin-left:85%;margin-top:20px;"><a class="dataLink" href="{BASE_URL}nuevaMascota/{$id_cliente}" style="text-decoration:none;color:white">Agregar Mascota</a></button>
+<button type="button" class="btn btn-primary float-end mt-3 me-3 mb-3"><a class="dataLink" href="{BASE_URL}nuevaMascota/{$id_cliente}" style="text-decoration:none;color:white">Agregar Mascota</a></button>
 
 
 
