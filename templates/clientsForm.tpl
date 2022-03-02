@@ -6,16 +6,16 @@
                 <h1 class="tittle-Cliente ms-3" style="text-shadow: 2px 2px 3px grey">Datos Cliente</h1>
                 
                     <div class="mb-3">
-                        <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Nombre y Apellido</label>
+                        <label for="staticName" class="col-sm-2 col-form-label ms-3">Nombre y Apellido</label>
                             <input class="form-control w-50 ms-3" type="text" aria-label="default input example" name="nombre_apellido" required>
                     </div>
                     <div class="mb-3">
-                        <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Numero de Telefono</label>
-                            <input class="form-control  w-50 ms-3" type="text" aria-label="default input example" name="telefono" required>
+                        <label for="staticPhone" class="col-sm-2 col-form-label ms-3">Numero de Telefono</label>
+                            <input class="form-control  w-50 ms-3" type="number" aria-label="default input example" name="telefono" required>
                     </div>
                     <div class="mb-3 ">
                         <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Email</label>
-                            <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="email" required>
+                            <input class="form-control  w-50 ms-3" type="email"  aria-label="default input example" name="email" required>
                     </div>
                     <div class="mb-3 ">
                         <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Direccion</label>

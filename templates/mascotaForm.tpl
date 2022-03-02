@@ -7,31 +7,31 @@
     <h1 style="text-shadow: 2px 2px 3px grey">Nuevo Paciente</h1>
 
                     <div class="mb-3">
-                        <label for="staticEmail" class="col-sm-2 col-form-label ms-2">Nombre</label>
+                        <label for="staticName" class="col-sm-2 col-form-label ms-2">Nombre</label>
                             <input class="form-control w-50 ms-2" type="text"  aria-label="default input example" name="nombrePaciente" required>      
                     </div>
                     <div class="mb-3">
-                        <label for="staticEmail" class="col-sm-2 col-form-label ms-2">Especie</label>
+                        <label for="staticEspecie" class="col-sm-2 col-form-label ms-2">Especie</label>
                             <input class="form-control w-50 ms-2" type="text"  aria-label="default input example" name="especie" required>      
                     </div>
                     <div class="mb-3">
-                        <label for="staticEmail" class="col-sm-2 col-form-label ms-2">Nacimiento</label>
+                        <label for="staticBorn" class="col-sm-2 col-form-label ms-2">Nacimiento</label>
                             <input class="form-control w-50 ms-2" type="text"  aria-label="default input example" name="nacimientoPaciente" required>      
                     </div>
                     <div class="mb-3">
-                        <label for="staticEmail" class="col-sm-2 col-form-label ms-2">Sexo</label>
+                        <label for="staticSexo" class="col-sm-2 col-form-label ms-2">Sexo</label>
                             <input class="form-control w-50 ms-2" type="text"  aria-label="default input example" name="sexoPaciente" required>      
                     </div>
                     <div class="mb-3">
-                        <label for="staticEmail" class="col-sm-2 col-form-label ms-2">Raza</label>
+                        <label for="staticRaza" class="col-sm-2 col-form-label ms-2">Raza</label>
                             <input class="form-control w-50 ms-2" type="text"  aria-label="default input example" name="raza" required>      
                     </div>
                     <div class="mb-3">
-                        <label for="staticEmail" class="col-sm-2 col-form-label ms-2">Color</label>
+                        <label for="staticColor" class="col-sm-2 col-form-label ms-2">Color</label>
                             <input class="form-control w-50 ms-2" type="text"  aria-label="default input example" name="color" required>      
                     </div>
 
-                     <label for="staticEmail" class="col-sm-2 col-form-label">Tamaño</label>
+                     <label for="staticTamaño" class="col-sm-2 col-form-label">Tamaño</label>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="tamaño" id="tamañoMascota1" value ="Chico">
                                 <label class="form-check-label" for="tamañoMascota1">
@@ -51,7 +51,7 @@
                                 </label>
                         </div>
                     
-                    <label for="staticEmail" class="col-sm-2 col-form-label">Esterilizada/o</label>
+                    <label for="staticEsteril" class="col-sm-2 col-form-label">Esterilizada/o</label>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="esteril" id="esteril1" value ="Si">
                                     <label class="form-check-label" for="esteril1" >
@@ -65,12 +65,12 @@
                                     </label>
                             </div>
 
-                    <label for="staticEmail" class="col-sm-2 col-form-label">Motivo de Consulta</label>
+                    <label for="staticMotivoConsulta" class="col-sm-2 col-form-label">Motivo de Consulta</label>
                         <div class="form-floating mt-2">
                             <textarea class="form-control w-50 h-100 ms-1" id="floatingTextarea2" name="motivoConsulta"></textarea>
                         </div>
 
-                    <label for="staticEmail" class="col-sm-2 col-form-label mt-2 mb-3">Complementarios</label>
+                    <label for="staticComplement" class="col-sm-2 col-form-label mt-2 mb-3">Complementarios</label>
                         <div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1"  name="complementarios[]" value="Analisis-sangre">
@@ -95,17 +95,17 @@
                         </div>
 
                     
-                    <label for="staticEmail" class="col-sm-2 col-form-label">Observaciones</label>
+                    <label for="staticObserv" class="col-sm-2 col-form-label">Observaciones</label>
                             <div class="form-floating mt-2">
                                 <textarea class="form-control w-50 h-100 ms-1" id="floatingTextarea2" name="observaciones"></textarea>
                             </div>
-                    <label for="staticEmail" class="col-sm-2 col-form-label">Tratamiento</label>
+                    <label for="staticTratamiento" class="col-sm-2 col-form-label">Tratamiento</label>
                             <div class="form-floating mt-2">
                                 <textarea class="form-control w-50 h-100 ms-1" id="floatingTextarea2" name="tratamiento"></textarea>
                             </div>
 
                         <div class="mt-2 mb-3 ">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Fecha de Ingreso</label>
+                            <label for="staticFecha" class="col-sm-2 col-form-label">Fecha de Ingreso</label>
                                 <input class="form-control w-50 h-100" type="date" name="fecha_ingreso" required>
                         </div>
 
