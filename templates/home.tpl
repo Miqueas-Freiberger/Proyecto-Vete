@@ -3,7 +3,7 @@
         <input class="form-control mt-3" type="text" aria-label="default input example" name="nombreCliente" placeholder="Buscar cliente...">
     </form>
         <div class="card mt-3 w-100 text-center">
-            <div class="card-header">
+            <div class="card-header" style="background-color: #F4ECF7">
                 <b>Clientes</b>
             </div>
             <ul class="list-group list-group-flush">
