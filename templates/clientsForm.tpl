@@ -55,19 +55,19 @@
                      <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Tamaño</label>
                         <div class="form-check">
                             <input class="form-check-input ms-3" type="radio" name="tamaño" id="tamañoMascota" value ="Chico">
-                                <label class="form-check-label" for="tamañoMascota">
+                                <label class="form-check-label ms-2" for="tamañoMascota">
                                     Chico
                                 </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input ms-3" type="radio" name="tamaño" id="tamañoMascota" value ="Mediano">
-                                <label class="form-check-label" for="tamañoMascota">
+                                <label class="form-check-label ms-2" for="tamañoMascota">
                                     Mediano
                                 </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input ms-3" type="radio" name="tamaño" id="tamañoMascota" value ="Grande">
-                                <label class="form-check-label" for="tamañoMascota">
+                                <label class="form-check-label ms-2" for="tamañoMascota">
                                     Grande
                                 </label>
                         </div>
@@ -75,13 +75,13 @@
                     <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Esterilizada/o</label>
                             <div class="form-check">
                                 <input class="form-check-input ms-3" type="radio" name="esteril" id="esteril" value ="Si">
-                                    <label class="form-check-label" for="esteril" >
+                                    <label class="form-check-label ms-2" for="esteril" >
                                         Si
                                     </label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input ms-3" type="radio" name="esteril" id="esteril" value = "No">
-                                    <label class="form-check-label" for="esteril">
+                                    <label class="form-check-label ms-2" for="esteril">
                                         No
                                     </label>
                             </div>
