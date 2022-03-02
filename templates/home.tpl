@@ -2,7 +2,7 @@
     <form method = "GET" action = "busquedaCliente">
         <input class="form-control mt-3" type="text" aria-label="default input example" name="nombreCliente" placeholder="Buscar cliente...">
     </form>
-        <div class="card mt-3 w-100 text-center" style="display: block;">
+        <div class="card mt-3 w-100 text-center">
             <div class="card-header">
                 <b>Clientes</b>
             </div>
