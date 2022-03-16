@@ -64,18 +64,18 @@ class MainModel
         return $this->db->lastInsertId();
     }
 
-    public function addPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril,$fecha_ingreso, $complementarios, $id_dueño)
+    public function addPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril,$fecha_ingreso,$id_dueño)
     {
-        $query = $this->db->prepare("INSERT INTO paciente (Nombre,Especie,Nacimiento,Sexo,Raza,Color,Tamano,Esterilizado,Complementarios,FechaIngreso,id_dueño_fk) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
-        $query->execute([$nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$complementarios,$fecha_ingreso,$id_dueño]);
+        $query = $this->db->prepare("INSERT INTO paciente (Nombre,Especie,Nacimiento,Sexo,Raza,Color,Tamano,Esterilizado,FechaIngreso,id_dueño_fk) VALUES(?,?,?,?,?,?,?,?,?,?)");
+        $query->execute([$nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$fecha_ingreso,$id_dueño]);
         
         return $this->db->lastInsertId();
     }
 
-    public function addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$fecha)
+    public function addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$complementarios,$fecha)
     {
-        $query = $this->db->prepare("INSERT INTO historial (Observacion,MotivoConsulta,Tratamiento,Fecha,id_mascota_fk) VALUES (?,?,?,?,?)");
-        $query->execute([$observaciones,$motivoConsulta,$tratamiento,$fecha,$id_mascota]);
+        $query = $this->db->prepare("INSERT INTO historial (Observacion,MotivoConsulta,Tratamiento,Complementarios,Fecha,id_mascota_fk) VALUES (?,?,?,?,?,?)");
+        $query->execute([$observaciones,$motivoConsulta,$tratamiento,$complementarios,$fecha,$id_mascota]);
     }
 
     public function buscarCliente($nombreCliente)
@@ -93,5 +93,10 @@ class MainModel
         $query->execute([$id_mascota]);
     }
 
+    public function updateClientData($nombre_apellido,$telefono,$email,$direccion,$localidad,$id_cliente)
+    {
+        $query=$this->db->prepare("UPDATE clientes SET `NombreApellido` = ?, `Telefono` = ?, `Email`=?,`Direccion`=?,`Localidad`=? WHERE `id` = ?");
+        $query->execute([$nombre_apellido,$telefono,$email,$direccion,$localidad,$id_cliente]);
+    }
 
 }

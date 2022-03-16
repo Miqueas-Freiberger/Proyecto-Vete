@@ -3,18 +3,13 @@
 {foreach from=$historialMascota item=$dataHistorial}
     <div class="card w-100 mt-2">
       <div class="card-header">
-      {foreach from=$infoMascota item=$dataConsulta}
           <h2>Historial Clinico</h2>
-            <p>Fecha de Consulta: {$dataHistorial->Fecha|date_format:"%d/%m/%Y"}</p> 
-        {/foreach}
-          
+            <p>Fecha de Consulta: {$dataHistorial->Fecha|date_format:"%d/%m/%Y"}</p>           
       </div>
       <div class="historialTotal m-3">
         <h3>Motivos de Consulta</h3>
-        <p>{$dataHistorial->MotivoConsulta}</p>
-        {foreach from=$infoMascota item=$dataConsulta}
-            <h3>Complementarios: {$dataConsulta->Complementarios}</h3>
-        {/foreach}
+        <p>{$dataHistorial->MotivoConsulta}</p>            
+        <h3>Complementarios: {$dataHistorial->Complementarios}</h3>
         <h5>Observaciones</h5>
         <p>{$dataHistorial->Observacion}</p>
         <h3>Tratamiento</h3>

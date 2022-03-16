@@ -25,11 +25,10 @@ class MainView
         $this->smarty->display('templates/clientsInfo.tpl');
     }
 
-    public function displayHistorialMascota($historialMascota,$complementariosYfecha,$id_mascota)
+    public function displayHistorialMascota($historialMascota,$id_mascota)
     {
         $this->smarty->assign("historialMascota",$historialMascota);
         $this->smarty->assign("id_mascota",$id_mascota);
-        $this->smarty->assign("infoMascota",$complementariosYfecha);
         $this->smarty->display("templates/historialMascota.tpl");
     }
 
@@ -60,5 +59,11 @@ class MainView
     {
         $this->smarty->assign("id_mascota",$id_mascota);
         $this->smarty->display('templates/addHistorialForms.tpl');
+    }
+
+    public function displayEditClientForm($dataCliente)
+    {
+        $this->smarty->assign("dataCliente",$dataCliente);
+        $this->smarty->display("templates/editClienteForm.tpl");
     }
 }

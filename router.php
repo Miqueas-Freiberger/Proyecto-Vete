@@ -60,7 +60,13 @@ switch ($params[0]) {
         $mainController = new MainController();
         $mainController->getNewHistorialData();
         break;
-        
+    case 'editarCliente':
+        $mainController = new MainController();
+        $mainController->displayEditClienteForm($params[1]);
+        break;
+    case 'updateClientData':
+        $mainController = new MainController();
+        $mainController->updateClientData();
     default:
         echo '404 - Página no encontrada';
         break;

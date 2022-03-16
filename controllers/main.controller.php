@@ -29,8 +29,7 @@ class MainController
     public function getHistorialMascota($id_mascota)
     {
         $historialMascota = $this->mainModel->getHistorialMascota($id_mascota);
-        $complementarios = $this->mainModel->getInfoConsulta($id_mascota);
-        $this->mainView->displayHistorialMascota($historialMascota,$complementarios,$id_mascota);
+        $this->mainView->displayHistorialMascota($historialMascota,$id_mascota);
     }
 
     public function showClientsForms()
@@ -62,14 +61,12 @@ class MainController
             $observaciones = $_POST["observaciones"];
             $motivoConsulta = $_POST["motivoConsulta"];
             $tratamiento = $_POST["tratamiento"];
-
-
             $fecha_ingreso = $_POST["fecha_ingreso"];
             $complementarios = implode(" / ", $_POST['complementarios']);
 
             $id_dueño = $this->addDataCliente($nombre_apellido, $telefono, $email, $direccion, $localidad);
-            $id_mascota= $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso, $complementarios, $id_dueño);
-            $this->addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$fecha_ingreso,$id_dueño);
+            $id_mascota= $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso,$id_dueño);
+            $this->addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento, $complementarios,$fecha_ingreso,$id_dueño);
         }
     }
 
@@ -78,22 +75,10 @@ class MainController
         $id_cliente = $this->mainModel->addCliente($nombre_apellido, $telefono, $email, $direccion, $localidad);
         return $id_cliente;
     }
-    public function addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso, $complementarios, $id_dueño)
+    public function addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso,$id_dueño)
     {
-        $id_mascota = $this->mainModel->addPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso, $complementarios, $id_dueño);
+        $id_mascota = $this->mainModel->addPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso, $id_dueño);
         return $id_mascota;
-        
-    }
-
-    public function addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$fecha,$id_dueño=null)
-    {
-        $this->mainModel->addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$fecha);
-        if ($id_dueño) {
-            header("Location: " . "cliente" . "/$id_dueño");
-        }
-        else{
-            header("Location: " . "historialMascota" . "/$id_mascota");
-        }
         
     }
 
@@ -121,10 +106,9 @@ class MainController
             $complementarios = implode(" / ", $_POST['complementarios']);
             $id_cliente = $_POST['id_cliente'];
             
-            $id_mascota  = $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril,$fecha_ingreso, $complementarios, $id_cliente);
-            $this->addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$fecha_ingreso,$id_cliente);
+            $id_mascota  = $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril,$fecha_ingreso,$id_cliente);
+            $this->addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$complementarios,$fecha_ingreso,$id_cliente);
         }
-        
         
     }
 
@@ -140,7 +124,6 @@ class MainController
         }
     }
 
-
     public function displayFormsAddHistorial($id_mascota)
     {
         $this->mainView->displayHistorialForms($id_mascota);
@@ -153,7 +136,41 @@ class MainController
         $motivoConsulta = $_POST["motivoConsulta"];
         $fecha = $_POST["fecha"];
         $id_mascota = $_POST["id_mascota"];
+        $complementarios = implode(" / ", $_POST['complementarios']);
 
-        $this->addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$fecha);
+
+        $this->addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$complementarios,$fecha);
+    }
+
+
+    public function addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$complementarios,$fecha,$id_dueño=null)
+    {
+        $this->mainModel->addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$complementarios,$fecha);
+        if ($id_dueño) {
+            header("Location: " . "cliente" . "/$id_dueño");
+        }
+        else{
+            header("Location: " . "historialMascota" . "/$id_mascota");
+        }
+        
+    }
+
+    public function displayEditClienteForm($id_cliente)
+    {
+        $dataCliente= $this->mainModel->getDataCliente($id_cliente);
+        $this->mainView->displayEditClientForm($dataCliente);
+    }
+
+    public function updateClientData()
+    {
+            $nombre_apellido = $_POST["nombre_apellido"];
+            $telefono = $_POST["telefono"];
+            $email = $_POST["email"];
+            $direccion = $_POST["direccion"];
+            $localidad = $_POST["localidad"];
+            $id_cliente = $_POST['id_cliente'];
+            $this->mainModel->updateClientData($nombre_apellido,$telefono,$email,$direccion,$localidad,$id_cliente);
+
+            header("Location: " . BASE_URL ."cliente" . "/$id_cliente");
     }
 }

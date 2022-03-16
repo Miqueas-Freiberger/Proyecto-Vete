@@ -1,5 +1,9 @@
 {include file="templates/header.tpl"}
-<h4 class="tituloCliente mt-3">Cliente</h4>
+{foreach from=$dataCliente item=$infoCliente}
+    <button type="button" class="btn btn-secondary float-end mb-2"><a class="text-decoration-none text-white" href="{BASE_URL}editarCliente/{$infoCliente->id}">Editar Cliente</a></button>
+{/foreach}
+
+<h4 class="tituloCliente mt-2">Cliente</h4>
 <div>
         <table class="table">
             <thead>
@@ -24,8 +28,8 @@
                 
             </tbody>
         </table>
-</div>
 
+</div>
 <h4 class="tituloMascota mt-4">Mascotas</h4>
 
 <div>
@@ -55,6 +59,7 @@
                         <td>{$infoMascota->Tamano}</td>
                         <td>{$infoMascota->Esterilizado}</td>
                         <td>{$infoMascota->FechaIngreso|date_format:"%d/%m/%Y"}</td>
+                        <td><button type="button" class="btn btn-secondary"><a class="text-decoration-none text-white" href="{BASE_URL}editarMascota/{$infoMascota->id}">Editar Mascota</a></button></td>
                         <td> <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal{$infoMascota->id}">
                                     X
                             </button>
