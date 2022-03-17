@@ -3,8 +3,9 @@
 {foreach from=$historialMascota item=$dataHistorial}
     <div class="card w-100 mt-2">
       <div class="card-header">
+         <button type="button" class="btn btn-secondary float-end mb-2"><a class="text-decoration-none text-white" href="{BASE_URL}editarHistorial/{$dataHistorial->id}">Editar Historial</a></button>
           <h2>Historial Clinico</h2>
-            <p>Fecha de Consulta: {$dataHistorial->Fecha|date_format:"%d/%m/%Y"}</p>           
+            <p>Fecha de Consulta: {$dataHistorial->Fecha|date_format:"%d/%m/%Y"}</p>          
       </div>
       <div class="historialTotal m-3">
         <h3>Motivos de Consulta</h3>

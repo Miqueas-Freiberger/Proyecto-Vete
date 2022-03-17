@@ -129,17 +129,26 @@ class MainController
         $this->mainView->displayHistorialForms($id_mascota);
     }
 
-    public function getNewHistorialData()
+    public function getNewHistorialData($id_historial = null)
     {
-        $observaciones = $_POST["observaciones"];
-        $tratamiento = $_POST["tratamiento"];
-        $motivoConsulta = $_POST["motivoConsulta"];
-        $fecha = $_POST["fecha"];
-        $id_mascota = $_POST["id_mascota"];
-        $complementarios = implode(" / ", $_POST['complementarios']);
-
-
-        $this->addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$complementarios,$fecha);
+        if ($id_historial==null) {
+            $observaciones = $_POST["observaciones"];
+            $tratamiento = $_POST["tratamiento"];
+            $motivoConsulta = $_POST["motivoConsulta"];
+            $fecha = $_POST["fecha"];
+            $id_mascota = $_POST["id_mascota"];
+            $complementarios = implode(" / ", $_POST['complementarios']);
+            $this->addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$complementarios,$fecha);
+        }
+        else{
+            $observaciones = $_POST["observaciones"];
+            $tratamiento = $_POST["tratamiento"];
+            $motivoConsulta = $_POST["motivoConsulta"];
+            $fecha = $_POST["fecha"];
+            $complementarios = implode(" / ", $_POST['complementarios']);
+            
+            $this->mainModel->updateHistorialData($observaciones,$tratamiento,$motivoConsulta,$fecha,$complementarios,$id_historial);
+        }
     }
 
 
@@ -201,6 +210,22 @@ class MainController
         $this->mainModel->updateMascotaData($nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$fecha_ingreso,$id_mascota);
 
         header("Location: " . BASE_URL ."cliente" . "/$id_dueño");
+    }
+
+
+    public function displayEditHistorialForm($id_historial)
+    {
+        $dataHistorial = $this->mainModel->getHistorialData($id_historial); 
+        $this->mainView->displayEditHistorialForm($dataHistorial);
+    }
+
+    public function updateDataHistorial()
+    {
+        $id_historial = $_POST["id_historial"];
+        $this->getNewHistorialData($id_historial);
+
+        $id_mascota = $_POST["id_mascota_historial"];
+        header("Location: " . BASE_URL ."historialMascota" . "/$id_mascota");
     }
 
 }

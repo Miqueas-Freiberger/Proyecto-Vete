@@ -73,4 +73,11 @@ class MainView
         $this->smarty->display("templates/editMascotaForm.tpl");
         
     }
+
+
+    public function displayEditHistorialForm($dataHistorial)
+    {
+        $this->smarty->assign("dataHistorial",$dataHistorial);
+        $this->smarty->display("templates/editHistorialForm.tpl");
+    }
 }

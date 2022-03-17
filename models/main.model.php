@@ -125,5 +125,20 @@ class MainModel
         $query->execute([$nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$fecha_ingreso,$id_mascota]); 
     }
 
+    public function getHistorialData($id_historial)
+    {
+        $query = $this->db->prepare('SELECT * FROM historial WHERE id = ?');
+        $query->execute([$id_historial]);
+
+        $queryData = $query->fetchAll(PDO::FETCH_OBJ);
+        return $queryData;
+    }
+
+    public function updateHistorialData($observaciones,$tratamiento,$motivoConsulta,$fecha,$complementarios,$id_historial)
+    {
+       $query = $this->db->prepare("UPDATE historial SET `Observacion`=?,`MotivoConsulta`=?,`Tratamiento`=?,`Complementarios`=?,`Fecha`=? WHERE id = ?");
+       $query->execute([$observaciones,$motivoConsulta,$tratamiento,$complementarios,$fecha,$id_historial]);
+    }
+
 
 }

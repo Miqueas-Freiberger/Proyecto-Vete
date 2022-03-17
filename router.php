@@ -76,7 +76,14 @@ switch ($params[0]) {
         $mainController = new MainController();
         $mainController->updateDataMascota();
         break;
-        
+    case 'editarHistorial':
+        $mainController = new MainController();
+        $mainController->displayEditHistorialForm($params[1]);
+        break;
+    case 'updateHistorial':
+        $mainController = new MainController();
+        $mainController->updateDataHistorial();
+        break; 
     default:
         echo '404 - Página no encontrada';
     break;
