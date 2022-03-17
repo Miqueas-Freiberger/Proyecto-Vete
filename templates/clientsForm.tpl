@@ -11,45 +11,45 @@
                     </div>
                     <div class="mb-3">
                         <label for="staticPhone" class="col-sm-2 col-form-label ms-3">Numero de Telefono</label>
-                            <input class="form-control  w-50 ms-3" type="number" aria-label="default input example" name="telefono" required>
+                            <input class="form-control  w-50 ms-3" type="number" aria-label="default input example" name="telefono" >
                     </div>
                     <div class="mb-3 ">
                         <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Email</label>
-                            <input class="form-control  w-50 ms-3" type="email"  aria-label="default input example" name="email" required>
+                            <input class="form-control  w-50 ms-3" type="email"  aria-label="default input example" name="email" >
                     </div>
                     <div class="mb-3 ">
                         <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Direccion</label>
-                            <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="direccion" required>      
+                            <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="direccion" >      
                     </div>
                     <div class="mb-3 ">
                         <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Localidad</label>
-                            <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="localidad" required>      
+                            <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="localidad" >      
                     </div>
                     <h1 class="tittle-Paciente ms-3" style="text-shadow: 2px 2px 3px grey">Datos Paciente</h1>
 
                     <div class="mb-3 ">
                         <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Nombre</label>
-                            <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="nombrePaciente" required>      
+                            <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="nombrePaciente" >      
                     </div>
                     <div class="mb-3 ">
                         <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Especie</label>
-                            <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="especie" required>      
+                            <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="especie" >      
                     </div>
                     <div class="mb-3 ">
                         <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Nacimiento</label>
-                            <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="nacimientoPaciente" required>      
+                            <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="nacimientoPaciente" >      
                     </div>
                     <div class="mb-3 ">
                         <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Sexo</label>
-                            <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="sexoPaciente" required>      
+                            <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="sexoPaciente" >      
                     </div>
                     <div class="mb-3 ">
                         <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Raza</label>
-                            <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="raza" required>      
+                            <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="raza" >      
                     </div>
                     <div class="mb-3 ">
                         <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Color</label>
-                            <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="color" required>      
+                            <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="color" >      
                     </div>
 
                      <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Tamaño</label>
@@ -129,7 +129,7 @@
 
                         <div class="mb-3">
                             <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Fecha de Ingreso</label>
-                                <input class="form-control w-50 ms-3" type="date" name="fecha_ingreso" required>
+                                <input class="form-control w-50 ms-3" type="date" name="fecha_ingreso">
                         </div>
 
                         <div>

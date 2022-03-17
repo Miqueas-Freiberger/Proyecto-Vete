@@ -23,9 +23,9 @@
             <li class="nav-item">
                 <a class="nav-link text-secondary text-white" aria-current="page" href="{BASE_URL}nuevoCliente">Agregar Nuevo Cliente</a>
             </li>
-            <li class="nav-item">
+          {*   <li class="nav-item">
                 <a class="nav-link text-secondary text-white" href="{BASE_URL}">Libreta Sanitaria</a>
-            </li>            
+            </li>     *}        
         </ul>
 </header>
 

@@ -1,7 +1,7 @@
 {include file="templates/header.tpl"}
 
 {foreach from=$historialMascota item=$dataHistorial}
-    <div class="card w-100 mt-2">
+    <div class="card w-100 mt-3">
       <div class="card-header">
          <button type="button" class="btn btn-secondary float-end mb-2"><a class="text-decoration-none text-white" href="{BASE_URL}editarHistorial/{$dataHistorial->id}">Editar Historial</a></button>
           <h2>Historial Clinico</h2>
