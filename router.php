@@ -67,7 +67,13 @@ switch ($params[0]) {
     case 'updateClientData':
         $mainController = new MainController();
         $mainController->updateClientData();
+        break;
+    case 'editarMascota':
+        $mainController = new MainController();
+        $mainController->displayEditMascotaForm($params[1]);
+        break;
+
     default:
         echo '404 - Página no encontrada';
-        break;
+    break;
 }

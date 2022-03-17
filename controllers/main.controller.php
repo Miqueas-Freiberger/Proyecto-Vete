@@ -173,4 +173,11 @@ class MainController
 
             header("Location: " . BASE_URL ."cliente" . "/$id_cliente");
     }
+
+    public function displayEditMascotaForm($id_mascota)
+    {
+        $dataMascota = $this->mainModel->getDataMascota($id_mascota);
+        $this->mainView->displayEditMascotaForm($dataMascota);
+    }
+
 }

@@ -66,4 +66,11 @@ class MainView
         $this->smarty->assign("dataCliente",$dataCliente);
         $this->smarty->display("templates/editClienteForm.tpl");
     }
+
+    public function displayEditMascotaForm($dataMascota)
+    {
+        $this->smarty->assign("dataMascota",$dataMascota);
+        $this->smarty->display("templates/editMascotaForm.tpl");
+        
+    }
 }

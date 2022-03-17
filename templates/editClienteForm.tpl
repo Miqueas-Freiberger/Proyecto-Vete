@@ -3,7 +3,7 @@
 <form method="POST" action="{BASE_URL}updateClientData" class="w-75">
 <div class="card mt-3 mb-3">
             <div>
-                <h1 class="tittle-Cliente ms-3" style="text-shadow: 2px 2px 3px grey">Datos Cliente</h1>
+                <h1 class="tittle-Cliente ms-3" style="text-shadow: 2px 2px 3px grey">Cliente</h1>
                 
                 {foreach from=$dataCliente item=$infoCliente}
 

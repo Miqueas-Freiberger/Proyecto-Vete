@@ -99,4 +99,14 @@ class MainModel
         $query->execute([$nombre_apellido,$telefono,$email,$direccion,$localidad,$id_cliente]);
     }
 
+    public function getDataMascota($id_mascota)
+    {
+        $query=$this->db->prepare("SELECT * FROM paciente WHERE id = ?");
+        $query->execute([$id_mascota]);
+
+        $queryData = $query->fetchAll(PDO::FETCH_OBJ);
+
+        return $queryData;
+    }
+
 }
