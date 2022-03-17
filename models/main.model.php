@@ -109,4 +109,21 @@ class MainModel
         return $queryData;
     }
 
+    public function getIdDueño($id_mascota)
+    {
+        $query = $this->db->prepare("SELECT id_dueño_fk FROM paciente WHERE id = ?");
+        $query->execute([$id_mascota]);
+
+        $queryData = $query->fetchAll(PDO::FETCH_OBJ);
+
+        return $queryData;
+    }
+
+    public function updateMascotaData($nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$fecha_ingreso,$id_mascota)
+    {
+        $query = $this->db->prepare("UPDATE paciente SET `Nombre`= ?, `Especie`= ?,`Nacimiento`=?, `Sexo`=?,`Raza`=?, `Color`=?,`Tamano`=?,`Esterilizado`=?,`FechaIngreso`=? WHERE `id` = ?");
+        $query->execute([$nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$fecha_ingreso,$id_mascota]); 
+    }
+
+
 }

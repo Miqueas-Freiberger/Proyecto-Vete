@@ -180,4 +180,27 @@ class MainController
         $this->mainView->displayEditMascotaForm($dataMascota);
     }
 
+    public function updateDataMascota()
+    {
+        $nombrePaciente = $_POST["nombrePaciente"];
+        $especie = $_POST["especie"];
+        $nacimientoPaciente = $_POST["nacimientoPaciente"];
+        $sexoPaciente = $_POST["sexoPaciente"];
+        $raza = $_POST["raza"];
+        $color = $_POST["color"];
+        $tamaño = $_POST["tamaño"];
+        $esteril = $_POST["esteril"];
+        $fecha_ingreso = $_POST["fecha_ingreso"];
+        $id_mascota = $_POST["id_mascota"];
+        $dataDueño = $this->mainModel->getIdDueño($id_mascota);
+        foreach ($dataDueño as $data) {
+            $id_dueño = $data->id_dueño_fk;
+        }
+
+        
+        $this->mainModel->updateMascotaData($nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$fecha_ingreso,$id_mascota);
+
+        header("Location: " . BASE_URL ."cliente" . "/$id_dueño");
+    }
+
 }

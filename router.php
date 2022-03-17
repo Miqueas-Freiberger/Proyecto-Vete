@@ -72,7 +72,11 @@ switch ($params[0]) {
         $mainController = new MainController();
         $mainController->displayEditMascotaForm($params[1]);
         break;
-
+    case 'updateMascota':
+        $mainController = new MainController();
+        $mainController->updateDataMascota();
+        break;
+        
     default:
         echo '404 - Página no encontrada';
     break;
