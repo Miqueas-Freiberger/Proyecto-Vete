@@ -120,7 +120,7 @@ class MainController
         if ($cliente) {
             $this->mainView->displayFilteredClient($cliente);
         }else {
-            $this->mainView->showError("El cliente buscado no se encuentra registrado");
+            $this->mainView->showError("No se encontraron clientes que coincidan con la busqueda", $nombreCliente);
         }
     }
 

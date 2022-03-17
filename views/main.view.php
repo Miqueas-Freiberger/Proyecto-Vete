@@ -49,8 +49,9 @@ class MainView
         $this->smarty->display('templates/home.tpl');
     }
 
-    public function showError($mensaje)
+    public function showError($mensaje, $busqueda)
     {
+        $this->smarty->assign("busqueda",$busqueda);
         $this->smarty->assign("mensaje",$mensaje);
         $this->smarty->display('templates/errorMsj.tpl');
     }
