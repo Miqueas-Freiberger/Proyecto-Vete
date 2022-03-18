@@ -33,7 +33,7 @@
 
                      <label for="staticTamaño" class="col-sm-2 col-form-label">Tamaño</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="tamaño" id="tamañoMascota1" value ="Chico">
+                            <input class="form-check-input" type="radio" name="tamaño" id="tamañoMascota1" value ="Chico" checked>
                                 <label class="form-check-label" for="tamañoMascota1">
                                     Chico
                                 </label>
@@ -59,7 +59,7 @@
                                     </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="esteril" id="esteril2" value = "No">
+                                <input class="form-check-input" type="radio" name="esteril" id="esteril2" value = "No" checked>
                                     <label class="form-check-label" for="esteril2">
                                         No
                                     </label>
