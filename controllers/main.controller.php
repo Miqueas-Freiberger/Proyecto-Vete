@@ -78,8 +78,7 @@ class MainController
     public function addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso,$id_dueño)
     {
         $id_mascota = $this->mainModel->addPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso, $id_dueño);
-        return $id_mascota;
-        
+        return $id_mascota;        
     }
 
     public function eliminarMascota($id_mascota)
@@ -108,8 +107,7 @@ class MainController
             
             $id_mascota  = $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril,$fecha_ingreso,$id_cliente);
             $this->addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$complementarios,$fecha_ingreso,$id_cliente);
-        }
-        
+        }        
     }
 
     public function getNombreCliente()
@@ -131,7 +129,8 @@ class MainController
 
     public function getNewHistorialData($id_historial = null)
     {
-        if ($id_historial==null) {
+        if ($id_historial==null)
+        {
             $observaciones = $_POST["observaciones"];
             $tratamiento = $_POST["tratamiento"];
             $motivoConsulta = $_POST["motivoConsulta"];
@@ -140,7 +139,8 @@ class MainController
             $complementarios = implode(" / ", $_POST['complementarios']);
             $this->addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$complementarios,$fecha);
         }
-        else{
+        else
+        {
             $observaciones = $_POST["observaciones"];
             $tratamiento = $_POST["tratamiento"];
             $motivoConsulta = $_POST["motivoConsulta"];
@@ -155,10 +155,12 @@ class MainController
     public function addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$complementarios,$fecha,$id_dueño=null)
     {
         $this->mainModel->addHistorial($id_mascota,$observaciones,$motivoConsulta,$tratamiento,$complementarios,$fecha);
-        if ($id_dueño) {
+        if ($id_dueño)
+        {
             header("Location: " . "cliente" . "/$id_dueño");
         }
-        else{
+        else
+        {
             header("Location: " . "historialMascota" . "/$id_mascota");
         }
         
@@ -178,7 +180,8 @@ class MainController
             $direccion = $_POST["direccion"];
             $localidad = $_POST["localidad"];
             $id_cliente = $_POST['id_cliente'];
-            $this->mainModel->updateClientData($nombre_apellido,$telefono,$email,$direccion,$localidad,$id_cliente);
+
+                $this->mainModel->updateClientData($nombre_apellido,$telefono,$email,$direccion,$localidad,$id_cliente);
 
             header("Location: " . BASE_URL ."cliente" . "/$id_cliente");
     }
@@ -202,12 +205,14 @@ class MainController
         $fecha_ingreso = $_POST["fecha_ingreso"];
         $id_mascota = $_POST["id_mascota"];
         $dataDueño = $this->mainModel->getIdDueño($id_mascota);
-        foreach ($dataDueño as $data) {
+
+        foreach ($dataDueño as $data)
+        {
             $id_dueño = $data->id_dueño_fk;
         }
 
         
-        $this->mainModel->updateMascotaData($nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$fecha_ingreso,$id_mascota);
+            $this->mainModel->updateMascotaData($nombrePaciente,$especie,$nacimientoPaciente,$sexoPaciente,$raza,$color,$tamaño,$esteril,$fecha_ingreso,$id_mascota);
 
         header("Location: " . BASE_URL ."cliente" . "/$id_dueño");
     }
