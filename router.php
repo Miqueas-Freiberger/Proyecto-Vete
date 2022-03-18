@@ -1,7 +1,5 @@
 <?php
 require_once 'controllers/main.controller.php';
-require_once 'controllers/cliente.controller.php';
-require_once 'controllers/paciente.controller.php';
 
 // defino la base url para la construccion de links con urls semánticas
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');

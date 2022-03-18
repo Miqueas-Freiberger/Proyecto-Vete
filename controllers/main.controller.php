@@ -44,7 +44,6 @@ class MainController
 
     public function getDataCliente()
     {
-        if (!empty($_POST["tamaño"]) && !empty($_POST["esteril"])) {
             $nombre_apellido = $_POST["nombre_apellido"];
             $telefono = $_POST["telefono"];
             $email = $_POST["email"];
@@ -63,11 +62,11 @@ class MainController
             $tratamiento = $_POST["tratamiento"];
             $fecha_ingreso = $_POST["fecha_ingreso"];
             $complementarios = implode(" / ", $_POST['complementarios']);
-
+    
             $id_dueño = $this->addDataCliente($nombre_apellido, $telefono, $email, $direccion, $localidad);
             $id_mascota = $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso, $id_dueño);
             $this->addHistorial($id_mascota, $observaciones, $motivoConsulta, $tratamiento, $complementarios, $fecha_ingreso, $id_dueño);
-        }
+        
     }
 
     public function getDataMascota()
