@@ -13,23 +13,23 @@
             </div>
             <div class="mb-3">
                 <label for="staticEspecie" class="col-sm-2 col-form-label ms-2">Especie</label>
-                <input class="form-control w-50 ms-2" type="text"  aria-label="default input example" name="especie" required>      
+                <input class="form-control w-50 ms-2" type="text"  aria-label="default input example" name="especie" >      
             </div>
             <div class="mb-3">
                 <label for="staticBorn" class="col-sm-2 col-form-label ms-2">Nacimiento</label>
-                <input class="form-control w-50 ms-2" type="text"  aria-label="default input example" name="nacimientoPaciente" required>      
+                <input class="form-control w-50 ms-2" type="text"  aria-label="default input example" name="nacimientoPaciente" >      
             </div>
             <div class="mb-3">
                 <label for="staticSexo" class="col-sm-2 col-form-label ms-2">Sexo</label>
-                <input class="form-control w-50 ms-2" type="text"  aria-label="default input example" name="sexoPaciente" required>      
+                <input class="form-control w-50 ms-2" type="text"  aria-label="default input example" name="sexoPaciente">      
             </div>
             <div class="mb-3">
                 <label for="staticRaza" class="col-sm-2 col-form-label ms-2">Raza</label>
-                <input class="form-control w-50 ms-2" type="text"  aria-label="default input example" name="raza" required>      
+                <input class="form-control w-50 ms-2" type="text"  aria-label="default input example" name="raza" >      
             </div>
             <div class="mb-3">
                 <label for="staticColor" class="col-sm-2 col-form-label ms-2">Color</label>
-                <input class="form-control w-50 ms-2" type="text"  aria-label="default input example" name="color" required>      
+                <input class="form-control w-50 ms-2" type="text"  aria-label="default input example" name="color" >      
             </div>
 
             <label for="staticTamaño" class="col-sm-2 col-form-label">Tamaño</label>
