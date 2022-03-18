@@ -9,16 +9,16 @@
       </div>
       <div class="historialTotal m-3">
         <h3>Motivos de Consulta</h3>
-        <p>{$dataHistorial->MotivoConsulta}</p>            
+          <p>{$dataHistorial->MotivoConsulta}</p>            
         <h3>Complementarios: {$dataHistorial->Complementarios}</h3>
         <h5>Observaciones</h5>
-        <p>{$dataHistorial->Observacion}</p>
+          <p>{$dataHistorial->Observacion}</p>
         <h3>Tratamiento</h3>
-        <p>{$dataHistorial->Tratamiento}</p>
-    </div>
-    </div>
-        
+          <p>{$dataHistorial->Tratamiento}</p>
+      </div>
+    </div>        
 {/foreach}
 
 <button type="button" class="btn btn-primary  mt-3 me-3 mb-3 float-end"><a class="dataLink" href="{BASE_URL}nuevoHistorial/{$id_mascota}" style="text-decoration:none;color:white">Agregar Nuevo</a></button>
+
 {include file="templates/footer.tpl"}
