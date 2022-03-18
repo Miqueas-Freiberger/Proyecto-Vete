@@ -61,7 +61,13 @@ class MainController
             $motivoConsulta = $_POST["motivoConsulta"];
             $tratamiento = $_POST["tratamiento"];
             $fecha_ingreso = $_POST["fecha_ingreso"];
-            $complementarios = implode(" / ", $_POST['complementarios']);
+            if(isset($_POST['complementarios'])){
+                $complementarios = implode(" / ", $_POST['complementarios']);
+            }
+            else{
+                $complementarios = "-";
+            }
+            
     
             $id_dueño = $this->addDataCliente($nombre_apellido, $telefono, $email, $direccion, $localidad);
             $id_mascota = $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso, $id_dueño);
@@ -84,7 +90,13 @@ class MainController
             $tratamiento = $_POST["tratamiento"];
             $observaciones = $_POST["observaciones"];
             $fecha_ingreso = $_POST["fecha_ingreso"];
-            $complementarios = implode(" / ", $_POST['complementarios']);
+            if(isset($_POST['complementarios'])){
+                $complementarios = implode(" / ", $_POST['complementarios']);
+            }
+            else{
+               $complementarios = "-";
+            }
+            
             $id_cliente = $_POST['id_cliente'];
 
             $id_mascota  = $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso, $id_cliente);
@@ -112,14 +124,26 @@ class MainController
             $motivoConsulta = $_POST["motivoConsulta"];
             $fecha = $_POST["fecha"];
             $id_mascota = $_POST["id_mascota"];
-            $complementarios = implode(" / ", $_POST['complementarios']);
+            if(isset($_POST['complementarios'])){
+                $complementarios = implode(" / ", $_POST['complementarios']);
+            }
+            else{
+                $complementarios = "-";
+            }
             $this->addHistorial($id_mascota, $observaciones, $motivoConsulta, $tratamiento, $complementarios, $fecha);
         } else {
             $observaciones = $_POST["observaciones"];
             $tratamiento = $_POST["tratamiento"];
             $motivoConsulta = $_POST["motivoConsulta"];
             $fecha = $_POST["fecha"];
-            $complementarios = implode(" / ", $_POST['complementarios']);
+            if(isset($_POST['complementarios'])){
+                $complementarios = implode(" / ", $_POST['complementarios']);
+            }
+            else{
+                $complementarios = "-";
+
+            }
+            
 
             $this->mainModel->updateHistorialData($observaciones, $tratamiento, $motivoConsulta, $fecha, $complementarios, $id_historial);
         }

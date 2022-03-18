@@ -34,6 +34,11 @@
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="complementarios[]" value="Citologia">
                     <label class="form-check-label fs-5" for="inlineCheckbox5">Citologia</label>
                 </div>
+                    <br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="complementarios[]" value="-">
+                    <label class="form-check-label fs-5" for="inlineCheckbox5">Eliminar Complementarios</label>
+                </div>
             </div>
 
         <h3 class="mt-4">Observaciones</h3>
