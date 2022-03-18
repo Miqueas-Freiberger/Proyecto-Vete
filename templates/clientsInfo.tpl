@@ -46,6 +46,7 @@
                 <th scope="col">Fecha de Ingreso</th>
                 </tr>
             </thead>
+            
             <tbody>
                 {foreach from=$dataMascota item=$infoMascota}
                     <tr>
