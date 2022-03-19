@@ -95,6 +95,15 @@ class MainModel
         return $queryData;
     }
 
+    public function getIdMascota($id_historial)
+    {
+        $query = $this->db->prepare('SELECT id_mascota_fk FROM historial WHERE id = ?');
+        $query->execute([$id_historial]);
+
+        $queryData = $query->fetchAll(PDO::FETCH_OBJ);
+        return $queryData;
+    }
+
     ///////////////////////////////////ADD//////////////////////////////ADD////////////////////////////////ADD//////////////////////////////////////////////////
 
     public function addCliente($nombre_apellido, $telefono, $email, $direccion, $localidad)
@@ -148,5 +157,12 @@ class MainModel
     {
         $query = $this->db->prepare("UPDATE historial SET `Observacion`=?,`MotivoConsulta`=?,`Tratamiento`=?,`Complementarios`=?,`Fecha`=? WHERE id = ?");
         $query->execute([$observaciones, $motivoConsulta, $tratamiento, $complementarios, $fecha, $id_historial]);
+    }
+
+    public function updateComplementarios($id_historial)
+    {
+        $variable = "-";
+        $query = $this->db->prepare("UPDATE historial SET `Complementarios` =? WHERE id = ? ");
+        $query->execute([$variable, $id_historial]);
     }
 }

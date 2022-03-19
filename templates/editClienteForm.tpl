@@ -17,7 +17,7 @@
             </div>
             <div class="mb-3 ">
                 <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Email</label>
-                <input class="form-control  w-50 ms-3" type="email"  aria-label="default input example" name="email" value="{$infoCliente->Email}">
+                <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="email" value="{$infoCliente->Email}">
             </div>
             <div class="mb-3 ">
                 <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Direccion</label>

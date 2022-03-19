@@ -20,7 +20,7 @@ switch ($params[0]) {
         break;
     case 'cliente':
         $mainController = new MainController();
-        $mainController->showDataCliente($params[1]);   
+        $mainController->showDataCliente($params[1]);
         break;
     case 'nuevoCliente':
         $mainController = new MainController();
@@ -81,8 +81,12 @@ switch ($params[0]) {
     case 'updateHistorial':
         $mainController = new MainController();
         $mainController->updateDataHistorial();
-        break; 
+        break;
+    case 'eliminarComplementarios':
+        $mainController = new MainController();
+        $mainController->eliminarComplementarios($params[1]);
+        break;
     default:
         echo '404 - Página no encontrada';
-    break;
+        break;
 }

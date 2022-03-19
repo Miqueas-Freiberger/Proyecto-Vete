@@ -7,7 +7,7 @@
                 
                 <div class="mb-3">
                     <label for="staticName" class="col-sm-2 col-form-label ms-3">Nombre y Apellido</label>
-                    <input class="form-control w-50 ms-3" type="text" aria-label="default input example" name="nombre_apellido"  value=" " required>
+                    <input class="form-control w-50 ms-3" type="text" aria-label="default input example" name="nombre_apellido" value=" ">
                 </div>
                 <div class="mb-3">
                     <label for="staticPhone" class="col-sm-2 col-form-label ms-3">Numero de Telefono</label>
@@ -30,7 +30,7 @@
 
                 <div class="mb-3 ">
                     <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Nombre</label>
-                    <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="nombrePaciente" value=" ">      
+                    <input class="form-control  w-50 ms-3" type="text"  aria-label="default input example" name="nombrePaciente" required>      
                 </div>
                 <div class="mb-3 ">
                     <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Especie</label>
@@ -55,7 +55,7 @@
 
                 <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Tamaño</label>
                 <div class="form-check">
-                    <input class="form-check-input ms-3" type="radio" name="tamaño" id="tamañoMascota1" value ="Chico">
+                    <input class="form-check-input ms-3" type="radio" name="tamaño" id="tamañoMascota1" value ="Chico" checked>
                     <label class="form-check-label ms-2" for="tamañoMascota1">
                         Chico
                     </label>
@@ -79,7 +79,7 @@
                     <label class="form-check-label ms-2" for="esteril1" >Si</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input ms-3" type="radio" name="esteril" id="esteril2" value = "No">
+                    <input class="form-check-input ms-3" type="radio" name="esteril" id="esteril2" value = "No" checked>
                     <label class="form-check-label ms-2" for="esteril2">No</label>
                 </div>
 
@@ -124,7 +124,7 @@
 
                 <div class="mb-3">
                     <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Fecha de Ingreso</label>
-                    <input class="form-control w-50 ms-3" type="date" name="fecha_ingreso" value=" ">
+                    <input class="form-control w-50 ms-3" type="date" name="fecha_ingreso" required>
                 </div>
                 <div>
                     <button type="submit" class="btn btn-primary float-end me-3 mb-3 shadow">Agregar</button>

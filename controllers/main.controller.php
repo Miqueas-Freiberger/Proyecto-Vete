@@ -44,35 +44,33 @@ class MainController
 
     public function getDataCliente()
     {
-            $nombre_apellido = $_POST["nombre_apellido"];
-            $telefono = $_POST["telefono"];
-            $email = $_POST["email"];
-            $direccion = $_POST["direccion"];
-            $localidad = $_POST["localidad"];
-            $nombrePaciente = $_POST["nombrePaciente"];
-            $especie = $_POST["especie"];
-            $nacimientoPaciente = $_POST["nacimientoPaciente"];
-            $sexoPaciente = $_POST["sexoPaciente"];
-            $raza = $_POST["raza"];
-            $color = $_POST["color"];
-            $tamaño = $_POST["tamaño"];
-            $esteril = $_POST["esteril"];
-            $observaciones = $_POST["observaciones"];
-            $motivoConsulta = $_POST["motivoConsulta"];
-            $tratamiento = $_POST["tratamiento"];
-            $fecha_ingreso = $_POST["fecha_ingreso"];
-            if(isset($_POST['complementarios'])){
-                $complementarios = implode(" / ", $_POST['complementarios']);
-            }
-            else{
-                $complementarios = "-";
-            }
-            
-    
-            $id_dueño = $this->addDataCliente($nombre_apellido, $telefono, $email, $direccion, $localidad);
-            $id_mascota = $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso, $id_dueño);
-            $this->addHistorial($id_mascota, $observaciones, $motivoConsulta, $tratamiento, $complementarios, $fecha_ingreso, $id_dueño);
-        
+        $nombre_apellido = $_POST["nombre_apellido"];
+        $telefono = $_POST["telefono"];
+        $email = $_POST["email"];
+        $direccion = $_POST["direccion"];
+        $localidad = $_POST["localidad"];
+        $nombrePaciente = $_POST["nombrePaciente"];
+        $especie = $_POST["especie"];
+        $nacimientoPaciente = $_POST["nacimientoPaciente"];
+        $sexoPaciente = $_POST["sexoPaciente"];
+        $raza = $_POST["raza"];
+        $color = $_POST["color"];
+        $tamaño = $_POST["tamaño"];
+        $esteril = $_POST["esteril"];
+        $observaciones = $_POST["observaciones"];
+        $motivoConsulta = $_POST["motivoConsulta"];
+        $tratamiento = $_POST["tratamiento"];
+        $fecha_ingreso = $_POST["fecha_ingreso"];
+        if (isset($_POST['complementarios'])) {
+            $complementarios = implode(" / ", $_POST['complementarios']);
+        } else {
+            $complementarios = "-";
+        }
+
+
+        $id_dueño = $this->addDataCliente($nombre_apellido, $telefono, $email, $direccion, $localidad);
+        $id_mascota = $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso, $id_dueño);
+        $this->addHistorial($id_mascota, $observaciones, $motivoConsulta, $tratamiento, $complementarios, $fecha_ingreso, $id_dueño);
     }
 
     public function getDataMascota()
@@ -90,13 +88,12 @@ class MainController
             $tratamiento = $_POST["tratamiento"];
             $observaciones = $_POST["observaciones"];
             $fecha_ingreso = $_POST["fecha_ingreso"];
-            if(isset($_POST['complementarios'])){
+            if (isset($_POST['complementarios'])) {
                 $complementarios = implode(" / ", $_POST['complementarios']);
+            } else {
+                $complementarios = "-";
             }
-            else{
-               $complementarios = "-";
-            }
-            
+
             $id_cliente = $_POST['id_cliente'];
 
             $id_mascota  = $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso, $id_cliente);
@@ -124,10 +121,9 @@ class MainController
             $motivoConsulta = $_POST["motivoConsulta"];
             $fecha = $_POST["fecha"];
             $id_mascota = $_POST["id_mascota"];
-            if(isset($_POST['complementarios'])){
+            if (isset($_POST['complementarios'])) {
                 $complementarios = implode(" / ", $_POST['complementarios']);
-            }
-            else{
+            } else {
                 $complementarios = "-";
             }
             $this->addHistorial($id_mascota, $observaciones, $motivoConsulta, $tratamiento, $complementarios, $fecha);
@@ -136,14 +132,12 @@ class MainController
             $tratamiento = $_POST["tratamiento"];
             $motivoConsulta = $_POST["motivoConsulta"];
             $fecha = $_POST["fecha"];
-            if(isset($_POST['complementarios'])){
+            if (isset($_POST['complementarios'])) {
                 $complementarios = implode(" / ", $_POST['complementarios']);
-            }
-            else{
+            } else {
                 $complementarios = "-";
-
             }
-            
+
 
             $this->mainModel->updateHistorialData($observaciones, $tratamiento, $motivoConsulta, $fecha, $complementarios, $id_historial);
         }
@@ -165,18 +159,33 @@ class MainController
     {
         $this->mainModel->addHistorial($id_mascota, $observaciones, $motivoConsulta, $tratamiento, $complementarios, $fecha);
         if ($id_dueño) {
-            header("Location: " . "cliente" . "/$id_dueño");
+            header("Location: " . BASE_URL . "cliente" . "/$id_dueño");
         } else {
-            header("Location: " . "historialMascota" . "/$id_mascota");
+            header("Location: " . BASE_URL . "historialMascota" . "/$id_mascota");
         }
     }
 
     ///////////////////////////////////DELETE//////////////////////////////DELETE////////////////////////////////DELETE/////////////////////////////////////////////
 
-    public function eliminarMascota($id_mascota)
+    public function eliminarMascota($id)
     {
+        $id_mascota = intval($id);
+        $dueñoQuery = $this->mainModel->getIdDueño($id_mascota);
+        foreach ($dueñoQuery as $dueñoData) {
+            $id_dueño = $dueñoData->id_dueño_fk;
+        }
         $this->mainModel->eliminarMascota($id_mascota);
-        header("Location: " . BASE_URL);
+        header("Location: " . BASE_URL . "cliente" . "/$id_dueño");
+    }
+
+    public function eliminarComplementarios($id_historial)
+    {
+        $this->mainModel->updateComplementarios($id_historial);
+        $mascotaQuery = $this->mainModel->getIdMascota($id_historial);
+        foreach ($mascotaQuery as $mascotaData) {
+            $id_mascota = $mascotaData->id_mascota_fk;
+        }
+        header("Location: " . BASE_URL . "historialMascota" . "/$id_mascota");
     }
 
     ///////////////////////////////////DISPLAY//////////////////////////////DISPLAY////////////////////////////////DISPLAY/////////////////////////////////////////////
