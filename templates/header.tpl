@@ -12,7 +12,7 @@
     <link type="image/png" sizes="16x16" rel="icon" href="../favicon/favicon.png">
 </head>
 <body>
-
+    <img class="img-bg" src="images/background-image.jpg" style="width: 100%; position: absolute; z-index: -1; opacity: 12%;">
 <header style="background-color: #76448A">
     <h1 class="tittle ms-2 text-white">Veterinaria Catriel</h1>
         <ul class="nav nav-tabs">
