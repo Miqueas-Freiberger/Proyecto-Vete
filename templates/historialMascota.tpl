@@ -3,7 +3,8 @@
 {foreach from=$historialMascota item=$dataHistorial}
     <div class="card w-100 mt-3">
         <div class="card-header">
-        <button type="button" class="btn btn-danger rounded-circle float-end ms-3 " data-bs-toggle="modal" data-bs-target="#Modal{$dataHistorial->id}">X</button>
+        <button type="button" class="btn btn-close float-end mt-2 ms-3 " data-bs-toggle="modal" data-bs-target="#Modal{$dataHistorial->id}"></button>
+        
           <!-- Modal -->
         
             <div class="modal fade" id="Modal{$dataHistorial->id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
