@@ -86,6 +86,10 @@ switch ($params[0]) {
         $mainController = new MainController();
         $mainController->eliminarComplementarios($params[1]);
         break;
+        case 'eliminarHistorial':
+            $mainController = new MainController();
+            $mainController->eliminarHistorial($params[1]);
+            break;
     default:
         echo '404 - Página no encontrada';
         break;

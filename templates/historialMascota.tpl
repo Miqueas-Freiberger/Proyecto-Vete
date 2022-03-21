@@ -3,6 +3,26 @@
 {foreach from=$historialMascota item=$dataHistorial}
     <div class="card w-100 mt-3">
         <div class="card-header">
+        <button type="button" class="btn btn-danger rounded-circle float-end ms-3 " data-bs-toggle="modal" data-bs-target="#Modal{$dataHistorial->id}">X</button>
+          <!-- Modal -->
+        
+            <div class="modal fade" id="Modal{$dataHistorial->id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                      <h6 class="modal-title">Confirmar</h5> 
+                    </div>
+                    <div class="modal-body">
+                      <p  class="text-center">¿Estás seguro que deseas eliminar el Historial y toda su Informacion?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                      <button type="button" class="btn btn-primary"><a href="{BASE_URL}eliminarHistorial/{$dataHistorial->id}" class="text-decoration-none text-white">Borrar Historial</a></button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          
           <button type="button" class="btn btn-secondary float-end mb-2"><a class="text-decoration-none text-white" href="{BASE_URL}editarHistorial/{$dataHistorial->id}">Editar Historial</a></button>
             <h3>Historial Clinico</h3>
               <p>Fecha de Consulta: {$dataHistorial->Fecha|date_format:"%d/%m/%Y"}</p>          
@@ -18,7 +38,7 @@
                   <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
                           <div class="modal-header">
-                              <h6 class="modal-title">CONFIRMAR</h5> 
+                              <h6 class="modal-title">Confirmar</h5> 
                           </div>
                           <div class="modal-body">
                             <p  class="text-center">¿Estás seguro que deseas eliminar los <strong>Complementarios</strong>?</p>

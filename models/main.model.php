@@ -136,6 +136,12 @@ class MainModel
         $query->execute([$id_mascota]);
     }
 
+    public function eliminarHistorial($id_historial)
+    {
+        $query = $this->db->prepare("DELETE FROM HISTORIAL WHERE id = ?");
+        $query->execute([$id_historial]);
+    }
+
     ///////////////////////////////////UPDATE//////////////////////////////UPDATE////////////////////////////////UPDATE//////////////////////////////////////////////////
 
     public function updateClientData($nombre_apellido, $telefono, $email, $direccion, $localidad, $id_cliente)

@@ -188,6 +188,17 @@ class MainController
         header("Location: " . BASE_URL . "historialMascota" . "/$id_mascota");
     }
 
+    public function eliminarHistorial($id)
+    {
+        $id_historial = intval($id);
+        $mascotaQuery = $this->mainModel->getIdMascota($id_historial);
+        foreach ($mascotaQuery as $mascotaData) {
+            $id_mascota = $mascotaData->id_mascota_fk;
+        } 
+        $this->mainModel->eliminarHistorial($id_historial);
+        header("Location: " . BASE_URL . "historialMascota" . "/$id_mascota");
+    }
+
     ///////////////////////////////////DISPLAY//////////////////////////////DISPLAY////////////////////////////////DISPLAY/////////////////////////////////////////////
 
     public function displayFormsAddHistorial($id_mascota)
