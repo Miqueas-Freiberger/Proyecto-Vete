@@ -2,3 +2,7 @@
     color: grey;
     text-decoration:none;
 };
+
+table .tabla-clientes{
+    background-color: #563d7c;
+}

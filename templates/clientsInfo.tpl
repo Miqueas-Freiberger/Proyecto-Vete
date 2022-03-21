@@ -6,7 +6,7 @@
 <h4 class="tituloCliente mt-2">Cliente</h4>
     <div>
         <table class="table">
-            <thead>
+            <thead style="background-color: #E8DAEF">
                 <tr>
                     <th scope="col">Nombre y Apellido</th>
                     <th scope="col">Telefono</th>
@@ -29,11 +29,11 @@
         </table>
     </div>
 
-<h4 class="tituloMascota mt-4">Mascotas</h4>
+<h4 class="tituloMascota mt-4 mb-4">Mascotas</h4>
 
     <div>
         <table class="table">
-            <thead>
+            <thead style="background-color: #E8DAEF">
                 <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Especie</th>
@@ -44,6 +44,8 @@
                 <th scope="col">Tamaño</th>
                 <th scope="col">Esterilizada/o</th>
                 <th scope="col">Fecha de Ingreso</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
                 </tr>
             </thead>
             
@@ -60,7 +62,7 @@
                         <td>{$infoMascota->Esterilizado}</td>
                         <td>{$infoMascota->FechaIngreso|date_format:"%d/%m/%Y"}</td>
                         <td><button type="button" class="btn btn-secondary"><a class="text-decoration-none text-white" href="{BASE_URL}editarMascota/{$infoMascota->id}">Editar Mascota</a></button></td>
-                        <td> <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal{$infoMascota->id}">X</button></td>
+                        <td> <button type="button" class="btn btn-danger rounded-circle" data-bs-toggle="modal" data-bs-target="#Modal{$infoMascota->id}">X</button></td>
 
                             <!-- Modal -->
         
@@ -68,14 +70,14 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h6 class="modal-title">CONFIRMAR</h5> 
+                                        <h6 class="modal-title">Confirmar</h5> 
                                     </div>
                                     <div class="modal-body">
                                         <p  class="text-center">¿Estás seguro que deseas eliminar a <strong>{$infoMascota ->Nombre}</strong>?</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CERRAR</button>
-                                        <button type="button" class="btn btn-primary"><a href="{BASE_URL}eliminarMascota/{$infoMascota->id}" class="text-decoration-none text-white">BORRAR MASCOTA</a></button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-primary"><a href="{BASE_URL}eliminarMascota/{$infoMascota->id}" class="text-decoration-none text-white">Borrar Mascota</a></button>
                                     </div>
                                 </div>
                             </div>
