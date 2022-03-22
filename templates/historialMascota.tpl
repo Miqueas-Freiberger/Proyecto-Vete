@@ -57,7 +57,7 @@
           <p>{$dataHistorial->Observacion}</p>
         <h5>Tratamiento</h5>
           <p>{$dataHistorial->Tratamiento}</p>
-          <button type="button" class="btn btn-link"><a href="{BASE_URL}archivosHistorial/{$dataHistorial->id}">Ver archivos adjuntos</a></button>
+          <button type="button" class="btn btn-link float-end"><a href="{BASE_URL}archivosHistorial/{$dataHistorial->id}"><strong>Archivos adjuntos</strong></a></button>
       </div>
     </div>        
 {/foreach}

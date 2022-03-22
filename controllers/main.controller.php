@@ -45,6 +45,7 @@ class MainController
     public function getDataCliente()
     {
         $nombre_apellido = $_POST["nombre_apellido"];
+        $dni = $_POST["dni"];
         $telefono = $_POST["telefono"];
         $email = $_POST["email"];
         $direccion = $_POST["direccion"];
@@ -68,7 +69,7 @@ class MainController
         }
 
 
-        $id_dueño = $this->addDataCliente($nombre_apellido, $telefono, $email, $direccion, $localidad);
+        $id_dueño = $this->addDataCliente($nombre_apellido, $dni, $telefono, $email, $direccion, $localidad);
         $id_mascota = $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso, $id_dueño);
         $this->addHistorial($id_mascota, $observaciones, $motivoConsulta, $tratamiento, $complementarios, $fecha_ingreso, $id_dueño);
     }
@@ -146,19 +147,18 @@ class MainController
     public function getImgData()
     {
         $id_historial = intval($_POST["id_historial"]);
-        if ($_FILES['input_name']['type'] == "image/jpg" || $_FILES['input_name']['type'] == "image/jpeg" || $_FILES['input_name']['type'] == "image/png") {   
-        $this->mainModel->addNewImg($_FILES['input_name']['tmp_name'],$id_historial);
-        header("Location: " . BASE_URL . "archivosHistorial" . "/$id_historial");
-     }
-     else{
-         $this->mainView->showError("Ingrese una Imagen del tipo valido (jpg/jpeg/png)");
-     }
+        if ($_FILES['input_name']['type'] == "image/jpg" || $_FILES['input_name']['type'] == "image/jpeg" || $_FILES['input_name']['type'] == "image/png") {
+            $this->mainModel->addNewImg($_FILES['input_name']['tmp_name'], $id_historial);
+            header("Location: " . BASE_URL . "archivosHistorial" . "/$id_historial");
+        } else {
+            $this->mainView->showError("Ingrese una Imagen del tipo valido (jpg/jpeg/png)");
+        }
     }
     ///////////////////////////////////ADD//////////////////////////////ADD////////////////////////////////ADD//////////////////////////////////////////////////
 
-    public function addDataCliente($nombre_apellido, $telefono, $email, $direccion, $localidad)
+    public function addDataCliente($nombre_apellido, $dni, $telefono, $email, $direccion, $localidad)
     {
-        $id_cliente = $this->mainModel->addCliente($nombre_apellido, $telefono, $email, $direccion, $localidad);
+        $id_cliente = $this->mainModel->addCliente($nombre_apellido, $dni, $telefono, $email, $direccion, $localidad);
         return $id_cliente;
     }
     public function addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso, $id_dueño)
@@ -206,11 +206,28 @@ class MainController
         $mascotaQuery = $this->mainModel->getIdMascota($id_historial);
         foreach ($mascotaQuery as $mascotaData) {
             $id_mascota = $mascotaData->id_mascota_fk;
-        } 
+        }
         $this->mainModel->eliminarHistorial($id_historial);
         header("Location: " . BASE_URL . "historialMascota" . "/$id_mascota");
     }
 
+    public function eliminarCliente($id)
+    {
+        $id_cliente = intval($id);
+        $this->mainModel->eliminarCliente($id_cliente);
+        header("Location: " . BASE_URL);
+    }
+
+    public function eliminarImagen($id)
+    {
+        $id_img = intval($id);
+        $imgQuery = $this->mainModel->getIdHistorial($id_img);
+        foreach ($imgQuery as $data) {
+            $id_historial = $data->id_historial_fk;
+        }
+        $this->mainModel->eliminarImagen($id_img);
+        header("Location: " . BASE_URL . "archivosHistorial" . "/$id_historial");
+    }
     ///////////////////////////////////DISPLAY//////////////////////////////DISPLAY////////////////////////////////DISPLAY/////////////////////////////////////////////
 
     public function displayFormsAddHistorial($id_mascota)
@@ -234,24 +251,24 @@ class MainController
     {
         $dataHistorial = $this->mainModel->getHistorialData($id_historial);
         foreach ($dataHistorial as $data) {
-            $arrayComplementarios = explode(" / ",($data->Complementarios));
+            $arrayComplementarios = explode(" / ", ($data->Complementarios));
         }
         $lenght = count($arrayComplementarios);
-        for ($i=0; $i <$lenght ; $i++) { 
-            $analisisBoolean = in_array("Analisis-sangre",$arrayComplementarios);
-            $radiografiaBoolean = in_array("Radiografia",$arrayComplementarios);
-            $ecografiaBoolean = in_array("Ecografia",$arrayComplementarios);
-            $raspajeBoolean = in_array("Raspaje",$arrayComplementarios);
-            $citologiaBoolean = in_array("Citologia",$arrayComplementarios);
+        for ($i = 0; $i < $lenght; $i++) {
+            $analisisBoolean = in_array("Analisis-sangre", $arrayComplementarios);
+            $radiografiaBoolean = in_array("Radiografia", $arrayComplementarios);
+            $ecografiaBoolean = in_array("Ecografia", $arrayComplementarios);
+            $raspajeBoolean = in_array("Raspaje", $arrayComplementarios);
+            $citologiaBoolean = in_array("Citologia", $arrayComplementarios);
         }
-        $this->mainView->displayEditHistorialForm($dataHistorial,$analisisBoolean,$radiografiaBoolean,$ecografiaBoolean,$raspajeBoolean,$citologiaBoolean);
+        $this->mainView->displayEditHistorialForm($dataHistorial, $analisisBoolean, $radiografiaBoolean, $ecografiaBoolean, $raspajeBoolean, $citologiaBoolean);
     }
 
     public function displayImgHistorial($id)
     {
         $id_historial = intval($id);
         $img_historial = $this->mainModel->getImgHistorial($id_historial);
-        $this->mainView->displayImgHistorial($img_historial,$id_historial);
+        $this->mainView->displayImgHistorial($img_historial, $id_historial);
     }
 
     ///////////////////////////////////UPDATE//////////////////////////////UPDATE////////////////////////////////UPDATE/////////////////////////////////////////////
@@ -259,13 +276,14 @@ class MainController
     public function updateClientData()
     {
         $nombre_apellido = $_POST["nombre_apellido"];
+        $dni = $_POST["dni"];
         $telefono = $_POST["telefono"];
         $email = $_POST["email"];
         $direccion = $_POST["direccion"];
         $localidad = $_POST["localidad"];
         $id_cliente = $_POST['id_cliente'];
 
-        $this->mainModel->updateClientData($nombre_apellido, $telefono, $email, $direccion, $localidad, $id_cliente);
+        $this->mainModel->updateClientData($nombre_apellido, $dni, $telefono, $email, $direccion, $localidad, $id_cliente);
         header("Location: " . BASE_URL . "cliente" . "/$id_cliente");
     }
 

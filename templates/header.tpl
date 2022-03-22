@@ -17,7 +17,7 @@
     <h1 class="tittle ms-2 text-white">Veterinaria Catriel</h1>
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link text-secondary text-white" href="{BASE_URL}home">Home</a>
+                <a class="nav-link text-secondary text-white" href="{BASE_URL}home">Pagina Principal</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-secondary text-white" aria-current="page" href="{BASE_URL}nuevoCliente">Agregar Nuevo Cliente</a>

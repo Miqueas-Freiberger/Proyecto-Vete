@@ -13,7 +13,7 @@ class MainModel
 
     public function getDataClientes()
     {
-        $query = $this->db->prepare('SELECT * FROM clientes');
+        $query = $this->db->prepare('SELECT * FROM clientes ORDER BY NombreApellido ASC');
         $query->execute();
 
         $queryData = $query->fetchAll(PDO::FETCH_OBJ);
@@ -113,12 +113,21 @@ class MainModel
         return $queryData;
     }
 
+    public function getIdHistorial($id_img)
+    {
+        $query = $this->db->prepare('SELECT id_historial_fk FROM imagenes WHERE id = ?');
+        $query->execute([$id_img]);
+
+        $queryData = $query->fetchAll(PDO::FETCH_OBJ);
+        return $queryData;
+    }
+
     ///////////////////////////////////ADD//////////////////////////////ADD////////////////////////////////ADD//////////////////////////////////////////////////
 
-    public function addCliente($nombre_apellido, $telefono, $email, $direccion, $localidad)
+    public function addCliente($nombre_apellido, $dni, $telefono, $email, $direccion, $localidad)
     {
-        $query = $this->db->prepare('INSERT INTO clientes (NombreApellido, Telefono, Email, Direccion,Localidad) VALUES (?,?,?,?,?)');
-        $query->execute([$nombre_apellido, $telefono, $email, $direccion, $localidad]);
+        $query = $this->db->prepare('INSERT INTO clientes (NombreApellido, Dni,Telefono, Email, Direccion,Localidad) VALUES (?,?,?,?,?,?)');
+        $query->execute([$nombre_apellido, $dni, $telefono, $email, $direccion, $localidad]);
 
         return $this->db->lastInsertId();
     }
@@ -137,12 +146,12 @@ class MainModel
         $query->execute([$observaciones, $motivoConsulta, $tratamiento, $complementarios, $fecha, $id_mascota]);
     }
 
-    public function addNewImg($imgContent,$id_historial)
+    public function addNewImg($imgContent, $id_historial)
     {
-        $pathImg = 'images/historial/ '. uniqid() .'.jpg';
+        $pathImg = 'images/historial/ ' . uniqid() . '.jpg';
         move_uploaded_file($imgContent, $pathImg);
         $query = $this->db->prepare("INSERT INTO imagenes (ruta,id_historial_fk) VALUES (?,?)");
-        $query->execute([$pathImg,$id_historial]);
+        $query->execute([$pathImg, $id_historial]);
     }
 
     ///////////////////////////////////DELETE//////////////////////////////DELETE////////////////////////////////DELETE//////////////////////////////////////////////////
@@ -159,15 +168,25 @@ class MainModel
         $query->execute([$id_historial]);
     }
 
-    ///////////////////////////////////UPDATE//////////////////////////////UPDATE////////////////////////////////UPDATE//////////////////////////////////////////////////
-
-    public function updateClientData($nombre_apellido, $telefono, $email, $direccion, $localidad, $id_cliente)
+    public function eliminarCliente($id_cliente)
     {
-        $query = $this->db->prepare("UPDATE clientes SET `NombreApellido` = ?, `Telefono` = ?, `Email`=?,`Direccion`=?,`Localidad`=? WHERE `id` = ?");
-        $query->execute([$nombre_apellido, $telefono, $email, $direccion, $localidad, $id_cliente]);
+        $query = $this->db->prepare("DELETE FROM clientes WHERE id=?");
+        $query->execute([$id_cliente]);
     }
 
+    public function eliminarImagen($id_img)
+    {
+        $query = $this->db->prepare("DELETE FROM imagenes WHERE id=?");
+        $query->execute([$id_img]);
+    }
 
+    ///////////////////////////////////UPDATE//////////////////////////////UPDATE////////////////////////////////UPDATE//////////////////////////////////////////////////
+
+    public function updateClientData($nombre_apellido, $dni, $telefono, $email, $direccion, $localidad, $id_cliente)
+    {
+        $query = $this->db->prepare("UPDATE clientes SET `NombreApellido` = ?,`Dni` = ? ,`Telefono` = ?, `Email`=?,`Direccion`=?,`Localidad`=? WHERE `id` = ?");
+        $query->execute([$nombre_apellido, $dni, $telefono, $email, $direccion, $localidad, $id_cliente]);
+    }
 
     public function updateMascotaData($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso, $id_mascota)
     {

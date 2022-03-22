@@ -98,6 +98,14 @@ switch ($params[0]) {
         $mainController = new MainController();
         $mainController->getImgData();
         break;
+    case 'eliminarCliente':
+        $mainController = new MainController();
+        $mainController->eliminarCliente($params[1]);
+        break;
+    case 'eliminarImagen':
+        $mainController = new MainController();
+        $mainController->eliminarImagen($params[1]);
+        break;
     default:
         echo '404 - Página no encontrada';
         break;
