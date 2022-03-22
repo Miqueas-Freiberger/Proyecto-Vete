@@ -86,10 +86,18 @@ switch ($params[0]) {
         $mainController = new MainController();
         $mainController->eliminarComplementarios($params[1]);
         break;
-        case 'eliminarHistorial':
-            $mainController = new MainController();
-            $mainController->eliminarHistorial($params[1]);
-            break;
+    case 'eliminarHistorial':
+        $mainController = new MainController();
+        $mainController->eliminarHistorial($params[1]);
+        break;
+    case 'archivosHistorial':
+        $mainController = new MainController();
+        $mainController->displayImgHistorial($params[1]);
+        break;
+    case 'newImg':
+        $mainController = new MainController();
+        $mainController->getImgData();
+        break;
     default:
         echo '404 - Página no encontrada';
         break;

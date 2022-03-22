@@ -142,6 +142,18 @@ class MainController
             $this->mainModel->updateHistorialData($observaciones, $tratamiento, $motivoConsulta, $fecha, $complementarios, $id_historial);
         }
     }
+
+    public function getImgData()
+    {
+        $id_historial = intval($_POST["id_historial"]);
+        if ($_FILES['input_name']['type'] == "image/jpg" || $_FILES['input_name']['type'] == "image/jpeg" || $_FILES['input_name']['type'] == "image/png") {   
+        $this->mainModel->addNewImg($_FILES['input_name']['tmp_name'],$id_historial);
+        header("Location: " . BASE_URL . "archivosHistorial" . "/$id_historial");
+     }
+     else{
+         $this->mainView->showError("Ingrese una Imagen del tipo valido (jpg/jpeg/png)");
+     }
+    }
     ///////////////////////////////////ADD//////////////////////////////ADD////////////////////////////////ADD//////////////////////////////////////////////////
 
     public function addDataCliente($nombre_apellido, $telefono, $email, $direccion, $localidad)
@@ -223,6 +235,13 @@ class MainController
 
         $dataHistorial = $this->mainModel->getHistorialData($id_historial);
         $this->mainView->displayEditHistorialForm($dataHistorial);
+    }
+
+    public function displayImgHistorial($id)
+    {
+        $id_historial = intval($id);
+        $img_historial = $this->mainModel->getImgHistorial($id_historial);
+        $this->mainView->displayImgHistorial($img_historial,$id_historial);
     }
 
     ///////////////////////////////////UPDATE//////////////////////////////UPDATE////////////////////////////////UPDATE/////////////////////////////////////////////

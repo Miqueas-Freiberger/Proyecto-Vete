@@ -82,9 +82,18 @@ class MainView
         $this->smarty->display("templates/editHistorialForm.tpl");
     }
 
-    public function showError($mensaje, $busqueda)
+    public function displayImgHistorial($imgData,$id_historial)
     {
-        $this->smarty->assign("busqueda", $busqueda);
+        $this->smarty->assign("imgData",$imgData);
+        $this->smarty->assign("idHistorial",$id_historial);
+        $this->smarty->display("templates/imgHistorial.tpl");
+    }
+
+    public function showError($mensaje, $busqueda=null)
+    {
+        if ($busqueda) {
+            $this->smarty->assign("busqueda", $busqueda);
+        }
         $this->smarty->assign("mensaje", $mensaje);
         $this->smarty->display('templates/errorMsj.tpl');
     }

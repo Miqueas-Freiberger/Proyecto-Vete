@@ -104,6 +104,15 @@ class MainModel
         return $queryData;
     }
 
+    public function getImgHIstorial($id_historial)
+    {
+        $query = $this->db->prepare('SELECT * FROM imagenes WHERE id_historial_fk = ?');
+        $query->execute([$id_historial]);
+
+        $queryData = $query->fetchAll(PDO::FETCH_OBJ);
+        return $queryData;
+    }
+
     ///////////////////////////////////ADD//////////////////////////////ADD////////////////////////////////ADD//////////////////////////////////////////////////
 
     public function addCliente($nombre_apellido, $telefono, $email, $direccion, $localidad)
@@ -126,6 +135,14 @@ class MainModel
     {
         $query = $this->db->prepare("INSERT INTO historial (Observacion,MotivoConsulta,Tratamiento,Complementarios,Fecha,id_mascota_fk) VALUES (?,?,?,?,?,?)");
         $query->execute([$observaciones, $motivoConsulta, $tratamiento, $complementarios, $fecha, $id_mascota]);
+    }
+
+    public function addNewImg($imgContent,$id_historial)
+    {
+        $pathImg = 'images/historial/ '. uniqid() .'.jpg';
+        move_uploaded_file($imgContent, $pathImg);
+        $query = $this->db->prepare("INSERT INTO imagenes (ruta,id_historial_fk) VALUES (?,?)");
+        $query->execute([$pathImg,$id_historial]);
     }
 
     ///////////////////////////////////DELETE//////////////////////////////DELETE////////////////////////////////DELETE//////////////////////////////////////////////////

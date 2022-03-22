@@ -33,9 +33,9 @@
           <p>{$dataHistorial->MotivoConsulta}</p>            
             {if $dataHistorial->Complementarios != "-"}
               <h4>Complementarios: {$dataHistorial->Complementarios}
-                (<a  class="fs-5 text-danger text-decoration-none"  data-bs-toggle="modal" data-bs-target="#Modal{$dataHistorial->id}" href="#">Eliminar Complementarios</a>)</h4>
+                (<a  class="fs-5 text-danger text-decoration-none"  data-bs-toggle="modal" data-bs-target="#ModalComplementarios{$dataHistorial->id}" href="#">Eliminar Complementarios</a>)</h4>
                 <!-- Modal -->
-                <div class="modal fade" id="Modal{$dataHistorial->id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="ModalComplementarios{$dataHistorial->id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
                           <div class="modal-header">
@@ -57,7 +57,7 @@
           <p>{$dataHistorial->Observacion}</p>
         <h5>Tratamiento</h5>
           <p>{$dataHistorial->Tratamiento}</p>
-          <button type="button" class="btn btn-link">Ver archivos adjuntos</button>
+          <button type="button" class="btn btn-link"><a href="{BASE_URL}archivosHistorial/{$dataHistorial->id}">Ver archivos adjuntos</a></button>
       </div>
     </div>        
 {/foreach}
