@@ -232,9 +232,19 @@ class MainController
 
     public function displayEditHistorialForm($id_historial)
     {
-
         $dataHistorial = $this->mainModel->getHistorialData($id_historial);
-        $this->mainView->displayEditHistorialForm($dataHistorial);
+        foreach ($dataHistorial as $data) {
+            $arrayComplementarios = explode(" / ",($data->Complementarios));
+        }
+        $lenght = count($arrayComplementarios);
+        for ($i=0; $i <$lenght ; $i++) { 
+            $analisisBoolean = in_array("Analisis-sangre",$arrayComplementarios);
+            $radiografiaBoolean = in_array("Radiografia",$arrayComplementarios);
+            $ecografiaBoolean = in_array("Ecografia",$arrayComplementarios);
+            $raspajeBoolean = in_array("Raspaje",$arrayComplementarios);
+            $citologiaBoolean = in_array("Citologia",$arrayComplementarios);
+        }
+        $this->mainView->displayEditHistorialForm($dataHistorial,$analisisBoolean,$radiografiaBoolean,$ecografiaBoolean,$raspajeBoolean,$citologiaBoolean);
     }
 
     public function displayImgHistorial($id)
