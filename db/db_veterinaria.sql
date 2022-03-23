@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-03-2022 a las 21:04:46
+-- Tiempo de generación: 23-03-2022 a las 17:49:21
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.2
 
@@ -31,11 +31,18 @@ CREATE TABLE `clientes` (
   `id` int(11) NOT NULL,
   `NombreApellido` varchar(50) NOT NULL,
   `Dni` int(11) NOT NULL,
-  `Telefono` int(20) NOT NULL,
+  `Telefono` varchar(100) NOT NULL,
   `Email` varchar(70) NOT NULL,
   `Direccion` varchar(1000) NOT NULL,
   `Localidad` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`id`, `NombreApellido`, `Dni`, `Telefono`, `Email`, `Direccion`, `Localidad`) VALUES
+(1, ' Pepito', 0, '2291/23123', ' ', ' ', ' ');
 
 -- --------------------------------------------------------
 
@@ -53,6 +60,13 @@ CREATE TABLE `historial` (
   `id_mascota_fk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `historial`
+--
+
+INSERT INTO `historial` (`id`, `Observacion`, `MotivoConsulta`, `Tratamiento`, `Complementarios`, `Fecha`, `id_mascota_fk`) VALUES
+(1, '', '', '', '-', '2022-03-23', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -61,7 +75,9 @@ CREATE TABLE `historial` (
 
 CREATE TABLE `imagenes` (
   `id` int(11) NOT NULL,
+  `nombre` varchar(300) NOT NULL,
   `ruta` varchar(50) NOT NULL,
+  `booleanFlag` tinyint(1) NOT NULL,
   `id_historial_fk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -84,6 +100,13 @@ CREATE TABLE `paciente` (
   `FechaIngreso` date NOT NULL,
   `id_dueño_fk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `paciente`
+--
+
+INSERT INTO `paciente` (`id`, `Nombre`, `Especie`, `Nacimiento`, `Sexo`, `Raza`, `Color`, `Tamano`, `Esterilizado`, `FechaIngreso`, `id_dueño_fk`) VALUES
+(1, 'adsdsa', ' ', ' ', 'Hembra', ' ', ' ', 'Chico', 'No', '2022-03-23', 1);
 
 --
 -- Índices para tablas volcadas
@@ -124,25 +147,25 @@ ALTER TABLE `paciente`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `historial`
 --
 ALTER TABLE `historial`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `paciente`
 --
 ALTER TABLE `paciente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
