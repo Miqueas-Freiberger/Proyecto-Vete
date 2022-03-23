@@ -27,7 +27,7 @@
     {foreach from=$imgData item=$file}
         <div>
             {if $file->booleanFlag == true}
-                <button type="button" class="btn btn-close ms-2" data-bs-toggle="modal"
+                <button type="button" class="btn btn-close btn-sm ms-2" data-bs-toggle="modal"
                     data-bs-target="#fileModal{$file->id}"></button>
                 <!-- Modal -->
 
