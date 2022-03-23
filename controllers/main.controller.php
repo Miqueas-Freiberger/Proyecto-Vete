@@ -147,12 +147,15 @@ class MainController
     public function getImgData()
     {
         $id_historial = intval($_POST["id_historial"]);
-        if ($_FILES['input_name']['type'] == "image/jpg" || $_FILES['input_name']['type'] == "image/jpeg" || $_FILES['input_name']['type'] == "image/png") {
-            $this->mainModel->addNewImg($_FILES['input_name']['tmp_name'], $id_historial);
-            header("Location: " . BASE_URL . "archivosHistorial" . "/$id_historial");
-        } else {
-            $this->mainView->showError("Ingrese una Imagen del tipo valido (jpg/jpeg/png)");
+        $fileName = $_FILES['input_name']['name'];
+        if ($_FILES['input_name']['type']== "application/pdf") {
+            $isPdf = true;
         }
+        else {
+            $isPdf = false;
+        }
+        $this->mainModel->addNewImg($_FILES['input_name']['tmp_name'], $id_historial,$isPdf,$fileName);
+        header("Location: " . BASE_URL . "archivosHistorial" . "/$id_historial");
     }
     ///////////////////////////////////ADD//////////////////////////////ADD////////////////////////////////ADD//////////////////////////////////////////////////
 
@@ -269,6 +272,16 @@ class MainController
         $id_historial = intval($id);
         $img_historial = $this->mainModel->getImgHistorial($id_historial);
         $this->mainView->displayImgHistorial($img_historial, $id_historial);
+    }
+
+    public function displayPdf($file_id)
+    {
+        $fileQuery = $this->mainModel->getRutaArchivo($file_id);
+        foreach ($fileQuery as $data ) {
+            $filePath = $data->ruta;
+        }; 
+        header("content-type: application/pdf");
+        readfile($filePath); 
     }
 
     ///////////////////////////////////UPDATE//////////////////////////////UPDATE////////////////////////////////UPDATE/////////////////////////////////////////////

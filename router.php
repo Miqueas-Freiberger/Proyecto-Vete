@@ -106,6 +106,10 @@ switch ($params[0]) {
         $mainController = new MainController();
         $mainController->eliminarImagen($params[1]);
         break;
+    case 'verArchivo':
+        $mainController = new MainController();
+        $mainController->displayPdf($params[1]);
+        break;
     default:
         echo '404 - Página no encontrada';
         break;

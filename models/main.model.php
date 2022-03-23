@@ -122,6 +122,15 @@ class MainModel
         return $queryData;
     }
 
+    public function getRutaArchivo($fileId)
+    {
+        $query = $this->db->prepare('SELECT ruta FROM imagenes WHERE id = ?');
+        $query->execute([$fileId]);
+
+        $queryData = $query->fetchAll(PDO::FETCH_OBJ);
+        return $queryData;
+    }
+
     ///////////////////////////////////ADD//////////////////////////////ADD////////////////////////////////ADD//////////////////////////////////////////////////
 
     public function addCliente($nombre_apellido, $dni, $telefono, $email, $direccion, $localidad)
@@ -146,12 +155,17 @@ class MainModel
         $query->execute([$observaciones, $motivoConsulta, $tratamiento, $complementarios, $fecha, $id_mascota]);
     }
 
-    public function addNewImg($imgContent, $id_historial)
+    public function addNewImg($imgContent, $id_historial, $isPdf,$fileName)
     {
-        $pathImg = 'images/historial/ ' . uniqid() . '.jpg';
+        if ($isPdf == false) {
+            $pathImg = 'images/historial/ ' . uniqid() . '.jpg';
+        } else {
+            $pathImg = 'archivos/historial/ ' . uniqid() . '.pdf';
+        }
+
         move_uploaded_file($imgContent, $pathImg);
-        $query = $this->db->prepare("INSERT INTO imagenes (ruta,id_historial_fk) VALUES (?,?)");
-        $query->execute([$pathImg, $id_historial]);
+        $query = $this->db->prepare("INSERT INTO imagenes (nombre,ruta,booleanFlag,id_historial_fk) VALUES (?,?,?,?)");
+        $query->execute([$fileName,$pathImg, $isPdf, $id_historial]);
     }
 
     ///////////////////////////////////DELETE//////////////////////////////DELETE////////////////////////////////DELETE//////////////////////////////////////////////////
