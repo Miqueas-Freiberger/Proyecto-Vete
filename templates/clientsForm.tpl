@@ -17,7 +17,7 @@
             </div>
             <div class="mb-3">
                 <label for="staticPhone" class="col-sm-2 col-form-label ms-3">Numero de Telefono</label>
-                <input class="form-control  w-50 ms-3" type="number" aria-label="default input example" name="telefono"
+                <input class="form-control  w-50 ms-3" type="text" aria-label="default input example" name="telefono"
                     value=" ">
             </div>
             <div class="mb-3 ">
