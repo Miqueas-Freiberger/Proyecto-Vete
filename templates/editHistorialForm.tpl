@@ -15,7 +15,7 @@
                 {if $analisisBoolean !=false}
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="complementarios[]"
-                            value="Analisis-sangre" checked>
+                            value="Analisis de sangre" checked>
                         <label class="form-check-label fs-5" for="inlineCheckbox1">Analisis de Sangre</label>
                     </div>
                 {else}
@@ -91,7 +91,7 @@
                 {else}
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="complementarios[]"
-                            value="Citologia">
+                            value="Analisis de orina">
                         <label class="form-check-label fs-5" for="inlineCheckbox6">Analisis de Orina</label>
                     </div>
                 {/if}

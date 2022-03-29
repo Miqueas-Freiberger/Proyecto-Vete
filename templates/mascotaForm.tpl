@@ -74,7 +74,7 @@
             <div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="complementarios[]"
-                        value="Analisis-sangre">
+                        value="Analisis de sangre">
                     <label class="form-check-label" for="inlineCheckbox1">Analisis de Sangre</label>
                 </div>
                 <div class="form-check form-check-inline">
@@ -99,7 +99,7 @@
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="complementarios[]"
-                        value="Citologia">
+                        value="Analisis de orina">
                     <label class="form-check-label" for="inlineCheckbox6">Analisis de Orina</label>
                 </div>
             </div>

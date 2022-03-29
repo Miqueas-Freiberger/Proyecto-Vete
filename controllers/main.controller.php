@@ -258,12 +258,12 @@ class MainController
         }
         $lenght = count($arrayComplementarios);
         for ($i = 0; $i < $lenght; $i++) {
-            $analisisBoolean = in_array("Analisis-sangre", $arrayComplementarios);
+            $analisisBoolean = in_array("Analisis de sangre", $arrayComplementarios);
             $radiografiaBoolean = in_array("Radiografia", $arrayComplementarios);
             $ecografiaBoolean = in_array("Ecografia", $arrayComplementarios);
             $raspajeBoolean = in_array("Raspaje", $arrayComplementarios);
             $citologiaBoolean = in_array("Citologia", $arrayComplementarios);
-            $analisisOrinaBoolean = in_array("Analisis-orina", $arrayComplementarios);
+            $analisisOrinaBoolean = in_array("Analisis de orina", $arrayComplementarios);
         }
         $this->mainView->displayEditHistorialForm($dataHistorial, $analisisBoolean, $radiografiaBoolean, $ecografiaBoolean, $raspajeBoolean, $citologiaBoolean, $analisisOrinaBoolean);
     }

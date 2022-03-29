@@ -9,7 +9,7 @@
             <label for="staticComplement" class="col-sm-2 col-form-label mt-2 mb-2 ">Complementarios</label>
         <div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="complementarios[]" value="Analisis-sangre">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="complementarios[]" value="Analisis de sangre">
                 <label class="form-check-label fs-5" for="inlineCheckbox1">Analisis de Sangre</label>
             </div>
             <br>
@@ -34,7 +34,7 @@
             </div>
             <br>
             <div class="form-check form-check-inline mb-3">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="complementarios[]" value="Citologia">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="complementarios[]" value="Analisis de orina">
                 <label class="form-check-label fs-5" for="inlineCheckbox5">Analisis de Orina</label>
             </div>
         </div>
