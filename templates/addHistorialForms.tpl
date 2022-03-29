@@ -28,10 +28,15 @@
                 <label class="form-check-label fs-5" for="inlineCheckbox4">Raspaje</label>
             </div>
             <br>
-            <div class="form-check form-check-inline mb-3">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="complementarios[]" value="Citologia">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="complementarios[]" value="Citologia">
                 <label class="form-check-label fs-5" for="inlineCheckbox5">Citologia</label>
-            </div>                        
+            </div>
+            <br>
+            <div class="form-check form-check-inline mb-3">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="complementarios[]" value="Citologia">
+                <label class="form-check-label fs-5" for="inlineCheckbox5">Analisis de Orina</label>
+            </div>
         </div>
 
     <h3>Observaciones</h3>

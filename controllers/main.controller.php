@@ -263,8 +263,9 @@ class MainController
             $ecografiaBoolean = in_array("Ecografia", $arrayComplementarios);
             $raspajeBoolean = in_array("Raspaje", $arrayComplementarios);
             $citologiaBoolean = in_array("Citologia", $arrayComplementarios);
+            $analisisOrinaBoolean = in_array("Analisis-orina", $arrayComplementarios);
         }
-        $this->mainView->displayEditHistorialForm($dataHistorial, $analisisBoolean, $radiografiaBoolean, $ecografiaBoolean, $raspajeBoolean, $citologiaBoolean);
+        $this->mainView->displayEditHistorialForm($dataHistorial, $analisisBoolean, $radiografiaBoolean, $ecografiaBoolean, $raspajeBoolean, $citologiaBoolean, $analisisOrinaBoolean);
     }
 
     public function displayImgHistorial($id)

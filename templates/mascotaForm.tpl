@@ -97,6 +97,11 @@
                         value="Citologia">
                     <label class="form-check-label" for="inlineCheckbox5">Citologia</label>
                 </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="complementarios[]"
+                        value="Citologia">
+                    <label class="form-check-label" for="inlineCheckbox6">Analisis de Orina</label>
+                </div>
             </div>
 
             <label for="staticObserv" class="col-sm-2 col-form-label">Observaciones</label>

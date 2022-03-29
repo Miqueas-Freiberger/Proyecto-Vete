@@ -76,7 +76,7 @@ class MainView
         $this->smarty->display('templates/addHistorialForms.tpl');
     }
 
-    public function displayEditHistorialForm($dataHistorial,$analisisBoolean,$radiografiaBoolean,$ecografiaBoolean,$raspajeBoolean,$citologiaBoolean)
+    public function displayEditHistorialForm($dataHistorial,$analisisBoolean,$radiografiaBoolean,$ecografiaBoolean,$raspajeBoolean,$citologiaBoolean, $analisisOrinaBoolean)
     {
         $this->smarty->assign("dataHistorial", $dataHistorial);
         $this->smarty->assign("analisisBoolean", $analisisBoolean);
@@ -84,6 +84,7 @@ class MainView
         $this->smarty->assign("ecografiaBoolean", $ecografiaBoolean);
         $this->smarty->assign("raspajeBoolean", $raspajeBoolean);
         $this->smarty->assign("citologiaBoolean", $citologiaBoolean);
+        $this->smarty->assign("analisisOrinaBoolean", $analisisOrinaBoolean);
         $this->smarty->display("templates/editHistorialForm.tpl");
     }
 
