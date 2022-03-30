@@ -148,13 +148,20 @@ class MainController
     {
         $id_historial = intval($_POST["id_historial"]);
         $fileName = $_FILES['input_name']['name'];
-        if ($_FILES['input_name']['type']== "application/pdf") {
+         if ($_FILES['input_name']['type']== "application/pdf") {
             $isPdf = true;
+            $extension = $_FILES['input_name']['type'];
+        }
+        elseif ($_FILES['input_name']['type']== "application/octet-stream") {
+            $isDoc = true;
+            $extension = $_FILES['input_name']['type'];
         }
         else {
+            $isDoc = false;
             $isPdf = false;
+            $extension = $_FILES['input_name']['type'];
         }
-        $this->mainModel->addNewImg($_FILES['input_name']['tmp_name'], $id_historial,$isPdf,$fileName);
+        $this->mainModel->addNewImg($_FILES['input_name']['tmp_name'], $id_historial,$isPdf,$isDoc,$fileName,$extension);
         header("Location: " . BASE_URL . "archivosHistorial" . "/$id_historial");
     }
     ///////////////////////////////////ADD//////////////////////////////ADD////////////////////////////////ADD//////////////////////////////////////////////////
@@ -275,14 +282,17 @@ class MainController
         $this->mainView->displayImgHistorial($img_historial, $id_historial);
     }
 
-    public function displayPdf($file_id)
+    public function displayFile($file_id)
     {
-        $fileQuery = $this->mainModel->getRutaArchivo($file_id);
-        foreach ($fileQuery as $data ) {
-            $filePath = $data->ruta;
+        $fileQuery = $this->mainModel->getFileData($file_id);
+        foreach ($fileQuery as $data) {
+            if ($data->extension == "application/pdf") {
+                $filePath = $data->ruta;
+                header("content-type: application/pdf");
+                readfile($filePath); 
+            }
         }; 
-        header("content-type: application/pdf");
-        readfile($filePath); 
+         
     }
 
     ///////////////////////////////////UPDATE//////////////////////////////UPDATE////////////////////////////////UPDATE/////////////////////////////////////////////

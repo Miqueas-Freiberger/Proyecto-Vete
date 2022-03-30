@@ -27,33 +27,57 @@
     {foreach from=$imgData item=$file}
         <div>
             {if $file->booleanFlag == true}
-                <button type="button" class="btn btn-close btn-sm ms-2" data-bs-toggle="modal"
-                    data-bs-target="#fileModal{$file->id}"></button>
-                <!-- Modal -->
+                {if $file->extension == "application/pdf"}
+                    <button type="button" class="btn btn-close btn-sm ms-2" data-bs-toggle="modal"
+                        data-bs-target="#fileModal{$file->id}"></button>
+                    <!-- Modal -->
 
-                <div class="modal fade" id="fileModal{$file->id}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h6 class="modal-title">Confirmar</h5>
-                            </div>
-                            <div class="modal-body">
-                                <p class="text-center">¿Estás seguro que deseas eliminar este Archivo?
-                                </p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-primary"><a href="{BASE_URL}eliminarImagen/{$file->id}"
-                                        class="text-decoration-none text-white">Borrar Archivo</a></button>
+                    <div class="modal fade" id="fileModal{$file->id}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h6 class="modal-title">Confirmar</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="text-center">¿Estás seguro que deseas eliminar este Archivo?
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-primary"><a href="{BASE_URL}eliminarImagen/{$file->id}"
+                                            class="text-decoration-none text-white">Borrar Archivo</a></button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <a href="{BASE_URL}verArchivo/{$file->id}" target="blank">{$file->nombre}</a>
+                {elseif $file->extension == "application/octet-stream"}
+                    <button type="button" class="btn btn-close btn-sm ms-2" data-bs-toggle="modal"
+                        data-bs-target="#fileModal{$file->id}"></button>
+                    <!-- Modal -->
 
-
-                <a href="{BASE_URL}verArchivo/{$file->id}" target="blank">{$file->nombre}</a>
-
+                    <div class="modal fade" id="fileModal{$file->id}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h6 class="modal-title">Confirmar</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="text-center">¿Estás seguro que deseas eliminar este Archivo?
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-primary"><a href="{BASE_URL}eliminarImagen/{$file->id}"
+                                            class="text-decoration-none text-white">Borrar Archivo</a></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="file:C:\xampp\htdocs\proyectos\Proyecto-Vete\{$file->nombre}" target="blank">{$file->nombre}</a>
+                {/if}
             {/if}
         </div>
     {/foreach}
@@ -69,4 +93,6 @@
     </form>
 </div>
 
+
+<script src="../js/main.js"></script>
 {include file="templates/footer.tpl"}

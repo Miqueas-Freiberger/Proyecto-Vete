@@ -122,9 +122,9 @@ class MainModel
         return $queryData;
     }
 
-    public function getRutaArchivo($fileId)
+    public function getFileData($fileId)
     {
-        $query = $this->db->prepare('SELECT ruta FROM imagenes WHERE id = ?');
+        $query = $this->db->prepare('SELECT * FROM imagenes WHERE id = ?');
         $query->execute([$fileId]);
 
         $queryData = $query->fetchAll(PDO::FETCH_OBJ);
@@ -155,17 +155,22 @@ class MainModel
         $query->execute([$observaciones, $motivoConsulta, $tratamiento, $complementarios, $fecha, $id_mascota]);
     }
 
-    public function addNewImg($imgContent, $id_historial, $isPdf,$fileName)
+    public function addNewImg($imgContent, $id_historial, $isPdf, $isDoc, $fileName, $fileExtension)
     {
-        if ($isPdf == false) {
-            $pathImg = 'images/historial/ ' . uniqid() . '.jpg';
+        if ($isPdf == false && $isDoc == false) {
+            $filePath = 'images/historial/ ' . uniqid() . '.jpg';
+            $fileBooleanControl = false;
+        } elseif ($isDoc == true) {
+            $filePath = 'archivos/historial/ ' . uniqid() . '.doc';
+            $fileBooleanControl = true;
         } else {
-            $pathImg = 'archivos/historial/ ' . uniqid() . '.pdf';
+            $filePath = 'archivos/historial/ ' . uniqid() . '.pdf';
+            $fileBooleanControl = true;
         }
 
-        move_uploaded_file($imgContent, $pathImg);
-        $query = $this->db->prepare("INSERT INTO imagenes (nombre,ruta,booleanFlag,id_historial_fk) VALUES (?,?,?,?)");
-        $query->execute([$fileName,$pathImg, $isPdf, $id_historial]);
+        move_uploaded_file($imgContent, $filePath);
+        $query = $this->db->prepare("INSERT INTO imagenes (nombre,ruta,extension,booleanFlag,id_historial_fk) VALUES (?,?,?,?,?)");
+        $query->execute([$fileName, $filePath, $fileExtension, $fileBooleanControl, $id_historial]);
     }
 
     ///////////////////////////////////DELETE//////////////////////////////DELETE////////////////////////////////DELETE//////////////////////////////////////////////////
