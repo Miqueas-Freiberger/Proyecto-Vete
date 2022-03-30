@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-03-2022 a las 17:49:21
+-- Tiempo de generación: 30-03-2022 a las 23:15:29
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.2
 
@@ -42,7 +42,8 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `NombreApellido`, `Dni`, `Telefono`, `Email`, `Direccion`, `Localidad`) VALUES
-(1, ' Pepito', 0, '2291/23123', ' ', ' ', ' ');
+(1, ' Pepito', 32890172, '2291/23123', ' ', ' ', ' '),
+(2, ' carlitos pqunecpunqec', 0, '2281978128 / 1281248124(2do cto)', ' ', ' bla 12345', 'blabla ');
 
 -- --------------------------------------------------------
 
@@ -55,7 +56,7 @@ CREATE TABLE `historial` (
   `Observacion` text NOT NULL,
   `MotivoConsulta` varchar(255) NOT NULL,
   `Tratamiento` text NOT NULL,
-  `Complementarios` varchar(80) NOT NULL,
+  `Complementarios` varchar(110) NOT NULL,
   `Fecha` date NOT NULL,
   `id_mascota_fk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -65,7 +66,9 @@ CREATE TABLE `historial` (
 --
 
 INSERT INTO `historial` (`id`, `Observacion`, `MotivoConsulta`, `Tratamiento`, `Complementarios`, `Fecha`, `id_mascota_fk`) VALUES
-(1, '', '', '', '-', '2022-03-23', 1);
+(1, '', '', '', '-', '2022-03-23', 1),
+(2, 'bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla ', 'bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla', 'bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla ', 'Analisis de sangre / Radiografia / Ecografia / Raspaje / Citologia / Analisis de orina', '2022-03-24', 2),
+(3, '', '', '', 'Analisis-sangre / Ecografia / Raspaje', '2022-03-24', 3);
 
 -- --------------------------------------------------------
 
@@ -77,9 +80,19 @@ CREATE TABLE `imagenes` (
   `id` int(11) NOT NULL,
   `nombre` varchar(300) NOT NULL,
   `ruta` varchar(50) NOT NULL,
+  `extension` varchar(70) NOT NULL,
   `booleanFlag` tinyint(1) NOT NULL,
   `id_historial_fk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `imagenes`
+--
+
+INSERT INTO `imagenes` (`id`, `nombre`, `ruta`, `extension`, `booleanFlag`, `id_historial_fk`) VALUES
+(39, 'Documento 1.docx', 'archivos/historial/ 6244bef4ba728.doc', 'application/octet-stream', 1, 2),
+(40, 'BA_Olavarria_map.pdf', 'archivos/historial/ 6244bfec8033d.pdf', 'application/pdf', 1, 2),
+(42, 'ajdvnqodhvbqvope.docx', 'images/historial/ 6244c815b4d5c.jpg', 'application/vnd.openxmlformats-officedocument.wordprocessingml.documen', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -106,7 +119,9 @@ CREATE TABLE `paciente` (
 --
 
 INSERT INTO `paciente` (`id`, `Nombre`, `Especie`, `Nacimiento`, `Sexo`, `Raza`, `Color`, `Tamano`, `Esterilizado`, `FechaIngreso`, `id_dueño_fk`) VALUES
-(1, 'adsdsa', ' ', ' ', 'Hembra', ' ', ' ', 'Chico', 'No', '2022-03-23', 1);
+(1, 'pancho', ' canino', '2012', 'Hembra', ' caniche', 'blanco', 'Mediano', 'Si', '2022-03-23', 1),
+(2, 'bla bla bla ', ' bla bla bla ', ' 12/03/2021', 'Hembra', ' bla bla ', ' bla bla ', 'Grande', 'No', '2022-03-24', 2),
+(3, 'pupi', 'canino', '2020', 'Hembra', 'Hamster', 'Negro y Blanco', 'Chico', 'No', '2022-03-24', 1);
 
 --
 -- Índices para tablas volcadas
@@ -147,25 +162,25 @@ ALTER TABLE `paciente`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `historial`
 --
 ALTER TABLE `historial`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT de la tabla `paciente`
 --
 ALTER TABLE `paciente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
