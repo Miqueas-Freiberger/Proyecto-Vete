@@ -1,7 +1,6 @@
 <?php
 include_once('models/main.model.php');
 include_once('views/main.view.php');
-
 class MainController
 {
     private $mainModel;
@@ -148,20 +147,20 @@ class MainController
     {
         $id_historial = intval($_POST["id_historial"]);
         $fileName = $_FILES['input_name']['name'];
-         if ($_FILES['input_name']['type']== "application/pdf") {
+        if ($_FILES['input_name']['type'] == "application/pdf") {
+            $isDoc = false;
             $isPdf = true;
             $extension = $_FILES['input_name']['type'];
-        }
-        elseif ($_FILES['input_name']['type']== "application/octet-stream") {
+        } elseif ($_FILES['input_name']['type'] == "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+            $isPdf = false;
             $isDoc = true;
             $extension = $_FILES['input_name']['type'];
-        }
-        else {
+        } else {
             $isDoc = false;
             $isPdf = false;
             $extension = $_FILES['input_name']['type'];
         }
-        $this->mainModel->addNewImg($_FILES['input_name']['tmp_name'], $id_historial,$isPdf,$isDoc,$fileName,$extension);
+        $this->mainModel->addNewImg($_FILES['input_name']['tmp_name'], $id_historial, $isPdf, $isDoc, $fileName, $extension);
         header("Location: " . BASE_URL . "archivosHistorial" . "/$id_historial");
     }
     ///////////////////////////////////ADD//////////////////////////////ADD////////////////////////////////ADD//////////////////////////////////////////////////
@@ -289,10 +288,15 @@ class MainController
             if ($data->extension == "application/pdf") {
                 $filePath = $data->ruta;
                 header("content-type: application/pdf");
-                readfile($filePath); 
+                readfile($filePath);
+            } elseif ($data->extension == "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+                $fileName = $data->nuevoNombre;
+                $filePath = $data->ruta;
+                header("Content-type: application/msword");
+                header("Content-Disposition: inline; filename=$fileName");
+                readfile($filePath);
             }
-        }; 
-         
+        };
     }
 
     ///////////////////////////////////UPDATE//////////////////////////////UPDATE////////////////////////////////UPDATE/////////////////////////////////////////////

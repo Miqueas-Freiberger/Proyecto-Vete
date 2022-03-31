@@ -157,20 +157,24 @@ class MainModel
 
     public function addNewImg($imgContent, $id_historial, $isPdf, $isDoc, $fileName, $fileExtension)
     {
+        
         if ($isPdf == false && $isDoc == false) {
-            $filePath = 'images/historial/ ' . uniqid() . '.jpg';
+            $fileNewName = uniqid() . ".jpg";
+            $filePath = 'images/historial/ ' . $fileNewName;
             $fileBooleanControl = false;
         } elseif ($isDoc == true) {
-            $filePath = 'archivos/historial/ ' . uniqid() . '.doc';
+            $fileNewName = uniqid() . ".doc";
+            $filePath = 'archivos/historial/ ' . $fileNewName;
             $fileBooleanControl = true;
         } else {
-            $filePath = 'archivos/historial/ ' . uniqid() . '.pdf';
+            $fileNewName = uniqid() . ".pdf";
+            $filePath = 'archivos/historial/ ' . $fileNewName;
             $fileBooleanControl = true;
         }
 
         move_uploaded_file($imgContent, $filePath);
-        $query = $this->db->prepare("INSERT INTO imagenes (nombre,ruta,extension,booleanFlag,id_historial_fk) VALUES (?,?,?,?,?)");
-        $query->execute([$fileName, $filePath, $fileExtension, $fileBooleanControl, $id_historial]);
+        $query = $this->db->prepare("INSERT INTO imagenes (nombre,ruta,extension,nuevoNombre,booleanFlag,id_historial_fk) VALUES (?,?,?,?,?,?)");
+        $query->execute([$fileName, $filePath, $fileExtension,$fileNewName,$fileBooleanControl, $id_historial]);
     }
 
     ///////////////////////////////////DELETE//////////////////////////////DELETE////////////////////////////////DELETE//////////////////////////////////////////////////

@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <a href="{BASE_URL}verArchivo/{$file->id}" target="blank">{$file->nombre}</a>
-                {elseif $file->extension == "application/octet-stream"}
+                {elseif $file->extension == "application/vnd.openxmlformats-officedocument.wordprocessingml.document"}
                     <button type="button" class="btn btn-close btn-sm ms-2" data-bs-toggle="modal"
                         data-bs-target="#fileModal{$file->id}"></button>
                     <!-- Modal -->
@@ -76,7 +76,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="file:C:\xampp\htdocs\proyectos\Proyecto-Vete\{$file->nombre}" target="blank">{$file->nombre}</a>
+                    <a href="{BASE_URL}verArchivo/{$file->id}">{$file->nombre}</a>
                 {/if}
             {/if}
         </div>
@@ -93,6 +93,4 @@
     </form>
 </div>
 
-
-<script src="../js/main.js"></script>
 {include file="templates/footer.tpl"}
