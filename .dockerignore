@@ -8,3 +8,4 @@ devserver.php
 start-local.ps1
 *.ps1
 *.sql
+auth.local.php

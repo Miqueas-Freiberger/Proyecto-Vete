@@ -95,6 +95,16 @@ class MainView
         $this->smarty->display("templates/imgHistorial.tpl");
     }
 
+    ///////////////////////////////////LOGIN//////////////////////////////LOGIN////////////////////////////////LOGIN//////////////////////////////////////////////
+
+    public function displayLoginForm($error = null)
+    {
+        if ($error) {
+            $this->smarty->assign("error", $error);
+        }
+        $this->smarty->display('templates/loginForm.tpl');
+    }
+
     public function showError($mensaje, $busqueda=null)
     {
         if ($busqueda) {

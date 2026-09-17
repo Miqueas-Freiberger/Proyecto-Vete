@@ -13,6 +13,38 @@ class MainController
         $this->mainModel = new MainModel();
         $this->mainView = new MainView();
     }
+    ///////////////////////////////////LOGIN//////////////////////////////LOGIN////////////////////////////////LOGIN//////////////////////////////////////////////
+
+    public function login()
+    {
+        if (auth_is_logged_in()) {
+            header("Location: " . BASE_URL);
+            return;
+        }
+
+        if (!app_auth_config()) {
+            $this->mainView->displayLoginForm(
+                "Falta configurar el acceso. Cargar APP_AUTH_USER y APP_AUTH_PASSWORD_HASH."
+            );
+            return;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->mainView->displayLoginForm();
+            return;
+        }
+
+        $usuario = $_POST['usuario'] ?? '';
+        $contrasena = $_POST['contrasena'] ?? '';
+
+        if (auth_login($usuario, $contrasena)) {
+            header("Location: " . BASE_URL);
+            return;
+        }
+
+        $this->mainView->displayLoginForm("Usuario o contraseña incorrectos.");
+    }
+
     ///////////////////////////////////SHOW//////////////////////////////SHOW////////////////////////////////SHOW//////////////////////////////////////////////
     public function showHome()
     {

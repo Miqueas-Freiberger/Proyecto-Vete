@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/libs/auth.php';
 require_once 'controllers/main.controller.php';
 
 // defino la base url para la construccion de links con urls semánticas
@@ -13,6 +14,22 @@ if (!empty($_GET['action'])) {
 }
 
 $params = explode('/', $action);
+
+// El login es lo unico que se puede ver sin haber entrado. Todo lo demas
+// muestra datos de clientes, asi que pide sesion.
+if ($params[0] === 'login') {
+    $mainController = new MainController();
+    $mainController->login();
+    return;
+}
+
+if ($params[0] === 'logout') {
+    auth_logout();
+    header('Location: ' . BASE_URL . 'login');
+    return;
+}
+
+auth_require_login();
 
 switch ($params[0]) {
     case 'home':

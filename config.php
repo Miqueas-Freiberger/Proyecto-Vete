@@ -55,6 +55,31 @@ function app_uploads_dir()
 }
 
 /**
+ * Credenciales del unico usuario, o null si no hay ninguna configurada.
+ *
+ * El repositorio es publico, asi que ni la contraseña ni su hash viven en el
+ * codigo. Salen del entorno, y en desarrollo de auth.local.php, que esta
+ * ignorado por git.
+ */
+function app_auth_config()
+{
+    $user = getenv('APP_AUTH_USER');
+    $hash = getenv('APP_AUTH_PASSWORD_HASH');
+
+    if ((!$user || !$hash) && is_file(__DIR__ . '/auth.local.php')) {
+        $local = require __DIR__ . '/auth.local.php';
+        $user = $user ?: ($local['user'] ?? null);
+        $hash = $hash ?: ($local['hash'] ?? null);
+    }
+
+    if (!$user || !$hash) {
+        return null;
+    }
+
+    return ['user' => $user, 'hash' => $hash];
+}
+
+/**
  * Public base URL of the application, with a trailing slash.
  *
  * Built from the forwarded headers so it stays correct behind Railway's HTTPS
