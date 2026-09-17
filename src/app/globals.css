@@ -1,0 +1,201 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Sistema visual
+
+   Neutrales cálidos en vez de grises fríos: es una veterinaria de barrio, no
+   una sala de terapia intensiva. Un solo acento, verde profundo, usado igual
+   en toda la aplicación. Los estados (alerta, aviso) son semánticos y no
+   cuentan como un segundo acento.
+
+   Radios: superficies 14px, controles 10px, píldoras completas. Esa es la
+   regla y no se rompe en ningún componente.
+--------------------------------------------------------------------------- */
+
+:root {
+  --lienzo: oklch(0.985 0.004 85);
+  --superficie: oklch(1 0 0);
+  --superficie-alta: oklch(0.973 0.005 85);
+  --borde: oklch(0.905 0.006 85);
+  --borde-fuerte: oklch(0.83 0.008 85);
+
+  --tinta: oklch(0.23 0.012 75);
+  --tinta-media: oklch(0.47 0.01 75);
+  --tinta-suave: oklch(0.6 0.009 75);
+
+  --acento: oklch(0.47 0.085 162);
+  --acento-fuerte: oklch(0.4 0.09 162);
+  --acento-suave: oklch(0.955 0.022 162);
+  --acento-borde: oklch(0.87 0.04 162);
+  --sobre-acento: oklch(0.99 0.008 162);
+
+  --alerta: oklch(0.51 0.16 28);
+  --alerta-suave: oklch(0.962 0.02 28);
+  --alerta-borde: oklch(0.88 0.05 28);
+
+  --aviso: oklch(0.55 0.11 70);
+  --aviso-suave: oklch(0.965 0.028 80);
+
+  --sombra-color: 0.23 0.012 75;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --lienzo: oklch(0.172 0.006 75);
+    --superficie: oklch(0.212 0.007 75);
+    --superficie-alta: oklch(0.252 0.008 75);
+    --borde: oklch(0.305 0.008 75);
+    --borde-fuerte: oklch(0.4 0.009 75);
+
+    --tinta: oklch(0.955 0.005 85);
+    --tinta-media: oklch(0.765 0.008 85);
+    --tinta-suave: oklch(0.625 0.008 85);
+
+    --acento: oklch(0.76 0.1 162);
+    --acento-fuerte: oklch(0.83 0.095 162);
+    --acento-suave: oklch(0.285 0.035 162);
+    --acento-borde: oklch(0.385 0.05 162);
+    --sobre-acento: oklch(0.17 0.02 162);
+
+    --alerta: oklch(0.73 0.13 28);
+    --alerta-suave: oklch(0.285 0.05 28);
+    --alerta-borde: oklch(0.385 0.07 28);
+
+    --aviso: oklch(0.8 0.1 80);
+    --aviso-suave: oklch(0.295 0.04 80);
+
+    --sombra-color: 0 0 0;
+  }
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --radius-superficie: 14px;
+  --radius-control: 10px;
+
+  --color-lienzo: var(--lienzo);
+  --color-superficie: var(--superficie);
+  --color-superficie-alta: var(--superficie-alta);
+  --color-borde: var(--borde);
+  --color-borde-fuerte: var(--borde-fuerte);
+
+  --color-tinta: var(--tinta);
+  --color-tinta-media: var(--tinta-media);
+  --color-tinta-suave: var(--tinta-suave);
+
+  --color-acento: var(--acento);
+  --color-acento-fuerte: var(--acento-fuerte);
+  --color-acento-suave: var(--acento-suave);
+  --color-acento-borde: var(--acento-borde);
+  --color-sobre-acento: var(--sobre-acento);
+
+  --color-alerta: var(--alerta);
+  --color-alerta-suave: var(--alerta-suave);
+  --color-alerta-borde: var(--alerta-borde);
+
+  --color-aviso: var(--aviso);
+  --color-aviso-suave: var(--aviso-suave);
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: var(--borde);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--lienzo);
+    color: var(--tinta);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Un solo anillo de foco en toda la aplicación, siempre visible al tabular. */
+  :focus-visible {
+    outline: 2px solid var(--acento);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--acento-suave);
+    color: var(--acento-fuerte);
+  }
+
+  /* El scrollbar heredado rompe la paleta en Windows. */
+  * {
+    scrollbar-color: var(--borde-fuerte) transparent;
+    scrollbar-width: thin;
+  }
+}
+
+@layer utilities {
+  /* Los números en fichas y listados se leen mejor tabulares y alineados. */
+  .cifra {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+
+  /* Sombras teñidas con el tono del fondo, nunca negro puro. */
+  .sombra-suave {
+    box-shadow:
+      0 1px 2px oklch(var(--sombra-color) / 0.05),
+      0 1px 3px oklch(var(--sombra-color) / 0.04);
+  }
+
+  .sombra-media {
+    box-shadow:
+      0 2px 4px oklch(var(--sombra-color) / 0.05),
+      0 10px 28px oklch(var(--sombra-color) / 0.08);
+  }
+
+  .aparece {
+    animation: aparece 0.34s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .pulso-carga {
+    animation: pulso-carga 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+@keyframes aparece {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pulso-carga {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+/* El movimiento comunica jerarquía y cambio de estado. Si el sistema pide
+   quietud, se apaga por completo. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
