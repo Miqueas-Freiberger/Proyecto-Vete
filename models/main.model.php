@@ -1,12 +1,21 @@
 <?php
 
+require_once __DIR__ . '/../config.php';
+
 class MainModel
 {
     private $db;
 
     public function __construct()
     {
-        $this->db = new PDO('mysql:host=localhost;' . 'dbname=db_veterinaria;charset=utf8', 'root', '');
+        $cfg = app_db_config();
+        $dsn = sprintf(
+            'mysql:host=%s;port=%d;dbname=%s;charset=utf8',
+            $cfg['host'],
+            $cfg['port'],
+            $cfg['name']
+        );
+        $this->db = new PDO($dsn, $cfg['user'], $cfg['pass']);
     }
 
     ///////////////////////////////////GET//////////////////////////////GET////////////////////////////////GET//////////////////////////////////////////////////
@@ -172,9 +181,20 @@ class MainModel
             $fileBooleanControl = true;
         }
 
-        move_uploaded_file($imgContent, $filePath);
+        // La ruta guardada es relativa; el destino real cuelga del directorio de
+        // uploads, que en produccion es un volumen montado.
+        $destino = app_uploads_dir() . '/' . $filePath;
+        if (!is_dir(dirname($destino))) {
+            mkdir(dirname($destino), 0775, true);
+        }
+        if (!move_uploaded_file($imgContent, $destino)) {
+            throw new RuntimeException('No se pudo guardar el archivo en ' . $destino);
+        }
+
+        // booleanFlag es una columna int: con sql_mode estricto un booleano de
+        // PHP llega como cadena vacia y MySQL lo rechaza.
         $query = $this->db->prepare("INSERT INTO imagenes (nombre,ruta,extension,nuevoNombre,booleanFlag,id_historial_fk) VALUES (?,?,?,?,?,?)");
-        $query->execute([$fileName, $filePath, $fileExtension,$fileNewName,$fileBooleanControl, $id_historial]);
+        $query->execute([$fileName, $filePath, $fileExtension, $fileNewName, (int) $fileBooleanControl, $id_historial]);
     }
 
     ///////////////////////////////////DELETE//////////////////////////////DELETE////////////////////////////////DELETE//////////////////////////////////////////////////

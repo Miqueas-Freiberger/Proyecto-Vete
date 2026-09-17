@@ -1,8 +1,9 @@
 <?php
+require_once __DIR__ . '/config.php';
 require_once 'controllers/main.controller.php';
 
 // defino la base url para la construccion de links con urls semánticas
-define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
+define('BASE_URL', app_base_url());
 
 
 if (!empty($_GET['action'])) {

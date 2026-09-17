@@ -285,13 +285,18 @@ class MainController
     {
         $fileQuery = $this->mainModel->getFileData($file_id);
         foreach ($fileQuery as $data) {
+            // La ruta guardada es relativa al directorio de uploads.
+            $filePath = app_uploads_dir() . '/' . $data->ruta;
+            if (!is_file($filePath)) {
+                http_response_code(404);
+                echo "El archivo ya no esta disponible.";
+                return;
+            }
             if ($data->extension == "application/pdf") {
-                $filePath = $data->ruta;
                 header("content-type: application/pdf");
                 readfile($filePath);
             } elseif ($data->extension == "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
                 $fileName = $data->nuevoNombre;
-                $filePath = $data->ruta;
                 header("Content-type: application/msword");
                 header("Content-Disposition: inline; filename=$fileName");
                 readfile($filePath);
