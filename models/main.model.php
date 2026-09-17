@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../libs/storage.php';
 
 class MainModel
 {
@@ -181,14 +182,10 @@ class MainModel
             $fileBooleanControl = true;
         }
 
-        // La ruta guardada es relativa; el destino real cuelga del directorio de
-        // uploads, que en produccion es un volumen montado.
-        $destino = app_uploads_dir() . '/' . $filePath;
-        if (!is_dir(dirname($destino))) {
-            mkdir(dirname($destino), 0775, true);
-        }
-        if (!move_uploaded_file($imgContent, $destino)) {
-            throw new RuntimeException('No se pudo guardar el archivo en ' . $destino);
+        // La ruta guardada sigue siendo relativa y es tambien la clave dentro
+        // del bucket, asi que los 93 registros que ya existian no se tocan.
+        if (!storage_store_upload($imgContent, $filePath, $fileExtension)) {
+            throw new RuntimeException('No se pudo guardar el archivo ' . $filePath);
         }
 
         // booleanFlag es una columna int: con sql_mode estricto un booleano de

@@ -1,6 +1,7 @@
 <?php
 include_once('models/main.model.php');
 include_once('views/main.view.php');
+require_once __DIR__ . '/../libs/storage.php';
 class MainController
 {
     private $mainModel;
@@ -234,6 +235,12 @@ class MainController
         foreach ($imgQuery as $data) {
             $id_historial = $data->id_historial_fk;
         }
+
+        // Borrar tambien el archivo, para no dejarlo huerfano ocupando lugar.
+        foreach ($this->mainModel->getFileData($id_img) as $file) {
+            storage_delete($file->ruta);
+        }
+
         $this->mainModel->eliminarImagen($id_img);
         header("Location: " . BASE_URL . "archivosHistorial" . "/$id_historial");
     }
@@ -278,6 +285,13 @@ class MainController
     {
         $id_historial = intval($id);
         $img_historial = $this->mainModel->getImgHistorial($id_historial);
+
+        // Cada adjunto viaja al template con su propia URL de lectura, que con
+        // bucket es temporal y firmada.
+        foreach ($img_historial as $file) {
+            $file->url = storage_url($file->ruta);
+        }
+
         $this->mainView->displayImgHistorial($img_historial, $id_historial);
     }
 
@@ -285,17 +299,32 @@ class MainController
     {
         $fileQuery = $this->mainModel->getFileData($file_id);
         foreach ($fileQuery as $data) {
-            // La ruta guardada es relativa al directorio de uploads.
+            if ($data->extension == "application/pdf") {
+                $tipo = "application/pdf";
+            } elseif ($data->extension == "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+                $tipo = "application/msword";
+            } else {
+                $tipo = null;
+            }
+
+            if (storage_uses_s3()) {
+                // El navegador lo pide directo al bucket, sin que el archivo
+                // pase por la app.
+                $extra = $tipo ? ['response-content-type' => $tipo] : [];
+                header("Location: " . storage_url($data->ruta, 300, $extra));
+                return;
+            }
+
             $filePath = app_uploads_dir() . '/' . $data->ruta;
             if (!is_file($filePath)) {
                 http_response_code(404);
                 echo "El archivo ya no esta disponible.";
                 return;
             }
-            if ($data->extension == "application/pdf") {
+            if ($tipo === "application/pdf") {
                 header("content-type: application/pdf");
                 readfile($filePath);
-            } elseif ($data->extension == "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+            } elseif ($tipo === "application/msword") {
                 $fileName = $data->nuevoNombre;
                 header("Content-type: application/msword");
                 header("Content-Disposition: inline; filename=$fileName");

@@ -6,13 +6,13 @@
 
 
             <a href="#!" data-bs-toggle="modal" data-bs-target="#modalImage{$file->id}">
-                <img src="../{$file->ruta}" class="img-thumbnail w-25">
+                <img src="{$file->url}" class="img-thumbnail w-25">
             </a>
             <div tabindex="-1" aria-labelledby="modalImage{$file->id}" aria-hidden="true" class="modal fade"
                 id="modalImage{$file->id}">
                 <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="modal-content" style="margin:auto;">
-                        <img src="../{$file->ruta}">
+                        <img src="{$file->url}">
                         <a href="{BASE_URL}eliminarImagen/{$file->id}"><button type="button" class="btn btn-danger w-100">Borrar
                                 Imagen</button></a>
                     </div>
