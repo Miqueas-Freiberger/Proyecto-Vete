@@ -28,5 +28,16 @@ else
     echo "[entrypoint] WARNING: UPLOADS_DIR is not set, uploads are lost on redeploy"
 fi
 
+# Apache refuses to start with more than one MPM loaded. mod_php needs prefork,
+# so any other MPM that ends up enabled in the build environment is removed here.
+for mpm in mpm_event mpm_worker; do
+    if [ -e "/etc/apache2/mods-enabled/${mpm}.load" ]; then
+        echo "[entrypoint] disabling ${mpm}"
+        a2dismod -f "${mpm}" >/dev/null 2>&1 || true
+    fi
+done
+a2enmod mpm_prefork >/dev/null 2>&1 || true
+
+echo "[entrypoint] MPM enabled: $(ls /etc/apache2/mods-enabled/ | grep -i mpm | tr '\n' ' ')"
 echo "[entrypoint] listening on ${PORT}"
 exec "$@"
