@@ -1,0 +1,5 @@
+# Los archivos que se ejecutan dentro del contenedor Linux necesitan LF.
+# Con CRLF el entrypoint falla con "bad interpreter".
+*.sh text eol=lf
+Dockerfile text eol=lf
+.dockerignore text eol=lf
