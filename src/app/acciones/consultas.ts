@@ -20,6 +20,7 @@ import {
   clasificar,
   generarClave,
   subirArchivo,
+  urlLectura,
 } from "@/lib/storage";
 import { ESTUDIOS } from "@/lib/estudios";
 import type { EstadoFormulario } from "./clientes";
@@ -74,6 +75,7 @@ function aErrores(error: z.ZodError): Record<string, string> {
 
 export async function crearConsultaAccion(
   mascotaId: number,
+  enModal: boolean,
   _estado: EstadoFormulario,
   datos: FormData,
 ): Promise<EstadoFormulario> {
@@ -89,12 +91,17 @@ export async function crearConsultaAccion(
   }
 
   revalidatePath(`/pacientes/${mascotaId}`);
+
+  // A diferencia del alta de cliente o paciente, esta redirige a la ficha
+  // donde vive el modal, así que desde ahí no cerraría nada.
+  if (enModal) return { ok: true };
   redirect(`/pacientes/${mascotaId}`);
 }
 
 export async function actualizarConsultaAccion(
   id: number,
   mascotaId: number,
+  enModal: boolean,
   _estado: EstadoFormulario,
   datos: FormData,
 ): Promise<EstadoFormulario> {
@@ -110,6 +117,8 @@ export async function actualizarConsultaAccion(
   }
 
   revalidatePath(`/pacientes/${mascotaId}`);
+
+  if (enModal) return { ok: true };
   redirect(`/pacientes/${mascotaId}`);
 }
 
@@ -211,4 +220,52 @@ export async function borrarEstudioAccion(id: number): Promise<void> {
   await borrarArchivo(adjunto.ruta);
   await borrarAdjunto(id);
   revalidatePath(`/consultas/${adjunto.consultaId}/estudios`);
+}
+
+export type EstudiosCargados = {
+  hayBucket: boolean;
+  items: Array<{
+    id: number;
+    nombre: string;
+    esDocumento: boolean;
+    tipo: string;
+    url: string | null;
+  }>;
+};
+
+/**
+ * Los estudios se piden al abrir el modal y no vienen precargados con la ficha:
+ * firmar las direcciones de todos los adjuntos de todas las consultas de un
+ * paciente sería una ronda al bucket por archivo para mostrar ninguno.
+ */
+export async function cargarEstudiosAccion(
+  consultaId: number,
+): Promise<EstudiosCargados> {
+  await exigirSesion();
+
+  const hayBucket = bucketDisponible();
+  const adjuntos = await adjuntosDeConsulta(consultaId);
+
+  // Las direcciones se firman en el servidor y vencen. Un archivo que ya no
+  // está en el bucket se marca como faltante en vez de romper la galería.
+  const items = await Promise.all(
+    adjuntos.map(async (adjunto) => {
+      const nombre = adjunto.nombre?.trim() || adjunto.nuevoNombre;
+      return {
+        id: adjunto.id,
+        nombre,
+        esDocumento: adjunto.esDocumento,
+        tipo: adjunto.extension,
+        url: hayBucket
+          ? await urlLectura(adjunto.ruta, {
+              descarga: adjunto.esDocumento,
+              nombre,
+              tipoMime: adjunto.extension || undefined,
+            })
+          : null,
+      };
+    }),
+  );
+
+  return { hayBucket, items };
 }

@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { useFormStatus } from "react-dom";
+import { useState, useTransition } from "react";
 import { Trash, Warning } from "@phosphor-icons/react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -27,6 +27,7 @@ export function ConfirmarBorrado({
   confirmar,
   etiqueta = "Borrar",
   soloIcono = false,
+  onHecho,
 }: {
   accion: () => Promise<void>;
   titulo: string;
@@ -34,8 +35,30 @@ export function ConfirmarBorrado({
   confirmar: string;
   etiqueta?: string;
   soloIcono?: boolean;
+  /** Lo usa la galería dentro del modal, que tiene que recargarse sola. */
+  onHecho?: () => void;
 }) {
   const [abierto, setAbierto] = useState(false);
+  const [pendiente, iniciar] = useTransition();
+
+  // Se invoca en una transición en vez de por action de formulario, para poder
+  // hacer algo después. Las acciones que redirigen desmontan esto antes de
+  // llegar a la línea siguiente, y está bien.
+  //
+  // El try no es decorativo: sin él, un borrado que falla se relanza durante el
+  // render y se lleva puesta la pantalla entera en vez de avisar.
+  function ejecutar() {
+    iniciar(async () => {
+      try {
+        await accion();
+        setAbierto(false);
+        onHecho?.();
+      } catch {
+        setAbierto(false);
+        toast.error("No se pudo borrar. Probá de nuevo.");
+      }
+    });
+  }
 
   return (
     <Dialog open={abierto} onOpenChange={setAbierto}>
@@ -70,23 +93,27 @@ export function ConfirmarBorrado({
         </div>
 
         <DialogFooter>
-          <Button type="button" variant="outline" size="sm" onClick={() => setAbierto(false)}>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            disabled={pendiente}
+            onClick={() => setAbierto(false)}
+          >
             Cancelar
           </Button>
-          <form action={accion}>
-            <BotonConfirmar texto={confirmar} />
-          </form>
+          <Button
+            type="button"
+            variant="destructive"
+            size="sm"
+            loading={pendiente}
+            onClick={ejecutar}
+            className="w-full sm:w-auto"
+          >
+            {confirmar}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
-}
-
-function BotonConfirmar({ texto }: { texto: string }) {
-  const { pending } = useFormStatus();
-  return (
-    <Button type="submit" variant="destructive" size="sm" loading={pending} className="w-full sm:w-auto">
-      {texto}
-    </Button>
   );
 }

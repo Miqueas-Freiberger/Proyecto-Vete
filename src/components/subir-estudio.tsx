@@ -21,7 +21,14 @@ const LIMITE_MB = 25;
  * Al terminar bien, la acción devuelve un sello nuevo y eso remonta el campo,
  * que vuelve vacío solo. Es más limpio que resetear el formulario a mano.
  */
-export function SubirEstudio({ consultaId }: { consultaId: number }) {
+export function SubirEstudio({
+  consultaId,
+  onCambio,
+}: {
+  consultaId: number;
+  /** Dentro del modal la grilla no se rearma sola: hay que pedirla de nuevo. */
+  onCambio?: () => void;
+}) {
   const [estado, enviar] = useActionState(
     subirEstudioAccion.bind(null, consultaId),
     INICIAL,
@@ -30,8 +37,10 @@ export function SubirEstudio({ consultaId }: { consultaId: number }) {
   // La subida no navega a ningún lado, así que sin este aviso la única señal
   // de que salió bien es que la grilla creció.
   useEffect(() => {
-    if (estado.ok) toast.success("Estudio subido");
-  }, [estado.ok, estado.sello]);
+    if (!estado.ok) return;
+    toast.success("Estudio subido");
+    onCambio?.();
+  }, [estado.ok, estado.sello, onCambio]);
 
   return (
     <form action={enviar} className="flex flex-col gap-3">

@@ -53,7 +53,7 @@ export default async function PaginaEditarConsulta({
       </header>
 
       <FormularioConsulta
-        accion={actualizarConsultaAccion.bind(null, consultaId, mascota.id)}
+        accion={actualizarConsultaAccion.bind(null, consultaId, mascota.id, false)}
         valores={{
           fecha: fechaInput(consulta.fecha),
           motivo: consulta.motivo?.trim() ?? "",

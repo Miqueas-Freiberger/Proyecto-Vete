@@ -119,8 +119,10 @@ test.describe("alta completa y borrado", () => {
     await expect(page.getByText("Perro")).toBeVisible();
     const urlPaciente = page.url();
 
-    // Consulta
-    await page.getByRole("link", { name: /Nueva consulta/ }).first().click();
+    // Consulta. Todo el alta y la edición pasan por modales: no hay navegación
+    // que esperar, la dirección no cambia y la ficha de atrás se refresca sola.
+    await page.getByRole("button", { name: /Nueva consulta/ }).first().click();
+    await expect(page.getByRole("dialog")).toBeVisible();
     await page.getByLabel("Motivo").fill("Control anual");
     await page.getByLabel("Observaciones").fill("Sin novedades.");
     await page.getByLabel("Tratamiento").fill("Vacuna al dia.");
@@ -133,15 +135,16 @@ test.describe("alta completa y borrado", () => {
     await expect(page.getByText("Radiografia")).toBeVisible();
 
     // Editar la consulta
-    await page.getByRole("link", { name: "Editar consulta" }).first().click();
+    await page.getByRole("button", { name: "Editar consulta" }).first().click();
+    await expect(page.getByRole("dialog")).toBeVisible();
     await page.getByLabel("Motivo").fill("Control anual corregido");
     await page.getByRole("button", { name: "Guardar cambios" }).click();
     await expect(page.getByText("Control anual corregido")).toBeVisible();
 
-    // Estudios: la pantalla carga aunque todavía no haya nada
-    await page.getByRole("link", { name: /Estudios/ }).first().click();
-    await expect(page).toHaveURL(/\/estudios$/);
-    await expect(page.getByText(/Sin estudios adjuntos/)).toBeVisible();
+    // Estudios: el modal carga aunque todavía no haya nada
+    await page.getByRole("button", { name: /Estudios/ }).first().click();
+    await expect(page.getByText(/Sin estudios adjuntos/)).toBeVisible({ timeout: 15000 });
+    await page.getByRole("button", { name: "Cerrar" }).first().click();
 
     // Borrar el cliente arrastra paciente y consulta
     await page.goto(urlCliente);

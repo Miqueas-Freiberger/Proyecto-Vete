@@ -43,7 +43,7 @@ export default async function PaginaNuevaConsulta({
       </header>
 
       <FormularioConsulta
-        accion={crearConsultaAccion.bind(null, mascotaId)}
+        accion={crearConsultaAccion.bind(null, mascotaId, false)}
         valores={{
           fecha: hoyInput(),
           motivo: "",

@@ -26,7 +26,12 @@ import {
 } from "@/lib/format";
 import { borrarMascotaAccion } from "@/app/acciones/pacientes";
 import { ConfirmarBorrado } from "@/components/confirmar-borrado";
-import { DialogoEditarPaciente } from "@/components/dialogos";
+import {
+  DialogoEditarConsulta,
+  DialogoEditarPaciente,
+  DialogoEstudios,
+  DialogoNuevaConsulta,
+} from "@/components/dialogos";
 import { Migas } from "@/components/migas";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -168,12 +173,12 @@ export default async function PaginaPaciente({ params }: PageProps<"/pacientes/[
               </span>
             )}
           </div>
-          <Button asChild size="sm">
-            <Link href={`/consultas/nueva?paciente=${mascotaId}`}>
+          <DialogoNuevaConsulta mascotaId={mascotaId} paciente={nombre}>
+            <Button size="sm">
               <Plus size={15} weight="bold" />
               Nueva consulta
-            </Link>
-          </Button>
+            </Button>
+          </DialogoNuevaConsulta>
         </div>
 
         {consultas.length === 0 ? (
@@ -183,12 +188,12 @@ export default async function PaginaPaciente({ params }: PageProps<"/pacientes/[
               title="Todavía no hay consultas"
               description="Registrá la primera para empezar la historia clínica de este paciente."
               action={
-                <Button asChild size="sm">
-                  <Link href={`/consultas/nueva?paciente=${mascotaId}`}>
+                <DialogoNuevaConsulta mascotaId={mascotaId} paciente={nombre}>
+                  <Button size="sm">
                     <Plus size={15} weight="bold" />
                     Nueva consulta
-                  </Link>
-                </Button>
+                  </Button>
+                </DialogoNuevaConsulta>
               }
             />
           </Card>
@@ -219,8 +224,12 @@ export default async function PaginaPaciente({ params }: PageProps<"/pacientes/[
                       </div>
 
                       <div className="flex items-center gap-1">
-                        <Button asChild variant="ghost" size="sm">
-                          <Link href={`/consultas/${consulta.id}/estudios`}>
+                        <DialogoEstudios
+                          consultaId={consulta.id}
+                          fecha={fechaCorta(consulta.fecha)}
+                          paciente={nombre}
+                        >
+                          <Button variant="ghost" size="sm">
                             <Paperclip size={14} />
                             Estudios
                             {cantidadAdjuntos > 0 && (
@@ -228,16 +237,29 @@ export default async function PaginaPaciente({ params }: PageProps<"/pacientes/[
                                 {cantidadAdjuntos}
                               </span>
                             )}
-                          </Link>
-                        </Button>
-                        <Button asChild variant="ghost" size="icon-sm">
-                          <Link
-                            href={`/consultas/${consulta.id}/editar`}
+                          </Button>
+                        </DialogoEstudios>
+
+                        <DialogoEditarConsulta
+                          consultaId={consulta.id}
+                          mascotaId={mascotaId}
+                          fecha={fechaCorta(consulta.fecha)}
+                          valores={{
+                            fecha: fechaInput(consulta.fecha),
+                            motivo: consulta.motivo?.trim() ?? "",
+                            observacion: consulta.observacion?.trim() ?? "",
+                            tratamiento: consulta.tratamiento?.trim() ?? "",
+                            complementarios: estudios,
+                          }}
+                        >
+                          <Button
+                            variant="ghost"
+                            size="icon-sm"
                             aria-label="Editar consulta"
                           >
                             <PencilSimple size={14} />
-                          </Link>
-                        </Button>
+                          </Button>
+                        </DialogoEditarConsulta>
                       </div>
                     </div>
 

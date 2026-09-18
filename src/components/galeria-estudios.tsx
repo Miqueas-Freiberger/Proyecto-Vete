@@ -32,7 +32,13 @@ export type ItemEstudio = {
  * a otra con las flechas, porque comparar dos radiografías es el uso real.
  * Los documentos abren en una pestaña nueva.
  */
-export function GaleriaEstudios({ items }: { items: ItemEstudio[] }) {
+export function GaleriaEstudios({
+  items,
+  onCambio,
+}: {
+  items: ItemEstudio[];
+  onCambio?: () => void;
+}) {
   const [rotas, setRotas] = useState<Set<number>>(new Set());
   const [abierta, setAbierta] = useState<number | null>(null);
 
@@ -111,6 +117,7 @@ export function GaleriaEstudios({ items }: { items: ItemEstudio[] }) {
                   confirmar="Borrar estudio"
                   etiqueta="Borrar estudio"
                   soloIcono
+                  onHecho={onCambio}
                 />
               </div>
             </Card>

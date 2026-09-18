@@ -32,17 +32,35 @@ function DialogContent({
   className,
   children,
   showClose = true,
+  hoja = false,
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Content> & { showClose?: boolean }) {
+}: React.ComponentProps<typeof DialogPrimitive.Content> & {
+  showClose?: boolean;
+  /**
+   * Los diálogos con formulario ocupan la pantalla entera en el teléfono. Un
+   * recuadro flotante con ocho campos adentro deja al que escribe mirando por
+   * una ranura, y la mitad de la pantalla desperdiciada alrededor.
+   */
+  hoja?: boolean;
+}) {
   return (
     <DialogPortal>
       <DialogOverlay />
       <DialogPrimitive.Content
         className={cn(
-          "fixed top-1/2 left-1/2 z-50 w-[calc(100vw-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2",
-          "rounded-lg border border-border bg-popover text-popover-foreground shadow-e3",
-          "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
-          "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
+          "fixed z-50 border-border bg-popover text-popover-foreground shadow-e3",
+          hoja
+            ? [
+                "inset-0 flex flex-col border-0",
+                "sm:inset-auto sm:top-1/2 sm:left-1/2 sm:h-auto sm:max-h-[90dvh] sm:w-[calc(100vw-2rem)] sm:max-w-2xl",
+                "sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-lg sm:border",
+              ].join(" ")
+            : "top-1/2 left-1/2 w-[calc(100vw-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-lg border",
+          "data-[state=open]:animate-in data-[state=open]:fade-in-0",
+          "data-[state=closed]:animate-out data-[state=closed]:fade-out-0",
+          hoja
+            ? "data-[state=open]:slide-in-from-bottom-4 data-[state=closed]:slide-out-to-bottom-4 sm:data-[state=open]:slide-in-from-bottom-0 sm:data-[state=open]:zoom-in-95 sm:data-[state=closed]:slide-out-to-bottom-0 sm:data-[state=closed]:zoom-out-95"
+            : "data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95",
           className,
         )}
         {...props}
