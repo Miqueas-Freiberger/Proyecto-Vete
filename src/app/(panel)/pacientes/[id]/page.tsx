@@ -2,6 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
+  Notepad,
+  Paperclip,
+  PawPrint,
+  PencilSimple,
+  Plus,
+} from "@phosphor-icons/react/dist/ssr";
+
+import {
   conteoAdjuntosPorConsulta,
   consultasDeMascota,
   obtenerMascota,
@@ -9,6 +17,7 @@ import {
 import {
   etiquetaEspecie,
   fechaCorta,
+  fechaInput,
   fechaLarga,
   limpiar,
   listaComplementarios,
@@ -16,25 +25,14 @@ import {
   titulo,
 } from "@/lib/format";
 import { borrarMascotaAccion } from "@/app/acciones/pacientes";
-import {
-  BotonEnlace,
-  Dato,
-  Panel,
-  Pastilla,
-  SinDato,
-  TituloSeccion,
-  Vacio,
-} from "@/components/ui";
 import { ConfirmarBorrado } from "@/components/confirmar-borrado";
+import { DialogoEditarPaciente } from "@/components/dialogos";
 import { Migas } from "@/components/migas";
-import {
-  Images,
-  Notepad,
-  Paperclip,
-  PawPrint,
-  PencilSimple,
-  Plus,
-} from "@phosphor-icons/react/dist/ssr";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Dato, SinDato } from "@/components/ui/dato";
+import { EmptyState } from "@/components/ui/states";
 
 export async function generateMetadata({
   params,
@@ -44,9 +42,7 @@ export async function generateMetadata({
   return { title: mascota ? titulo(mascota.nombre) || "Paciente" : "Paciente" };
 }
 
-export default async function PaginaPaciente({
-  params,
-}: PageProps<"/pacientes/[id]">) {
+export default async function PaginaPaciente({ params }: PageProps<"/pacientes/[id]">) {
   const { id } = await params;
   const mascotaId = Number(id);
   if (!Number.isInteger(mascotaId) || mascotaId <= 0) notFound();
@@ -62,6 +58,7 @@ export default async function PaginaPaciente({
   const nombre = titulo(mascota.nombre) || "Sin nombre";
   const especie = normalizarEspecie(mascota.especie);
   const dueno = titulo(mascota.duenoNombre) || "Sin nombre";
+  const esterilizado = limpiar(mascota.esterilizado);
 
   return (
     <div className="flex flex-col gap-6">
@@ -77,35 +74,43 @@ export default async function PaginaPaciente({
         <div className="flex min-w-0 items-center gap-4">
           <span
             aria-hidden
-            className="flex size-14 shrink-0 items-center justify-center rounded-full bg-acento-suave text-acento"
+            className="flex size-14 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary-strong dark:text-primary"
           >
             <PawPrint size={26} weight="fill" />
           </span>
           <div className="flex min-w-0 flex-col gap-1.5">
-            <h1 className="truncate text-2xl font-semibold tracking-tight text-tinta sm:text-3xl">
+            <h1 className="truncate text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
               {nombre}
             </h1>
             <div className="flex flex-wrap items-center gap-2">
-              <Pastilla tono="acento">{etiquetaEspecie(especie)}</Pastilla>
-              {limpiar(mascota.sexo) && (
-                <Pastilla>{titulo(mascota.sexo)}</Pastilla>
-              )}
-              {limpiar(mascota.tamano) && (
-                <Pastilla>{titulo(mascota.tamano)}</Pastilla>
-              )}
+              <Badge variant="primary">{etiquetaEspecie(especie)}</Badge>
+              {limpiar(mascota.sexo) && <Badge>{titulo(mascota.sexo)}</Badge>}
+              {limpiar(mascota.tamano) && <Badge>{titulo(mascota.tamano)}</Badge>}
             </div>
           </div>
         </div>
 
         <div className="flex shrink-0 items-center gap-2">
-          <BotonEnlace
-            href={`/pacientes/${mascotaId}/editar`}
-            tono="secundario"
-            medida="sm"
+          <DialogoEditarPaciente
+            mascotaId={mascotaId}
+            nombre={nombre}
+            valores={{
+              nombre: mascota.nombre?.trim() ?? "",
+              especie: mascota.especie?.trim() ?? "",
+              nacimiento: mascota.nacimiento?.trim() ?? "",
+              sexo: mascota.sexo?.trim() ?? "",
+              raza: mascota.raza?.trim() ?? "",
+              color: mascota.color?.trim() ?? "",
+              tamano: mascota.tamano?.trim() ?? "",
+              esterilizado: mascota.esterilizado?.trim() ?? "",
+              ingreso: fechaInput(mascota.ingreso),
+            }}
           >
-            <PencilSimple size={15} />
-            Editar
-          </BotonEnlace>
+            <Button variant="outline" size="sm">
+              <PencilSimple size={15} />
+              Editar
+            </Button>
+          </DialogoEditarPaciente>
           <ConfirmarBorrado
             accion={borrarMascotaAccion.bind(null, mascotaId)}
             titulo={`¿Borrar a ${nombre}?`}
@@ -119,73 +124,74 @@ export default async function PaginaPaciente({
         </div>
       </header>
 
-      <Panel className="p-5">
-        <dl className="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-3 lg:grid-cols-5">
-          <Dato etiqueta="Dueño">
-            <Link
-              href={`/clientes/${mascota.duenoId}`}
-              className="transition-colors hover:text-acento"
-            >
-              {dueno}
-            </Link>
-          </Dato>
-          <Dato etiqueta="Raza">
-            {limpiar(mascota.raza) ? titulo(mascota.raza) : <SinDato />}
-          </Dato>
-          <Dato etiqueta="Color">
-            {limpiar(mascota.color) ? titulo(mascota.color) : <SinDato />}
-          </Dato>
-          <Dato etiqueta="Nacimiento">
-            {limpiar(mascota.nacimiento) ? (
-              <span className="cifra">{limpiar(mascota.nacimiento)}</span>
-            ) : (
-              <SinDato />
-            )}
-          </Dato>
-          <Dato etiqueta="Esterilizado">
-            {limpiar(mascota.esterilizado) === "Si"
-              ? "Sí"
-              : limpiar(mascota.esterilizado) === "No"
-                ? "No"
-                : <SinDato />}
-          </Dato>
-        </dl>
-      </Panel>
+      <Card>
+        <CardContent className="py-5">
+          <dl className="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-3 lg:grid-cols-5">
+            <Dato etiqueta="Dueño">
+              <Link
+                href={`/clientes/${mascota.duenoId}`}
+                className="transition-colors hover:text-primary"
+              >
+                {dueno}
+              </Link>
+            </Dato>
+            <Dato etiqueta="Raza">
+              {limpiar(mascota.raza) ? titulo(mascota.raza) : <SinDato />}
+            </Dato>
+            <Dato etiqueta="Color">
+              {limpiar(mascota.color) ? titulo(mascota.color) : <SinDato />}
+            </Dato>
+            <Dato etiqueta="Nacimiento">
+              {limpiar(mascota.nacimiento) ? (
+                <span className="cifra">{limpiar(mascota.nacimiento)}</span>
+              ) : (
+                <SinDato />
+              )}
+            </Dato>
+            <Dato etiqueta="Esterilizado">
+              {esterilizado === "Si" ? "Sí" : esterilizado === "No" ? "No" : <SinDato />}
+            </Dato>
+          </dl>
+        </CardContent>
+      </Card>
 
       <section className="flex flex-col gap-3">
-        <TituloSeccion
-          accion={
-            <BotonEnlace
-              href={`/consultas/nueva?paciente=${mascotaId}`}
-              tono="primario"
-              medida="sm"
-            >
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-baseline gap-2.5">
+            <h2 className="text-[15px] font-semibold tracking-tight text-foreground">
+              Historia clínica
+            </h2>
+            {consultas.length > 0 && (
+              <span className="text-[13px] text-muted-foreground">
+                <span className="cifra">{consultas.length}</span>{" "}
+                {consultas.length === 1 ? "consulta" : "consultas"}
+              </span>
+            )}
+          </div>
+          <Button asChild size="sm">
+            <Link href={`/consultas/nueva?paciente=${mascotaId}`}>
               <Plus size={15} weight="bold" />
               Nueva consulta
-            </BotonEnlace>
-          }
-        >
-          Historia clínica
-        </TituloSeccion>
+            </Link>
+          </Button>
+        </div>
 
         {consultas.length === 0 ? (
-          <Panel>
-            <Vacio
-              icono={<Notepad size={22} />}
-              titulo="Todavía no hay consultas"
-              detalle="Registrá la primera para empezar la historia clínica de este paciente."
-              accion={
-                <BotonEnlace
-                  href={`/consultas/nueva?paciente=${mascotaId}`}
-                  tono="primario"
-                  medida="sm"
-                >
-                  <Plus size={15} weight="bold" />
-                  Nueva consulta
-                </BotonEnlace>
+          <Card>
+            <EmptyState
+              icon={<Notepad />}
+              title="Todavía no hay consultas"
+              description="Registrá la primera para empezar la historia clínica de este paciente."
+              action={
+                <Button asChild size="sm">
+                  <Link href={`/consultas/nueva?paciente=${mascotaId}`}>
+                    <Plus size={15} weight="bold" />
+                    Nueva consulta
+                  </Link>
+                </Button>
               }
             />
-          </Panel>
+          </Card>
         ) : (
           <ol className="flex flex-col gap-3">
             {consultas.map((consulta) => {
@@ -194,111 +200,104 @@ export default async function PaginaPaciente({
               const observacion = limpiar(consulta.observacion);
               const tratamiento = limpiar(consulta.tratamiento);
               const cantidadAdjuntos = adjuntos.get(consulta.id) ?? 0;
+              const vacia = !motivo && !observacion && !tratamiento && estudios.length === 0;
 
               return (
                 <li key={consulta.id}>
-                  <Panel className="p-4 sm:p-5">
+                  <Card className="p-4 sm:p-5">
                     <div className="flex flex-wrap items-center justify-between gap-3">
                       <div className="flex items-baseline gap-2.5">
                         <time
                           dateTime={consulta.fecha}
-                          className="cifra text-[15px] font-semibold text-tinta"
+                          className="cifra text-[15px] font-semibold text-foreground"
                         >
                           {fechaCorta(consulta.fecha)}
                         </time>
-                        <span className="text-[12.5px] text-tinta-suave">
+                        <span className="text-[12.5px] text-muted-foreground">
                           {fechaLarga(consulta.fecha)}
                         </span>
                       </div>
 
                       <div className="flex items-center gap-1">
-                        <BotonEnlace
-                          href={`/consultas/${consulta.id}/estudios`}
-                          tono="fantasma"
-                          medida="sm"
-                        >
-                          <Paperclip size={14} />
-                          Estudios
-                          {cantidadAdjuntos > 0 && (
-                            <span className="cifra ml-0.5 rounded-full bg-acento-suave px-1.5 text-[11px] font-semibold text-acento-fuerte">
-                              {cantidadAdjuntos}
-                            </span>
-                          )}
-                        </BotonEnlace>
-                        <BotonEnlace
-                          href={`/consultas/${consulta.id}/editar`}
-                          tono="fantasma"
-                          medida="sm"
-                          aria-label="Editar consulta"
-                        >
-                          <PencilSimple size={14} />
-                        </BotonEnlace>
+                        <Button asChild variant="ghost" size="sm">
+                          <Link href={`/consultas/${consulta.id}/estudios`}>
+                            <Paperclip size={14} />
+                            Estudios
+                            {cantidadAdjuntos > 0 && (
+                              <span className="cifra ml-0.5 rounded-full bg-primary-soft px-1.5 text-[11px] font-semibold text-primary-strong dark:text-primary">
+                                {cantidadAdjuntos}
+                              </span>
+                            )}
+                          </Link>
+                        </Button>
+                        <Button asChild variant="ghost" size="icon-sm">
+                          <Link
+                            href={`/consultas/${consulta.id}/editar`}
+                            aria-label="Editar consulta"
+                          >
+                            <PencilSimple size={14} />
+                          </Link>
+                        </Button>
                       </div>
                     </div>
 
                     {(motivo || observacion || tratamiento) && (
-                      <dl className="mt-4 flex flex-col gap-3.5 border-t border-borde pt-4">
-                        {motivo && (
-                          <div className="flex flex-col gap-1">
-                            <dt className="text-[12px] font-medium text-tinta-suave">
-                              Motivo
-                            </dt>
-                            <dd className="text-sm leading-relaxed text-tinta">
-                              {motivo}
-                            </dd>
-                          </div>
-                        )}
+                      <dl className="mt-4 flex flex-col gap-3.5 border-t border-border pt-4">
+                        {motivo && <Bloque etiqueta="Motivo">{motivo}</Bloque>}
                         {observacion && (
-                          <div className="flex flex-col gap-1">
-                            <dt className="text-[12px] font-medium text-tinta-suave">
-                              Observaciones
-                            </dt>
-                            <dd className="whitespace-pre-line text-sm leading-relaxed text-tinta">
-                              {observacion}
-                            </dd>
-                          </div>
+                          <Bloque etiqueta="Observaciones" multilinea>
+                            {observacion}
+                          </Bloque>
                         )}
                         {tratamiento && (
-                          <div className="flex flex-col gap-1">
-                            <dt className="text-[12px] font-medium text-tinta-suave">
-                              Tratamiento
-                            </dt>
-                            <dd className="whitespace-pre-line text-sm leading-relaxed text-tinta">
-                              {tratamiento}
-                            </dd>
-                          </div>
+                          <Bloque etiqueta="Tratamiento" multilinea>
+                            {tratamiento}
+                          </Bloque>
                         )}
                       </dl>
                     )}
 
                     {estudios.length > 0 && (
-                      <div className="mt-4 flex flex-wrap items-center gap-1.5 border-t border-borde pt-4">
+                      <div className="mt-4 flex flex-wrap items-center gap-1.5 border-t border-border pt-4">
                         {estudios.map((estudio) => (
-                          <Pastilla key={estudio}>{estudio}</Pastilla>
+                          <Badge key={estudio}>{estudio}</Badge>
                         ))}
                       </div>
                     )}
 
-                    {!motivo && !observacion && !tratamiento && estudios.length === 0 && (
-                      <p className="mt-3 text-[13px] text-tinta-suave">
+                    {vacia && (
+                      <p className="mt-3 text-[13px] text-muted-foreground">
                         La consulta quedó registrada sin detalle.
                       </p>
                     )}
-                  </Panel>
+                  </Card>
                 </li>
               );
             })}
           </ol>
         )}
       </section>
+    </div>
+  );
+}
 
-      {consultas.length > 0 && (
-        <p className="flex items-center justify-center gap-1.5 text-[12.5px] text-tinta-suave">
-          <Images size={14} />
-          <span className="cifra">{consultas.length}</span>
-          {consultas.length === 1 ? " consulta registrada" : " consultas registradas"}
-        </p>
-      )}
+function Bloque({
+  etiqueta,
+  children,
+  multilinea = false,
+}: {
+  etiqueta: string;
+  children: React.ReactNode;
+  multilinea?: boolean;
+}) {
+  return (
+    <div className="flex flex-col gap-1">
+      <dt className="text-[12px] font-medium text-muted-foreground">{etiqueta}</dt>
+      <dd
+        className={`text-sm leading-relaxed text-foreground ${multilinea ? "whitespace-pre-line" : ""}`}
+      >
+        {children}
+      </dd>
     </div>
   );
 }

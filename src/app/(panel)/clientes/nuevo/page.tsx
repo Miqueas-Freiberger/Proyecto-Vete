@@ -11,10 +11,10 @@ export default function PaginaNuevoCliente() {
       <Migas rutas={[{ texto: "Clientes", href: "/" }]} actual="Nuevo cliente" />
 
       <header className="flex flex-col gap-1.5">
-        <h1 className="text-2xl font-semibold tracking-tight text-tinta">
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground">
           Nuevo cliente
         </h1>
-        <p className="text-sm text-tinta-media">
+        <p className="text-sm text-muted-foreground">
           Solo el nombre es obligatorio. El resto se puede completar después.
         </p>
       </header>

@@ -1,10 +1,13 @@
 "use client";
 
-import { useActionState, useRef, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
+import { CheckCircle, UploadSimple } from "@phosphor-icons/react";
+import { toast } from "sonner";
+
 import { subirEstudioAccion, type EstadoSubida } from "@/app/acciones/consultas";
-import { AvisoError, Boton } from "./ui";
-import { CheckCircle, SpinnerGap, UploadSimple } from "@phosphor-icons/react";
+import { Alert } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 
 const INICIAL: EstadoSubida = {};
 const LIMITE_MB = 25;
@@ -24,9 +27,15 @@ export function SubirEstudio({ consultaId }: { consultaId: number }) {
     INICIAL,
   );
 
+  // La subida no navega a ningún lado, así que sin este aviso la única señal
+  // de que salió bien es que la grilla creció.
+  useEffect(() => {
+    if (estado.ok) toast.success("Estudio subido");
+  }, [estado.ok, estado.sello]);
+
   return (
     <form action={enviar} className="flex flex-col gap-3">
-      {estado.error && <AvisoError>{estado.error}</AvisoError>}
+      {estado.error && <Alert>{estado.error}</Alert>}
       <ZonaArchivo key={estado.sello ?? 0} recienSubido={Boolean(estado.ok)} />
     </form>
   );
@@ -58,23 +67,23 @@ function ZonaArchivo({ recienSubido }: { recienSubido: boolean }) {
         setEncima(false);
         tomarArchivo(e.dataTransfer.files);
       }}
-      className={`flex flex-col items-center justify-center gap-3 rounded-[var(--radius-superficie)] border border-dashed px-5 py-8 text-center transition-colors ${
-        encima ? "border-acento bg-acento-suave" : "border-borde-fuerte bg-superficie"
+      className={`flex flex-col items-center justify-center gap-3 rounded-lg border border-dashed px-5 py-8 text-center transition-colors ${
+        encima ? "border-primary bg-primary-soft" : "border-border-strong bg-card"
       }`}
     >
-      <span className="flex size-11 items-center justify-center rounded-full bg-acento-suave text-acento">
+      <span className="flex size-11 items-center justify-center rounded-full bg-primary-soft text-primary-strong dark:text-primary">
         {recienSubido && !nombre ? (
-          <CheckCircle size={22} weight="fill" />
+          <CheckCircle size={22} weight="fill" aria-hidden />
         ) : (
-          <UploadSimple size={20} />
+          <UploadSimple size={20} aria-hidden />
         )}
       </span>
 
       <div className="flex flex-col gap-1">
-        <p className="text-sm font-medium text-tinta">
+        <p className="text-sm font-medium text-foreground">
           {nombre ?? (recienSubido ? "Estudio subido" : "Arrastrá un archivo o elegilo")}
         </p>
-        <p className="text-[12px] text-tinta-suave">
+        <p className="text-[12px] text-muted-foreground">
           Imágenes, PDF o Word. Hasta {LIMITE_MB} MB.
         </p>
       </div>
@@ -90,12 +99,11 @@ function ZonaArchivo({ recienSubido }: { recienSubido: boolean }) {
       />
 
       <div className="flex items-center gap-2">
-        <label
-          htmlFor="archivo-estudio"
-          className="inline-flex h-9 cursor-pointer items-center justify-center rounded-[var(--radius-control)] border border-borde-fuerte bg-superficie px-3 text-[13px] font-medium text-tinta transition-colors hover:bg-superficie-alta active:translate-y-[1px]"
-        >
-          Elegir archivo
-        </label>
+        <Button asChild variant="outline" size="sm">
+          <label htmlFor="archivo-estudio" className="cursor-pointer">
+            Elegir archivo
+          </label>
+        </Button>
         {nombre && <BotonSubir />}
       </div>
     </div>
@@ -105,9 +113,8 @@ function ZonaArchivo({ recienSubido }: { recienSubido: boolean }) {
 function BotonSubir() {
   const { pending } = useFormStatus();
   return (
-    <Boton type="submit" tono="primario" medida="sm" disabled={pending}>
-      {pending && <SpinnerGap size={14} className="animate-spin" />}
+    <Button type="submit" size="sm" loading={pending}>
       {pending ? "Subiendo" : "Subir"}
-    </Boton>
+    </Button>
   );
 }

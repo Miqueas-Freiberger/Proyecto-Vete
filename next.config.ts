@@ -25,7 +25,10 @@ const nextConfig: NextConfig = {
       : [],
     formats: ["image/webp"],
   },
+  // El paquete de iconos exporta miles de componentes desde un solo indice.
+  // Sin esto, una pantalla que usa cuatro iconos arrastra el barril entero.
   experimental: {
+    optimizePackageImports: ["@phosphor-icons/react"],
     // El cliente de MySQL y el SDK de S3 no deben entrar en el bundle del cliente.
     serverActions: { bodySizeLimit: "26mb" },
   },

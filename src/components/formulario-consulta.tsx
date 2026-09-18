@@ -1,9 +1,14 @@
 "use client";
 
 import { useActionState } from "react";
+
 import type { EstadoFormulario } from "@/app/acciones/clientes";
 import { ESTUDIOS } from "@/lib/estudios";
-import { AreaTexto, AvisoError, Campo, Entrada, Panel } from "@/components/ui";
+import { Alert } from "@/components/ui/alert";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Field } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Acciones } from "./formulario-cliente";
 
 export type ValoresConsulta = {
@@ -32,84 +37,83 @@ export function FormularioConsulta({
 
   return (
     <form action={enviar} className="flex flex-col gap-5">
-      {estado.error && <AvisoError>{estado.error}</AvisoError>}
+      {estado.error && <Alert>{estado.error}</Alert>}
 
-      <Panel className="flex flex-col gap-5 p-5">
-        <div className="grid gap-5 sm:grid-cols-[minmax(0,12rem)_1fr]">
-          <Campo
-            etiqueta="Fecha"
-            htmlFor="fecha"
-            obligatorio
-            error={estado.errores?.fecha}
-          >
-            <Entrada
-              id="fecha"
-              name="fecha"
-              type="date"
-              defaultValue={valores.fecha}
-              required
-            />
-          </Campo>
-
-          <Campo etiqueta="Motivo" htmlFor="motivo" error={estado.errores?.motivo}>
-            <Entrada
-              id="motivo"
-              name="motivo"
-              defaultValue={valores.motivo}
-              maxLength={255}
-              placeholder="Control, vacunación, herida..."
-              autoFocus
-            />
-          </Campo>
-        </div>
-
-        <Campo etiqueta="Observaciones" htmlFor="observacion">
-          <AreaTexto
-            id="observacion"
-            name="observacion"
-            defaultValue={valores.observacion}
-            rows={5}
-          />
-        </Campo>
-
-        <Campo etiqueta="Tratamiento" htmlFor="tratamiento">
-          <AreaTexto
-            id="tratamiento"
-            name="tratamiento"
-            defaultValue={valores.tratamiento}
-            rows={4}
-          />
-        </Campo>
-      </Panel>
-
-      <Panel className="flex flex-col gap-4 p-5">
-        <div className="flex flex-col gap-1">
-          <p className="text-[13px] font-medium text-tinta-media">
-            Estudios complementarios
-          </p>
-          <p className="text-[12px] text-tinta-suave">
-            Marcá los que se pidieron en esta consulta.
-          </p>
-        </div>
-
-        <div className="grid gap-2 sm:grid-cols-2">
-          {ESTUDIOS.map((estudio) => (
-            <label
-              key={estudio}
-              className="flex cursor-pointer items-center gap-2.5 rounded-[var(--radius-control)] border border-borde px-3 py-2.5 text-sm text-tinta transition-colors hover:border-acento-borde hover:bg-superficie-alta has-[:checked]:border-acento-borde has-[:checked]:bg-acento-suave"
-            >
-              <input
-                type="checkbox"
-                name="complementarios"
-                value={estudio}
-                defaultChecked={marcados.has(estudio)}
-                className="size-4 shrink-0 accent-[var(--acento)]"
+      <Card>
+        <CardContent className="flex flex-col gap-5 py-5">
+          <div className="grid gap-5 sm:grid-cols-[minmax(0,12rem)_1fr]">
+            <Field label="Fecha" htmlFor="fecha" required error={estado.errores?.fecha}>
+              <Input
+                id="fecha"
+                name="fecha"
+                type="date"
+                defaultValue={valores.fecha}
+                aria-invalid={Boolean(estado.errores?.fecha)}
+                required
               />
-              {estudio}
-            </label>
-          ))}
-        </div>
-      </Panel>
+            </Field>
+
+            <Field label="Motivo" htmlFor="motivo" error={estado.errores?.motivo}>
+              <Input
+                id="motivo"
+                name="motivo"
+                defaultValue={valores.motivo}
+                maxLength={255}
+                placeholder="Control, vacunación, herida..."
+                aria-invalid={Boolean(estado.errores?.motivo)}
+                autoFocus
+              />
+            </Field>
+          </div>
+
+          <Field label="Observaciones" htmlFor="observacion">
+            <Textarea
+              id="observacion"
+              name="observacion"
+              defaultValue={valores.observacion}
+              rows={5}
+            />
+          </Field>
+
+          <Field label="Tratamiento" htmlFor="tratamiento">
+            <Textarea
+              id="tratamiento"
+              name="tratamiento"
+              defaultValue={valores.tratamiento}
+              rows={4}
+            />
+          </Field>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader className="border-b border-border">
+          <div className="flex flex-col gap-0.5">
+            <CardTitle>Estudios complementarios</CardTitle>
+            <CardDescription>Marcá los que se pidieron en esta consulta.</CardDescription>
+          </div>
+        </CardHeader>
+
+        <CardContent>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {ESTUDIOS.map((estudio) => (
+              <label
+                key={estudio}
+                className="flex cursor-pointer items-center gap-2.5 rounded-md border border-border px-3 py-2.5 text-sm text-foreground transition-colors hover:border-border-strong hover:bg-accent has-[:checked]:border-primary-border has-[:checked]:bg-primary-soft has-[:checked]:text-primary-strong dark:has-[:checked]:text-primary"
+              >
+                <input
+                  type="checkbox"
+                  name="complementarios"
+                  value={estudio}
+                  defaultChecked={marcados.has(estudio)}
+                  className="size-4 shrink-0 accent-primary"
+                />
+                {estudio}
+              </label>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
 
       <Acciones volverA={volverA} textoEnviar={textoEnviar} />
     </form>

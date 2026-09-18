@@ -1,15 +1,13 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+
 import type { EstadoFormulario } from "@/app/acciones/clientes";
-import {
-  AvisoError,
-  Campo,
-  Entrada,
-  Panel,
-  Selector,
-} from "@/components/ui";
-import { Acciones } from "./formulario-cliente";
+import { Alert } from "@/components/ui/alert";
+import { Field } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
+import { Acciones, Envoltura } from "./formulario-cliente";
 
 export type ValoresPaciente = {
   nombre: string;
@@ -37,142 +35,147 @@ export function FormularioPaciente({
   valores,
   volverA,
   textoEnviar,
+  enModal = false,
+  onExito,
 }: {
   accion: (estado: EstadoFormulario, datos: FormData) => Promise<EstadoFormulario>;
   valores: ValoresPaciente;
   volverA: string;
   textoEnviar: string;
+  enModal?: boolean;
+  onExito?: () => void;
 }) {
   const [estado, enviar] = useActionState(accion, INICIAL);
 
+  useEffect(() => {
+    if (estado.ok) onExito?.();
+  }, [estado.ok, onExito]);
+
   return (
     <form action={enviar} className="flex flex-col gap-5">
-      {estado.error && <AvisoError>{estado.error}</AvisoError>}
+      {estado.error && <Alert>{estado.error}</Alert>}
 
-      <Panel className="flex flex-col gap-5 p-5">
-        <div className="grid gap-5 sm:grid-cols-2">
-          <Campo
-            etiqueta="Nombre"
-            htmlFor="nombre"
-            obligatorio
-            error={estado.errores?.nombre}
-          >
-            <Entrada
-              id="nombre"
-              name="nombre"
-              defaultValue={valores.nombre}
-              maxLength={30}
-              required
-              autoFocus
-            />
-          </Campo>
+      <Envoltura enModal={enModal}>
+          <div className="grid gap-5 sm:grid-cols-2">
+            <Field label="Nombre" htmlFor="nombre" required error={estado.errores?.nombre}>
+              <Input
+                id="nombre"
+                name="nombre"
+                defaultValue={valores.nombre}
+                maxLength={30}
+                aria-invalid={Boolean(estado.errores?.nombre)}
+                required
+                autoFocus
+              />
+            </Field>
 
-          <Campo etiqueta="Especie" htmlFor="especie" error={estado.errores?.especie}>
-            <Entrada
-              id="especie"
-              name="especie"
-              defaultValue={valores.especie}
-              maxLength={30}
-              list="especies-sugeridas"
-              placeholder="Canino, felino..."
-            />
-            <datalist id="especies-sugeridas">
-              <option value="Canino" />
-              <option value="Felino" />
-            </datalist>
-          </Campo>
-        </div>
+            <Field label="Especie" htmlFor="especie" error={estado.errores?.especie}>
+              <Input
+                id="especie"
+                name="especie"
+                defaultValue={valores.especie}
+                maxLength={30}
+                list="especies-sugeridas"
+                placeholder="Canino, felino..."
+                aria-invalid={Boolean(estado.errores?.especie)}
+              />
+              <datalist id="especies-sugeridas">
+                <option value="Canino" />
+                <option value="Felino" />
+              </datalist>
+            </Field>
+          </div>
 
-        <div className="grid gap-5 sm:grid-cols-2">
-          <Campo etiqueta="Raza" htmlFor="raza" error={estado.errores?.raza}>
-            <Entrada
-              id="raza"
-              name="raza"
-              defaultValue={valores.raza}
-              maxLength={50}
-            />
-          </Campo>
+          <div className="grid gap-5 sm:grid-cols-2">
+            <Field label="Raza" htmlFor="raza" error={estado.errores?.raza}>
+              <Input
+                id="raza"
+                name="raza"
+                defaultValue={valores.raza}
+                maxLength={50}
+                aria-invalid={Boolean(estado.errores?.raza)}
+              />
+            </Field>
 
-          <Campo etiqueta="Color" htmlFor="color" error={estado.errores?.color}>
-            <Entrada
-              id="color"
-              name="color"
-              defaultValue={valores.color}
-              maxLength={50}
-            />
-          </Campo>
-        </div>
+            <Field label="Color" htmlFor="color" error={estado.errores?.color}>
+              <Input
+                id="color"
+                name="color"
+                defaultValue={valores.color}
+                maxLength={50}
+                aria-invalid={Boolean(estado.errores?.color)}
+              />
+            </Field>
+          </div>
 
-        <div className="grid gap-5 sm:grid-cols-3">
-          <Campo etiqueta="Sexo" htmlFor="sexo">
-            <Selector id="sexo" name="sexo" defaultValue={valores.sexo}>
-              <option value="">Sin especificar</option>
-              {SEXOS.map((sexo) => (
-                <option key={sexo} value={sexo}>
-                  {sexo}
-                </option>
-              ))}
-            </Selector>
-          </Campo>
+          <div className="grid gap-5 sm:grid-cols-3">
+            <Field label="Sexo" htmlFor="sexo">
+              <Select id="sexo" name="sexo" defaultValue={valores.sexo}>
+                <option value="">Sin especificar</option>
+                {SEXOS.map((sexo) => (
+                  <option key={sexo} value={sexo}>
+                    {sexo}
+                  </option>
+                ))}
+              </Select>
+            </Field>
 
-          <Campo etiqueta="Tamaño" htmlFor="tamano">
-            <Selector id="tamano" name="tamano" defaultValue={valores.tamano}>
-              <option value="">Sin especificar</option>
-              {TAMANOS.map((tamano) => (
-                <option key={tamano} value={tamano}>
-                  {tamano}
-                </option>
-              ))}
-            </Selector>
-          </Campo>
+            <Field label="Tamaño" htmlFor="tamano">
+              <Select id="tamano" name="tamano" defaultValue={valores.tamano}>
+                <option value="">Sin especificar</option>
+                {TAMANOS.map((tamano) => (
+                  <option key={tamano} value={tamano}>
+                    {tamano}
+                  </option>
+                ))}
+              </Select>
+            </Field>
 
-          <Campo etiqueta="Esterilizado" htmlFor="esterilizado">
-            <Selector
-              id="esterilizado"
-              name="esterilizado"
-              defaultValue={valores.esterilizado}
+            <Field label="Esterilizado" htmlFor="esterilizado">
+              <Select id="esterilizado" name="esterilizado" defaultValue={valores.esterilizado}>
+                <option value="">Sin especificar</option>
+                <option value="Si">Sí</option>
+                <option value="No">No</option>
+              </Select>
+            </Field>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2">
+            <Field
+              label="Nacimiento"
+              htmlFor="nacimiento"
+              hint="Texto libre: sirve un año suelto o una fecha."
+              error={estado.errores?.nacimiento}
             >
-              <option value="">Sin especificar</option>
-              <option value="Si">Sí</option>
-              <option value="No">No</option>
-            </Selector>
-          </Campo>
-        </div>
+              <Input
+                id="nacimiento"
+                name="nacimiento"
+                defaultValue={valores.nacimiento}
+                maxLength={50}
+                placeholder="2020"
+                aria-invalid={Boolean(estado.errores?.nacimiento)}
+              />
+            </Field>
 
-        <div className="grid gap-5 sm:grid-cols-2">
-          <Campo
-            etiqueta="Nacimiento"
-            htmlFor="nacimiento"
-            ayuda="Texto libre: sirve un año suelto o una fecha."
-            error={estado.errores?.nacimiento}
-          >
-            <Entrada
-              id="nacimiento"
-              name="nacimiento"
-              defaultValue={valores.nacimiento}
-              maxLength={50}
-              placeholder="2020"
-            />
-          </Campo>
-
-          <Campo
-            etiqueta="Fecha de ingreso"
-            htmlFor="ingreso"
-            obligatorio
-            error={estado.errores?.ingreso}
-          >
-            <Entrada
-              id="ingreso"
-              name="ingreso"
-              type="date"
-              defaultValue={valores.ingreso}
+            <Field
+              label="Fecha de ingreso"
+              htmlFor="ingreso"
               required
-            />
-          </Campo>
-        </div>
-      </Panel>
+              error={estado.errores?.ingreso}
+            >
+              <Input
+                id="ingreso"
+                name="ingreso"
+                type="date"
+                defaultValue={valores.ingreso}
+                aria-invalid={Boolean(estado.errores?.ingreso)}
+                required
+              />
+            </Field>
+          </div>
+      </Envoltura>
 
-      <Acciones volverA={volverA} textoEnviar={textoEnviar} />
+      <Acciones volverA={volverA} textoEnviar={textoEnviar} enModal={enModal} />
     </form>
   );
 }

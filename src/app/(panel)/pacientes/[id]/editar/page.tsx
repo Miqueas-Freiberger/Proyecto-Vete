@@ -32,14 +32,14 @@ export default async function PaginaEditarPaciente({
       />
 
       <header className="flex flex-col gap-1.5">
-        <h1 className="text-2xl font-semibold tracking-tight text-tinta">
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground">
           Editar paciente
         </h1>
-        <p className="text-sm text-tinta-media">Los cambios se aplican a la ficha de {nombre}.</p>
+        <p className="text-sm text-muted-foreground">Los cambios se aplican a la ficha de {nombre}.</p>
       </header>
 
       <FormularioPaciente
-        accion={actualizarMascotaAccion.bind(null, mascotaId)}
+        accion={actualizarMascotaAccion.bind(null, mascotaId, false)}
         valores={{
           nombre: mascota.nombre?.trim() ?? "",
           especie: mascota.especie?.trim() ?? "",

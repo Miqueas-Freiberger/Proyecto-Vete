@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react/dist/ssr";
-import { cn } from "./ui";
+import { cn } from "@/lib/utils";
 
 /**
  * Paginación por enlaces, para que funcione sin JavaScript y se pueda abrir
@@ -21,7 +21,7 @@ export function Paginacion({
 }) {
   if (paginas <= 1) {
     return (
-      <p className="px-1 text-[13px] text-tinta-suave">
+      <p className="px-1 text-[13px] text-muted-foreground">
         <span className="cifra">{total}</span>{" "}
         {total === 1 ? "cliente" : "clientes"}
       </p>
@@ -44,7 +44,7 @@ export function Paginacion({
       aria-label="Paginación de clientes"
       className="flex flex-wrap items-center justify-between gap-3 px-1"
     >
-      <p className="text-[13px] text-tinta-suave">
+      <p className="text-[13px] text-muted-foreground">
         <span className="cifra">
           {desde}-{hasta}
         </span>{" "}
@@ -64,7 +64,7 @@ export function Paginacion({
           numero === null ? (
             <span
               key={`salto-${indice}`}
-              className="px-1 text-[13px] text-tinta-suave"
+              className="px-1 text-[13px] text-muted-foreground"
               aria-hidden
             >
               ...
@@ -75,10 +75,10 @@ export function Paginacion({
               href={enlace(numero)}
               aria-current={numero === pagina ? "page" : undefined}
               className={cn(
-                "cifra flex h-9 min-w-9 items-center justify-center rounded-[var(--radius-control)] px-2 text-[13px] font-medium transition-colors active:translate-y-[1px]",
+                "cifra presion flex h-9 min-w-9 items-center justify-center rounded-md px-2 text-[13px] font-medium transition-colors",
                 numero === pagina
-                  ? "bg-acento text-sobre-acento"
-                  : "text-tinta-media hover:bg-superficie-alta hover:text-tinta",
+                  ? "bg-primary text-primary-foreground shadow-e1"
+                  : "text-muted-foreground hover:bg-accent hover:text-foreground",
               )}
             >
               {numero}
@@ -110,13 +110,13 @@ function Salto({
   children: React.ReactNode;
 }) {
   const clases =
-    "flex size-9 items-center justify-center rounded-[var(--radius-control)] transition-colors";
+    "flex size-9 items-center justify-center rounded-md transition-colors";
 
   if (deshabilitado) {
     return (
       <span
         aria-disabled
-        className={cn(clases, "cursor-not-allowed text-tinta-suave opacity-40")}
+        className={cn(clases, "cursor-not-allowed text-muted-foreground opacity-40")}
       >
         {children}
       </span>
@@ -127,7 +127,7 @@ function Salto({
     <Link
       href={href}
       aria-label={etiqueta}
-      className={cn(clases, "text-tinta-media hover:bg-superficie-alta hover:text-tinta active:translate-y-[1px]")}
+      className={cn(clases, "presion text-muted-foreground hover:bg-accent hover:text-foreground")}
     >
       {children}
     </Link>

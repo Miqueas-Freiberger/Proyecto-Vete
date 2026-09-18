@@ -33,10 +33,10 @@ export default async function PaginaNuevoPaciente({
       />
 
       <header className="flex flex-col gap-1.5">
-        <h1 className="text-2xl font-semibold tracking-tight text-tinta">
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground">
           Nuevo paciente
         </h1>
-        <p className="text-sm text-tinta-media">Se registra a nombre de {dueno}.</p>
+        <p className="text-sm text-muted-foreground">Se registra a nombre de {dueno}.</p>
       </header>
 
       <FormularioPaciente

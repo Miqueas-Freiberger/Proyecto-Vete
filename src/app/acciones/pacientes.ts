@@ -83,6 +83,7 @@ export async function crearMascotaAccion(
 
 export async function actualizarMascotaAccion(
   id: number,
+  enModal: boolean,
   _estado: EstadoFormulario,
   datos: FormData,
 ): Promise<EstadoFormulario> {
@@ -98,6 +99,10 @@ export async function actualizarMascotaAccion(
   }
 
   revalidatePath(`/pacientes/${id}`);
+
+  // Ver el comentario en actualizarClienteAccion: desde el modal ya estamos en
+  // la ficha, así que redirigir no llevaría a ningún lado.
+  if (enModal) return { ok: true };
   redirect(`/pacientes/${id}`);
 }
 

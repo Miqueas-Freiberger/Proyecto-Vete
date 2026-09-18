@@ -16,7 +16,7 @@ export function Migas({
 
   return (
     <nav aria-label="Ubicación" className="min-w-0">
-      <ol className="flex items-center gap-1.5 text-[13px] text-tinta-suave">
+      <ol className="flex items-center gap-1.5 text-[13px] text-muted-foreground">
         {rutas.map((ruta, indice) => (
           <li
             key={ruta.href}
@@ -28,7 +28,7 @@ export function Migas({
           >
             <Link
               href={ruta.href}
-              className="shrink-0 transition-colors hover:text-tinta"
+              className="shrink-0 transition-colors hover:text-foreground"
             >
               {ruta.texto}
             </Link>
@@ -36,7 +36,7 @@ export function Migas({
           </li>
         ))}
         <li className="min-w-0">
-          <span className="block truncate text-tinta-media" aria-current="page">
+          <span className="block truncate font-medium text-foreground" aria-current="page">
             {actual}
           </span>
         </li>

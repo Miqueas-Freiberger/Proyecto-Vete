@@ -90,8 +90,9 @@ test.describe("alta completa y borrado", () => {
     await ingresar(page);
 
     // Cliente
-    await page.getByRole("link", { name: /Nuevo cliente/ }).first().click();
-    await expect(page).toHaveURL(/\/clientes\/nuevo$/);
+    // El alta abre en un modal sobre la pantalla actual, no navega.
+    await page.getByRole("button", { name: /Nuevo cliente/ }).first().click();
+    await expect(page.getByRole("dialog")).toBeVisible();
     await page.getByLabel("Nombre y apellido").fill(nombre);
     await page.getByLabel("Teléfono", { exact: true }).fill("2281 555000");
     await page.getByLabel("Documento").fill("30111222");
@@ -104,7 +105,8 @@ test.describe("alta completa y borrado", () => {
     const urlCliente = page.url();
 
     // Paciente
-    await page.getByRole("link", { name: /Nuevo paciente/ }).first().click();
+    await page.getByRole("button", { name: /Nuevo paciente/ }).first().click();
+    await expect(page.getByRole("dialog")).toBeVisible();
     await page.getByLabel("Nombre", { exact: true }).fill("Pichicho");
     await page.getByLabel("Especie").fill("Canino");
     await page.getByLabel("Raza").fill("Mestizo");

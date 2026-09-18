@@ -34,10 +34,10 @@ export default async function PaginaNuevaConsulta({
       />
 
       <header className="flex flex-col gap-1.5">
-        <h1 className="text-2xl font-semibold tracking-tight text-tinta">
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground">
           Nueva consulta
         </h1>
-        <p className="text-sm text-tinta-media">
+        <p className="text-sm text-muted-foreground">
           Se suma a la historia clínica de {nombre}.
         </p>
       </header>

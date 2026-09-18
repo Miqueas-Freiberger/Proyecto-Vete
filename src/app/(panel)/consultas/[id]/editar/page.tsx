@@ -36,10 +36,10 @@ export default async function PaginaEditarConsulta({
 
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex flex-col gap-1.5">
-          <h1 className="text-2xl font-semibold tracking-tight text-tinta">
+          <h1 className="text-2xl font-semibold tracking-tight text-foreground">
             Editar consulta
           </h1>
-          <p className="text-sm text-tinta-media">
+          <p className="text-sm text-muted-foreground">
             Del {fechaCorta(consulta.fecha)}, en la historia de {nombre}.
           </p>
         </div>

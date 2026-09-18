@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import {
-  adjuntosDeConsulta,
-  obtenerConsulta,
-  obtenerMascota,
-} from "@/lib/queries";
+import { Paperclip } from "@phosphor-icons/react/dist/ssr";
+
+import { adjuntosDeConsulta, obtenerConsulta, obtenerMascota } from "@/lib/queries";
 import { fechaCorta, fechaLarga, limpiar, titulo } from "@/lib/format";
 import { bucketDisponible, urlLectura } from "@/lib/storage";
 import { Migas } from "@/components/migas";
-import { Panel, Vacio } from "@/components/ui";
 import { GaleriaEstudios } from "@/components/galeria-estudios";
 import { SubirEstudio } from "@/components/subir-estudio";
-import { Paperclip, WarningCircle } from "@phosphor-icons/react/dist/ssr";
+import { Alert } from "@/components/ui/alert";
+import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/states";
 
 export const metadata: Metadata = { title: "Estudios" };
 
@@ -62,40 +61,30 @@ export default async function PaginaEstudios({
       />
 
       <header className="flex flex-col gap-1.5">
-        <h1 className="text-2xl font-semibold tracking-tight text-tinta">Estudios</h1>
-        <p className="text-sm text-tinta-media">
-          Consulta del{" "}
-          <span className="cifra">{fechaCorta(consulta.fecha)}</span>
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground">Estudios</h1>
+        <p className="text-sm text-muted-foreground">
+          Consulta del <span className="cifra">{fechaCorta(consulta.fecha)}</span>
           <span className="hidden sm:inline">, {fechaLarga(consulta.fecha)}</span>, de{" "}
           {nombre}.
         </p>
       </header>
 
       {!hayBucket && (
-        <Panel className="flex items-start gap-3 border-alerta-borde bg-alerta-suave p-4">
-          <WarningCircle size={20} className="mt-0.5 shrink-0 text-alerta" />
-          <div className="flex flex-col gap-0.5">
-            <p className="text-[13px] font-semibold text-alerta">
-              Almacenamiento sin configurar
-            </p>
-            <p className="text-[13px] leading-relaxed text-tinta-media">
-              Faltan las credenciales del bucket, así que no se pueden ver ni subir
-              archivos.
-            </p>
-          </div>
-        </Panel>
+        <Alert variant="warning">
+          Faltan las credenciales del bucket, así que no se pueden ver ni subir archivos.
+        </Alert>
       )}
 
       {hayBucket && <SubirEstudio consultaId={consultaId} />}
 
       {items.length === 0 ? (
-        <Panel>
-          <Vacio
-            icono={<Paperclip size={22} />}
-            titulo="Sin estudios adjuntos"
-            detalle="Subí radiografías, ecografías, análisis o cualquier archivo que acompañe a esta consulta."
+        <Card>
+          <EmptyState
+            icon={<Paperclip />}
+            title="Sin estudios adjuntos"
+            description="Subí radiografías, ecografías, análisis o cualquier archivo que acompañe a esta consulta."
           />
-        </Panel>
+        </Card>
       ) : (
         <GaleriaEstudios items={items} />
       )}

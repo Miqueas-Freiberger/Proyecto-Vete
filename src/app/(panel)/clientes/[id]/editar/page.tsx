@@ -31,16 +31,16 @@ export default async function PaginaEditarCliente({
       />
 
       <header className="flex flex-col gap-1.5">
-        <h1 className="text-2xl font-semibold tracking-tight text-tinta">
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground">
           Editar cliente
         </h1>
-        <p className="text-sm text-tinta-media">
+        <p className="text-sm text-muted-foreground">
           Los cambios se aplican a la ficha de {nombre}.
         </p>
       </header>
 
       <FormularioCliente
-        accion={actualizarClienteAccion.bind(null, clienteId)}
+        accion={actualizarClienteAccion.bind(null, clienteId, false)}
         valores={{
           nombre: cliente.nombre?.trim() ?? "",
           dni: cliente.dni > 0 ? String(cliente.dni) : "",

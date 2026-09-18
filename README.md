@@ -11,10 +11,35 @@ Reescritura completa de la aplicación PHP original, que sigue viva en la rama
 - Next.js 16 con App Router y React 19, todo en Server Components salvo las
   islas que necesitan interacción.
 - TypeScript estricto.
-- Tailwind v4 con tokens propios en `globals.css`.
+- Tailwind v4 con el sistema de tokens en `globals.css`.
+- shadcn/ui sobre Radix, en `src/components/ui`. Los componentes están escritos
+  a mano en vez de traídos por el CLI, para que usen Phosphor y no entre lucide
+  como segunda familia de iconos.
+- `next-themes` para el modo claro y oscuro, y `sonner` para los avisos.
 - MySQL por `mysql2`, contra el esquema heredado.
 - Estudios adjuntos en un bucket compatible con S3.
 - Playwright para las pruebas de extremo a extremo.
+
+## Sistema visual
+
+Todo sale de los tokens de `src/app/globals.css`. Ningún componente escribe un
+color a mano, así el modo claro y el oscuro quedan garantizados de una vez.
+
+- Neutrales slate fríos y **un solo acento**, esmeralda. Los estados
+  (destructivo, aviso, información) son semánticos y no cuentan como un segundo
+  acento: cada familia trae relleno, tinte, hairline y color de texto.
+- El panel de marca del ingreso usa `--brand-panel`, no `--primary`: en oscuro
+  ese token está aclarado para funcionar como acento chico sobre fondo negro, y
+  como fondo a sangre se vuelve un verde fluorescente.
+- Los rellenos llevan lightness baja a propósito. A 0.545 el blanco encima
+  queda en 3.9:1, por debajo de AA para los 13px que carga un botón.
+- Una sola regla de forma: superficies 14px (`rounded-lg`), controles 10px
+  (`rounded-md`), pastillas completas. Ningún componente inventa la suya.
+- Sombras teñidas con el tono de la superficie, nunca negro puro.
+
+El alta de clientes y pacientes abre en un modal, pero `/clientes/nuevo` y
+`/pacientes/nuevo` siguen existiendo como pantallas para que un enlace guardado
+no se rompa.
 
 ## Arrancar en local
 

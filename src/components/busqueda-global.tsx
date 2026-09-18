@@ -72,7 +72,7 @@ export function BusquedaGlobal() {
 
   return (
     <div className="relative min-w-0 flex-1 sm:max-w-xs">
-      <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-tinta-suave">
+      <span className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground">
         {pendiente ? (
           <SpinnerGap size={16} className="animate-spin" />
         ) : (
@@ -88,7 +88,7 @@ export function BusquedaGlobal() {
         placeholder="Buscar cliente"
         aria-label="Buscar cliente"
         title="Busca por nombre, teléfono, localidad o documento"
-        className="h-9 w-full rounded-[var(--radius-control)] border border-borde bg-superficie pl-9 pr-8 text-sm text-tinta placeholder:text-tinta-suave transition-colors hover:border-borde-fuerte [&::-webkit-search-cancel-button]:hidden"
+        className="h-9 w-full rounded-md border border-input bg-card pr-8 pl-9 text-sm text-foreground transition-[border-color,box-shadow] duration-150 outline-none placeholder:text-muted-foreground/70 hover:border-border-strong focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/25 [&::-webkit-search-cancel-button]:hidden"
       />
 
       {valor && (
@@ -99,7 +99,7 @@ export function BusquedaGlobal() {
             campo.current?.focus();
           }}
           aria-label="Limpiar búsqueda"
-          className="absolute right-2 top-1/2 flex size-5 -translate-y-1/2 items-center justify-center rounded-full text-tinta-suave transition-colors hover:bg-superficie-alta hover:text-tinta"
+          className="absolute top-1/2 right-2 flex size-5 -translate-y-1/2 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
         >
           <X size={12} weight="bold" />
         </button>

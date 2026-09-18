@@ -22,6 +22,12 @@ async function exigirSesion(): Promise<void> {
 export type EstadoFormulario = {
   error?: string;
   errores?: Record<string, string>;
+  /**
+   * Solo lo usa la edición dentro de un modal. Desde una pantalla propia la
+   * acción redirige y nunca vuelve, pero el modal vive en la misma dirección a
+   * la que redirigiría, así que necesita que le avisen que terminó bien.
+   */
+  ok?: true;
 };
 
 const esquemaCliente = z.object({
@@ -100,6 +106,7 @@ export async function crearClienteAccion(
 
 export async function actualizarClienteAccion(
   id: number,
+  enModal: boolean,
   _estado: EstadoFormulario,
   datos: FormData,
 ): Promise<EstadoFormulario> {
@@ -121,6 +128,10 @@ export async function actualizarClienteAccion(
 
   revalidatePath("/");
   revalidatePath(`/clientes/${id}`);
+
+  // Desde el modal ya estamos en la ficha: revalidar la refresca por detrás y
+  // alcanza con cerrar. Redirigir acá no navegaría a ningún lado.
+  if (enModal) return { ok: true };
   redirect(`/clientes/${id}`);
 }
 
