@@ -14,15 +14,16 @@ if ($running) {
     Write-Host "MySQL ya escucha en 3306, lo reuso." -ForegroundColor Yellow
 } else {
     Write-Host "Arrancando MariaDB de XAMPP en 3306..." -ForegroundColor Cyan
-    # sql_mode replica el my.ini de XAMPP: sin STRICT_TRANS_TABLES.
-    # El codigo inserta booleanos PHP en columnas int, que el modo estricto rechaza.
+    # sql_mode igual al de produccion, con STRICT_TRANS_TABLES.
+    # Antes replicaba el my.ini de XAMPP, que es permisivo, y por eso un alta
+    # sin documento andaba en local y tiraba 500 en Railway. Que local sea tan
+    # estricto como produccion hace que esos errores salten aca primero.
     Start-Process -FilePath "$xampp\mysql\bin\mysqld.exe" `
         -ArgumentList @(
             "--no-defaults",
             "--datadir=$xampp\mysql\data",
             "--port=3306",
-            "--sql_mode=NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION",
-            "--innodb_strict_mode=0"
+            "--sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
         ) `
         -RedirectStandardOutput "$logs\mysqld.log" `
         -RedirectStandardError  "$logs\mysqld.err.log" `
