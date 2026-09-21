@@ -76,26 +76,26 @@ class MainController
 
     public function getDataCliente()
     {
-        $nombre_apellido = $_POST["nombre_apellido"];
-        $dni = $_POST["dni"];
-        $telefono = $_POST["telefono"];
-        $email = $_POST["email"];
-        $direccion = $_POST["direccion"];
-        $localidad = $_POST["localidad"];
-        $nombrePaciente = $_POST["nombrePaciente"];
-        $especie = $_POST["especie"];
-        $nacimientoPaciente = $_POST["nacimientoPaciente"];
-        $sexoPaciente = $_POST["sexoPaciente"];
-        $raza = $_POST["raza"];
-        $color = $_POST["color"];
-        $tamaño = $_POST["tamaño"];
-        $esteril = $_POST["esteril"];
-        $observaciones = $_POST["observaciones"];
-        $motivoConsulta = $_POST["motivoConsulta"];
-        $tratamiento = $_POST["tratamiento"];
-        $fecha_ingreso = $_POST["fecha_ingreso"];
-        if (isset($_POST['complementarios'])) {
-            $complementarios = implode(" / ", $_POST['complementarios']);
+        $nombre_apellido = app_texto($_POST["nombre_apellido"] ?? '', 50);
+        $dni = app_entero($_POST["dni"] ?? '');
+        $telefono = app_texto($_POST["telefono"] ?? '', 100);
+        $email = app_texto($_POST["email"] ?? '', 70);
+        $direccion = app_texto($_POST["direccion"] ?? '', 1000);
+        $localidad = app_texto($_POST["localidad"] ?? '', 40);
+        $nombrePaciente = app_texto($_POST["nombrePaciente"] ?? '', 30);
+        $especie = app_texto($_POST["especie"] ?? '', 30);
+        $nacimientoPaciente = app_texto($_POST["nacimientoPaciente"] ?? '', 50);
+        $sexoPaciente = app_texto($_POST["sexoPaciente"] ?? '', 30);
+        $raza = app_texto($_POST["raza"] ?? '', 50);
+        $color = app_texto($_POST["color"] ?? '', 50);
+        $tamaño = app_texto($_POST["tamaño"] ?? '', 10);
+        $esteril = app_texto($_POST["esteril"] ?? '', 2);
+        $observaciones = trim($_POST["observaciones"] ?? '');
+        $motivoConsulta = app_texto($_POST["motivoConsulta"] ?? '', 255);
+        $tratamiento = trim($_POST["tratamiento"] ?? '');
+        $fecha_ingreso = app_fecha($_POST["fecha_ingreso"] ?? '');
+        if (!empty($_POST['complementarios']) && is_array($_POST['complementarios'])) {
+            $complementarios = app_texto(implode(" / ", $_POST['complementarios']), 110);
         } else {
             $complementarios = "-";
         }
@@ -109,25 +109,25 @@ class MainController
     public function getDataMascota()
     {
         if (!empty($_POST["tamaño"]) && !empty($_POST["esteril"])) {
-            $nombrePaciente = $_POST["nombrePaciente"];
-            $especie = $_POST["especie"];
-            $nacimientoPaciente = $_POST["nacimientoPaciente"];
-            $sexoPaciente = $_POST["sexoPaciente"];
-            $raza = $_POST["raza"];
-            $color = $_POST["color"];
-            $tamaño = $_POST["tamaño"];
-            $esteril = $_POST["esteril"];
-            $motivoConsulta = $_POST["motivoConsulta"];
-            $tratamiento = $_POST["tratamiento"];
-            $observaciones = $_POST["observaciones"];
-            $fecha_ingreso = $_POST["fecha_ingreso"];
-            if (isset($_POST['complementarios'])) {
-                $complementarios = implode(" / ", $_POST['complementarios']);
+            $nombrePaciente = app_texto($_POST["nombrePaciente"] ?? '', 30);
+            $especie = app_texto($_POST["especie"] ?? '', 30);
+            $nacimientoPaciente = app_texto($_POST["nacimientoPaciente"] ?? '', 50);
+            $sexoPaciente = app_texto($_POST["sexoPaciente"] ?? '', 30);
+            $raza = app_texto($_POST["raza"] ?? '', 50);
+            $color = app_texto($_POST["color"] ?? '', 50);
+            $tamaño = app_texto($_POST["tamaño"] ?? '', 10);
+            $esteril = app_texto($_POST["esteril"] ?? '', 2);
+            $motivoConsulta = app_texto($_POST["motivoConsulta"] ?? '', 255);
+            $tratamiento = trim($_POST["tratamiento"] ?? '');
+            $observaciones = trim($_POST["observaciones"] ?? '');
+            $fecha_ingreso = app_fecha($_POST["fecha_ingreso"] ?? '');
+            if (!empty($_POST['complementarios']) && is_array($_POST['complementarios'])) {
+                $complementarios = app_texto(implode(" / ", $_POST['complementarios']), 110);
             } else {
                 $complementarios = "-";
             }
 
-            $id_cliente = $_POST['id_cliente'];
+            $id_cliente = app_entero($_POST['id_cliente'] ?? '');
 
             $id_mascota  = $this->addDataPaciente($nombrePaciente, $especie, $nacimientoPaciente, $sexoPaciente, $raza, $color, $tamaño, $esteril, $fecha_ingreso, $id_cliente);
             $this->addHistorial($id_mascota, $observaciones, $motivoConsulta, $tratamiento, $complementarios, $fecha_ingreso, $id_cliente);
@@ -148,30 +148,23 @@ class MainController
 
     public function getNewHistorialData($id_historial = null)
     {
+        $observaciones = trim($_POST["observaciones"] ?? '');
+        $tratamiento = trim($_POST["tratamiento"] ?? '');
+        $motivoConsulta = app_texto($_POST["motivoConsulta"] ?? '', 255);
+        $fecha = app_fecha($_POST["fecha"] ?? '');
+
+        // La columna Complementarios admite 110 caracteres y con los seis
+        // estudios marcados entran justos.
+        if (!empty($_POST['complementarios']) && is_array($_POST['complementarios'])) {
+            $complementarios = app_texto(implode(" / ", $_POST['complementarios']), 110);
+        } else {
+            $complementarios = "-";
+        }
+
         if ($id_historial == null) {
-            $observaciones = $_POST["observaciones"];
-            $tratamiento = $_POST["tratamiento"];
-            $motivoConsulta = $_POST["motivoConsulta"];
-            $fecha = $_POST["fecha"];
-            $id_mascota = $_POST["id_mascota"];
-            if (isset($_POST['complementarios'])) {
-                $complementarios = implode(" / ", $_POST['complementarios']);
-            } else {
-                $complementarios = "-";
-            }
+            $id_mascota = app_entero($_POST["id_mascota"] ?? '');
             $this->addHistorial($id_mascota, $observaciones, $motivoConsulta, $tratamiento, $complementarios, $fecha);
         } else {
-            $observaciones = $_POST["observaciones"];
-            $tratamiento = $_POST["tratamiento"];
-            $motivoConsulta = $_POST["motivoConsulta"];
-            $fecha = $_POST["fecha"];
-            if (isset($_POST['complementarios'])) {
-                $complementarios = implode(" / ", $_POST['complementarios']);
-            } else {
-                $complementarios = "-";
-            }
-
-
             $this->mainModel->updateHistorialData($observaciones, $tratamiento, $motivoConsulta, $fecha, $complementarios, $id_historial);
         }
     }
@@ -369,13 +362,13 @@ class MainController
 
     public function updateClientData()
     {
-        $nombre_apellido = $_POST["nombre_apellido"];
-        $dni = $_POST["dni"];
-        $telefono = $_POST["telefono"];
-        $email = $_POST["email"];
-        $direccion = $_POST["direccion"];
-        $localidad = $_POST["localidad"];
-        $id_cliente = $_POST['id_cliente'];
+        $nombre_apellido = app_texto($_POST["nombre_apellido"] ?? '', 50);
+        $dni = app_entero($_POST["dni"] ?? '');
+        $telefono = app_texto($_POST["telefono"] ?? '', 100);
+        $email = app_texto($_POST["email"] ?? '', 70);
+        $direccion = app_texto($_POST["direccion"] ?? '', 1000);
+        $localidad = app_texto($_POST["localidad"] ?? '', 40);
+        $id_cliente = app_entero($_POST['id_cliente'] ?? '');
 
         $this->mainModel->updateClientData($nombre_apellido, $dni, $telefono, $email, $direccion, $localidad, $id_cliente);
         header("Location: " . BASE_URL . "cliente" . "/$id_cliente");
@@ -383,16 +376,16 @@ class MainController
 
     public function updateDataMascota()
     {
-        $nombrePaciente = $_POST["nombrePaciente"];
-        $especie = $_POST["especie"];
-        $nacimientoPaciente = $_POST["nacimientoPaciente"];
-        $sexoPaciente = $_POST["sexoPaciente"];
-        $raza = $_POST["raza"];
-        $color = $_POST["color"];
-        $tamaño = $_POST["tamaño"];
-        $esteril = $_POST["esteril"];
-        $fecha_ingreso = $_POST["fecha_ingreso"];
-        $id_mascota = $_POST["id_mascota"];
+        $nombrePaciente = app_texto($_POST["nombrePaciente"] ?? '', 30);
+        $especie = app_texto($_POST["especie"] ?? '', 30);
+        $nacimientoPaciente = app_texto($_POST["nacimientoPaciente"] ?? '', 50);
+        $sexoPaciente = app_texto($_POST["sexoPaciente"] ?? '', 30);
+        $raza = app_texto($_POST["raza"] ?? '', 50);
+        $color = app_texto($_POST["color"] ?? '', 50);
+        $tamaño = app_texto($_POST["tamaño"] ?? '', 10);
+        $esteril = app_texto($_POST["esteril"] ?? '', 2);
+        $fecha_ingreso = app_fecha($_POST["fecha_ingreso"] ?? '');
+        $id_mascota = app_entero($_POST["id_mascota"] ?? '');
         $dataDueño = $this->mainModel->getIdDueño($id_mascota);
 
         foreach ($dataDueño as $data) {
@@ -404,10 +397,10 @@ class MainController
 
     public function updateDataHistorial()
     {
-        $id_historial = $_POST["id_historial"];
+        $id_historial = app_entero($_POST["id_historial"] ?? '');
         $this->getNewHistorialData($id_historial);
 
-        $id_mascota = $_POST["id_mascota_historial"];
+        $id_mascota = app_entero($_POST["id_mascota_historial"] ?? '');
         header("Location: " . BASE_URL . "historialMascota" . "/$id_mascota");
     }
 }

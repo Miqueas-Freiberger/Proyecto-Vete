@@ -8,32 +8,28 @@
             <div class="mb-3">
                 <label for="staticName" class="col-sm-2 col-form-label ms-3">Nombre y Apellido</label>
                 <input class="form-control w-50 ms-3" type="text" aria-label="default input example"
-                    name="nombre_apellido" value=" ">
+                    name="nombre_apellido">
             </div>
             <div class="mb-3">
                 <label for="staticName" class="col-sm-2 col-form-label ms-3">DNI</label>
                 <input class="form-control w-50 ms-3" type="text" aria-label="default input example"
-                    name="dni" value=" ">
+                    name="dni">
             </div>
             <div class="mb-3">
                 <label for="staticPhone" class="col-sm-2 col-form-label ms-3">Numero de Telefono</label>
-                <input class="form-control  w-50 ms-3" type="text" aria-label="default input example" name="telefono"
-                    value=" ">
+                <input class="form-control  w-50 ms-3" type="text" aria-label="default input example" name="telefono">
             </div>
             <div class="mb-3 ">
                 <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Email</label>
-                <input class="form-control  w-50 ms-3" type="text" aria-label="default input example" name="email"
-                    value=" ">
+                <input class="form-control  w-50 ms-3" type="text" aria-label="default input example" name="email">
             </div>
             <div class="mb-3 ">
                 <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Direccion</label>
-                <input class="form-control  w-50 ms-3" type="text" aria-label="default input example" name="direccion"
-                    value=" ">
+                <input class="form-control  w-50 ms-3" type="text" aria-label="default input example" name="direccion">
             </div>
             <div class="mb-3 ">
                 <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Localidad</label>
-                <input class="form-control  w-50 ms-3" type="text" aria-label="default input example" name="localidad"
-                    value=" ">
+                <input class="form-control  w-50 ms-3" type="text" aria-label="default input example" name="localidad">
             </div>
 
             <h1 class="tittle-Paciente ms-3" style="text-shadow: 2px 2px 3px grey">Datos Paciente</h1>
@@ -45,13 +41,12 @@
             </div>
             <div class="mb-3 ">
                 <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Especie</label>
-                <input class="form-control  w-50 ms-3" type="text" aria-label="default input example" name="especie"
-                    value=" ">
+                <input class="form-control  w-50 ms-3" type="text" aria-label="default input example" name="especie">
             </div>
             <div class="mb-3 ">
                 <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Nacimiento</label>
                 <input class="form-control  w-50 ms-3" type="text" aria-label="default input example"
-                    name="nacimientoPaciente" value=" ">
+                    name="nacimientoPaciente">
             </div>
             <label for="staticEsteril" class="col-sm-2 col-form-label ms-3">Sexo</label>
             <div class="form-check">
@@ -65,13 +60,11 @@
             </div>
             <div class="mb-3 ">
                 <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Raza</label>
-                <input class="form-control  w-50 ms-3" type="text" aria-label="default input example" name="raza"
-                    value=" ">
+                <input class="form-control  w-50 ms-3" type="text" aria-label="default input example" name="raza">
             </div>
             <div class="mb-3 ">
                 <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Color</label>
-                <input class="form-control  w-50 ms-3" type="text" aria-label="default input example" name="color"
-                    value=" ">
+                <input class="form-control  w-50 ms-3" type="text" aria-label="default input example" name="color">
             </div>
 
             <label for="staticEmail" class="col-sm-2 col-form-label ms-3">Tamaño</label>

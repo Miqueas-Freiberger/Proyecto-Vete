@@ -6,6 +6,29 @@ require_once 'controllers/main.controller.php';
 // defino la base url para la construccion de links con urls semánticas
 define('BASE_URL', app_base_url());
 
+/**
+ * Si algo revienta, el detalle va al log y la persona ve una pagina con
+ * sentido. Antes quedaba la pantalla en blanco del navegador con un 500 seco,
+ * sin saber si el dato se habia guardado o no.
+ */
+set_exception_handler(function (Throwable $error) {
+    error_log('[vete] ' . $error->getMessage() . ' en ' . $error->getFile() . ':' . $error->getLine());
+    http_response_code(500);
+    $volver = defined('BASE_URL') ? BASE_URL : '/';
+    echo '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">'
+        . '<meta name="viewport" content="width=device-width, initial-scale=1">'
+        . '<title>Veterinaria Catriel</title>'
+        . '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">'
+        . '</head><body style="background-color:#F4ECF7">'
+        . '<div class="container" style="max-width:34rem;margin-top:12vh">'
+        . '<div class="card shadow-sm"><div class="card-body text-center p-4">'
+        . '<h1 class="h5 mb-3">No se pudo completar la operacion</h1>'
+        . '<p class="text-muted mb-4">Los datos no se guardaron. Revisa que la fecha y el documento esten bien cargados, y proba de nuevo.</p>'
+        . '<a href="' . htmlspecialchars($volver, ENT_QUOTES) . '" class="btn text-white" style="background-color:#76448A">Volver al inicio</a>'
+        . '</div></div></div></body></html>';
+    exit;
+});
+
 
 if (!empty($_GET['action'])) {
     $action = $_GET['action'];

@@ -7,6 +7,49 @@
  * without changes.
  */
 
+/* ---------------------------------------------------------------------------
+ * Saneo de lo que llega de los formularios.
+ *
+ * El MySQL de Railway corre en modo estricto y el MariaDB de XAMPP no. Lo que
+ * antes se convertia solo ahora es un error fatal: un espacio en una columna
+ * entera, una fecha vacia, o un texto mas largo que la columna. Todo lo que
+ * entra pasa por estas tres funciones antes de tocar la base.
+ * ------------------------------------------------------------------------ */
+
+/** Recorta espacios y corta al largo de la columna. */
+function app_texto($valor, $maximo)
+{
+    $texto = trim((string) ($valor ?? ''));
+    return mb_substr($texto, 0, $maximo);
+}
+
+/**
+ * Deja solo digitos. Un campo vacio vale cero, que es como quedaron los 27
+ * clientes historicos que nunca cargaron el documento.
+ */
+function app_entero($valor)
+{
+    $digitos = preg_replace('/\D/', '', (string) ($valor ?? ''));
+    if ($digitos === '') {
+        return 0;
+    }
+    // La columna es int con signo: por encima de eso MySQL estricto rechaza.
+    $numero = (int) $digitos;
+    return ($numero > 0 && $numero <= 2147483647) ? $numero : 0;
+}
+
+/** Devuelve aaaa-mm-dd, o la fecha de hoy si lo que llego no sirve. */
+function app_fecha($valor)
+{
+    $texto = trim((string) ($valor ?? ''));
+    if (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $texto, $partes)) {
+        if (checkdate((int) $partes[2], (int) $partes[3], (int) $partes[1])) {
+            return $texto;
+        }
+    }
+    return date('Y-m-d');
+}
+
 /**
  * Database connection settings.
  *
